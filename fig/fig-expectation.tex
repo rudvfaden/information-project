@@ -1,0 +1,24 @@
+\begin{tikzpicture}[xscale = \textwidth/8cm]
+% define normal distribution function 'normaltwo'
+\def\normaltwo{\x,{4*1/exp(((\x-3)^2)/2)}}
+
+% input y parameter
+\def\y{1.66}
+
+% this line calculates f(y)
+\def\fy{4*1/exp(((\y-3)^2)/2)}
+
+% Shade orange area underneath curve.
+
+% Draw and label normal distribution function
+\draw[color=blue,domain=0:6,samples=100] plot (\normaltwo) node[xshift=-124,below] {$\delta^*$};
+
+% Add dashed line dropping down from normal.
+\draw[dashed] (3,0) --(3,4);
+
+
+% Optional: Add axes
+\draw[->] (0,0) -- (6.2,0) node[right] {$C(s)$};
+\draw[->] (0,0) -- (0,5) node[above] {$\pi(s\mid d)$};
+\end{tikzpicture}
+

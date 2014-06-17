@@ -120,7 +120,7 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Greyedout
+\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
@@ -492,7 +492,7 @@ In the extreme case where the agent has no clue about
  is given by 
 \begin_inset Formula 
 \begin{equation}
-u(t,\theta)=E[u(t,s)]=\max_{t}\int_{a}^{b}u(t,s)f(s,\theta)ds\label{eq:expected-utility-prior}
+u(t,\theta)=E[u(t,s)]=\max_{t}\int_{a}^{b}u(t,s)dF(s,\theta)\label{eq:expected-utility-prior}
 \end{equation}
 
 \end_inset

@@ -125,7 +125,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset FormulaMacro
-\newcommand{\argmax}{\argmax}
+\newcommand{\argmax}{\operatornamewithlimits{arg\, min}}
 {\textrm{arg max}}
 \end_inset
 

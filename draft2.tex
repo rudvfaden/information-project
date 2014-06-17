@@ -5,6 +5,7 @@
 \usepackage[latin9]{inputenc}
 \usepackage{color}
 \usepackage{babel}
+\usepackage{verbatim}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -39,6 +40,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{amssymb}
+\usepackage{amsmath}
 
 \makeatother
 
@@ -54,6 +56,37 @@
 
 \maketitle
 \tableofcontents{}
+
+\begin{comment}
+To do:
+\begin{enumerate}
+\item Show that utility increases with information
+
+\begin{enumerate}
+\item Show that $u(t,s)f(s\mid x)$ is increasing in $x$
+
+\begin{enumerate}
+\item show that the greatest lower bound of $u(t,s)f(s\mid x)\ge u(t,s)f(s\mid x')\forall t\in T$
+where $x>x'$ implies that $f(s\mid x)$ is more accurate than $f(s\mid x')$
+\end{enumerate}
+\end{enumerate}
+\item Define how information is accumulated over time
+\item Show that if information is accumulated over time, such that $f_{t}(s\mid x)$
+is more accurate than $f_{t-1}(s\mid x)$, then $u_{t}(t,s)f_{t}(s\mid x)\ge u_{t-1}(t,s)f_{t-1}(s\mid x)\forall t\in T$
+\item Show that given 1-3 switching cost are increasing over time
+
+\begin{enumerate}
+\item Let the accuracy of $f(s\mid x)$ depend on physician skill $y$ and
+let $y$ be distributed with $G(y)$, then show that the expected
+value of $u_{t}(t,s)f_{t}(s\mid x)G(y)$ is decreasing in $t$
+\end{enumerate}
+\end{enumerate}
+Further it might be interesting to show that 
+\begin{enumerate}
+\item $\phi(x)=\argmax_{x} u(t,s)f(s\mid x)$ is increasing in $x$
+\item $\phi(t)$\end{enumerate}
+\end{comment}
+
 
 
 \section{The Patient}
@@ -181,8 +214,15 @@ $\gamma$ and then chooses a treatment that maximizes expected utility.
 However, as information cannot be returned, the physician must base
 his decision of $\gamma$ on the maximization of \ref{eq:expected-posterior}
 \begin{equation}
-u(t,\theta,\gamma)=E[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\left\{ \int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\right\} f(x,\gamma)dx-C(\gamma)\right]\label{eq:expected-posterior}
+u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\int_{a}^{b}u(t,s)dF^{\gamma}(x\mid s)dF^{\gamma}(x)dsdx-C(\gamma)\right]\label{eq:expected-posterior}
 \end{equation}
+
+
+now the first order conditions of expected utility gives that 
+\begin{eqnarray*}
+\int_{X}\int_{a}^{b}u(t,s)\left[f(s\mid x,\gamma)f_{\gamma}(x,\gamma)+f_{\gamma}(s\mid x,\gamma)f(s,\theta)\right]dsdx & = & C_{\gamma}(\gamma)\\
+\int_{X}\int_{a}^{b}u_{t}(t,s)f(s\mid x,\gamma)f(x,\gamma)dsdx & = & 0
+\end{eqnarray*}
 
 
 
@@ -193,10 +233,19 @@ the patients distribution of $d$ to the right. let $\Delta$ be the
 distance by which the distribution is shifted and leave all other
 moments of the distribution unchanged. Then let $f(s,\theta)=q(s-\Delta,\theta)$,
 so that the distribution of $f$ is simply the distribution of $q$
-shifted to the right by the distance $\Delta$ for all $s$.
+shifted to the right by the distance $\Delta$ for all $s$. Then
+I can write 
+\[
+u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\left\{ \int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\right\} f(x,\gamma)dx-C(\gamma)\right]
+\]
 
 
-\subsubsection{Case 2: a change in the riskiness of $d$}
+
+\subsubsection{Case 2: a change in the riskiness of $d$
+\[
+\forall
+\]
+}
 
 
 \subsubsection{Case 3: a change in the riskiness of the signal $s$}

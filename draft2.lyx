@@ -262,7 +262,7 @@ Further it might be interesting to show that
 \end_layout
 
 \begin_layout Section
-The Patient
+The Patients Utility
 \end_layout
 
 \begin_layout Standard
@@ -429,13 +429,18 @@ In reality however,
 \end_inset
 
  is never observed.
- The level of severity for the patients a random variable represented by
- 
+ The level of severity for the patients is a random variable represented
+ by 
 \begin_inset Formula $S$
 \end_inset
 
-, characterized by a subjective density function 
-\begin_inset Formula $f(s,\theta)$
+, characterized by a subjective cdf.
+ 
+\begin_inset Formula $F(s),$
+\end_inset
+
+with density 
+\begin_inset Formula $f(s)$
 \end_inset
 
 , where 
@@ -446,45 +451,7 @@ In reality however,
 \begin_inset Formula $S$
 \end_inset
 
- with support in 
-\begin_inset Formula $[a,b]$
-\end_inset
-
- and 
-\begin_inset Formula $\theta$
-\end_inset
-
- is a parameter that describes the uncertainty about 
-\begin_inset Formula $s$
-\end_inset
-
 .
- Higher 
-\begin_inset Formula $\theta$
-\end_inset
-
-'s corresponds to more uncertainty about 
-\begin_inset Formula $s$
-\end_inset
-
-.
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-In the extreme case where the agent has no clue about 
-\begin_inset Formula $s$
-\end_inset
-
-, 
-\begin_inset Formula $\theta$
-\end_inset
-
- is a uniform distribution
-\end_layout
-
-\end_inset
-
  The expected value of choosing an admissible treatment intensity
 \begin_inset Formula $t$
 \end_inset
@@ -492,7 +459,7 @@ In the extreme case where the agent has no clue about
  is given by 
 \begin_inset Formula 
 \begin{equation}
-u(t,\theta)=E[u(t,s)]=\max_{t}\int_{a}^{b}u(t,s)dF(s,\theta)\label{eq:expected-utility-prior}
+u(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)dF(s)\label{eq:expected-utility-prior}
 \end{equation}
 
 \end_inset
@@ -506,277 +473,93 @@ It is however possible to acquire costly information about
 \end_inset
 
  through medical diagnostics and physician effort.
- However, for information to be a desirable good we must have that more
- information makes the patient better off.
- As it it not possible to know the result of the information before it is
- obtained it is not exactly clear that more information is always better
- than less.
- For example, a 
-\begin_inset Quotes eld
+ However, for two experiment 
+\begin_inset Formula $X,Y$
 \end_inset
 
-surprising
-\begin_inset Quotes erd
+ on 
+\begin_inset Formula $S$
 \end_inset
 
- observation will increase, rather than decrease, the uncertainty about
+, it is not a priori certain that one experiment 
+\begin_inset Formula $X$
+\end_inset
+
+ is necessary more 
+\emph on
+informative
+\emph default
+ about 
+\begin_inset Formula $s$
+\end_inset
+
+ than the experiment 
+\begin_inset Formula $Y$
+\end_inset
+
+, where 
+\emph on
+informative
+\emph default
+ is to be understood in the way the posterior decision induced by the experiment
  
-\begin_inset Formula $d$
+\begin_inset Formula $X$
+\end_inset
+
+ insures greater expected utility than the decision induced by the experiment
+ 
+\begin_inset Formula $Y$
 \end_inset
 
 .
- Therefore we need a way to order information.
- Assume that for each 
-\begin_inset Formula $\gamma\in[0,\infty]$
-\end_inset
-
- there is a potentially observable random variable 
-\begin_inset Formula $\tilde{x}_{\gamma}$
-\end_inset
-
- which is correlated with 
-\begin_inset Formula $d$
-\end_inset
-
- such that for 
-\begin_inset Formula $\gamma<\gamma'$
-\end_inset
-
- 
-\begin_inset Formula $\tilde{x}$
-\end_inset
-
- is sufficient for 
-\begin_inset Formula $\tilde{x}'$
-\end_inset
-
- as defined by 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Blackwell1953"
-
-\end_inset
-
-.
- Then it is possible to interpret 
-\begin_inset Formula $\gamma$
-\end_inset
-
- as a measure of the amount of information conveyed by 
-\begin_inset Formula $\tilde{x}$
-\end_inset
-
-, such that smaller 
-\begin_inset Formula $\gamma$
-\end_inset
-
-'s indicate more informative.
+ Therefore we must introduce an order of information.
  
 \end_layout
 
 \begin_layout Definition
 \begin_inset CommandInset label
 LatexCommand label
-name "def:sufficiency"
+name "def:afflilation"
 
 \end_inset
 
-Let 
-\begin_inset Formula $f(x\mid d,\gamma)$
-\end_inset
-
- be the likelihood function.
- An observation of the random variable 
-\begin_inset Formula $\tilde{x}$
-\end_inset
-
- is sufficient for all observation of the random variable 
-\begin_inset Formula $\tilde{x}'$
-\end_inset
-
- if there exists a conditional density function 
-\begin_inset Formula $g$
-\end_inset
-
- such that 
-\begin_inset Formula 
-\[
-f(x_{\gamma},d,\gamma')=\int_{X}g(x_{\gamma}'\mid x)f(x_{\gamma}\mid d,\gamma)dx_{\gamma}\,\forall x_{\gamma},d
-\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Definition
-where 
-\begin_inset Formula $X$
-\end_inset
-
- is the sample space of 
-\begin_inset Formula $\tilde{x}$
-\end_inset
-
-.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Kihlstrom1974a"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-After observing 
-\begin_inset Formula $x$
-\end_inset
-
-, the physician updates his prior by Bayes rule
-\begin_inset Formula 
-\begin{equation}
-f(s\mid x,\gamma)=f(x\mid s,\gamma)f(s,\theta)/f(x,\gamma)\label{eq:Bayes}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The change in the physicians expectation about 
-\begin_inset Formula $d$
-\end_inset
-
- from observing the realization of 
-\begin_inset Formula $\tilde{x}_{\gamma}=x$
-\end_inset
-
- change the expected utility.
- When 
-\begin_inset Formula $x$
-\end_inset
-
- is observed, the expected utility is now given by 
-\begin_inset Formula 
-\begin{equation}
-u(t,\theta,x)=E[u(t,s,x)]=\max_{t}\int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\label{eq:updated-bayes}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-however, as the physician does not a priori know what information he receives
- from 
-\begin_inset Formula $\tilde{x}_{\gamma}$
-\end_inset
-
-, we must average his expectation in 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:updated-bayes"
-
-\end_inset
-
- by the probability of all realization of 
-\begin_inset Formula $\tilde{x}_{\gamma}.$
-\end_inset
-
- Therefore the decision about the amount of treatment 
-\begin_inset Formula $t$
-\end_inset
-
- is based on the maximization of 
-\begin_inset Formula 
-\begin{equation}
-u(t,\theta,\gamma)=E[u(t,s,x)]=\int_{X}\max_{t}\left\{ \int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\right\} f(x,\gamma)dx\label{eq:expected-update}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:expected-update"
-
-\end_inset
-
- we might similarly to 
-\begin_inset Formula $\theta$
-\end_inset
-
- interpret the parameter 
-\begin_inset Formula $\gamma$
-\end_inset
-
- to measure the degree of uncertainty about the information received.
- If the sufficiency condition holds, such that for 
-\begin_inset Formula $\gamma<\gamma'$
-\end_inset
-
- the information generated by 
-\begin_inset Formula $\tilde{x'}_{\gamma}$
-\end_inset
-
- is a garbling of 
-\begin_inset Formula $\tilde{x}_{\gamma}$
-\end_inset
-
-, then 
+(
 \begin_inset CommandInset citation
 LatexCommand citet
-after "theorem 6.3"
-key "Marschak1968"
+key "Milgrom1982"
 
 \end_inset
 
- has shown that utility increases, as 
-\begin_inset Formula $\gamma$
+) For a family of density functions, let 
+\begin_inset Formula $x\lor s$
 \end_inset
 
- decreases.
- 
-\end_layout
-
-\begin_layout Standard
-Medical diagnostics and physician effort is, however, not free.
- To capture the cost of information I define the cost function 
-\begin_inset Formula $C(\gamma)$
+ denote the component wise maximum and 
+\begin_inset Formula $x\land s$
 \end_inset
 
- where 
-\begin_inset Formula $C$
-\end_inset
-
- is the price of observing 
-\begin_inset Formula $\tilde{x}_{\gamma}$
-\end_inset
-
- in utiles.
- It is assumed that 
-\begin_inset Formula $C'(\gamma)>0$
+ the component wise minimum.
+ Then 
+\begin_inset Formula $x$
 \end_inset
 
  and 
-\begin_inset Formula $C''(\gamma)>0$
+\begin_inset Formula $s$
 \end_inset
 
-.
-\begin_inset Note Note
-status open
+ are affiliated if, for all 
+\begin_inset Formula $s$
+\end_inset
 
-\begin_layout Plain Layout
-Skriv måske nogen argumenter om hvorfor.
-\end_layout
+ and 
+\begin_inset Formula $x$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+f(s\lor x)f(s\land x)\ge f(s)f(x)
+\]
 
 \end_inset
 
@@ -784,36 +567,134 @@ Skriv måske nogen argumenter om hvorfor.
 \end_layout
 
 \begin_layout Standard
-The physician must then make his decision about 
-\begin_inset Formula $t$
-\end_inset
-
- about 
-\begin_inset Formula $\gamma$
-\end_inset
-
- sequentially.
- First the physician chooses a quantity of information 
-\begin_inset Formula $\gamma$
-\end_inset
-
- and then chooses a treatment that maximizes expected utility.
- However, as information cannot be returned, the physician must base his
- decision of 
-\begin_inset Formula $\gamma$
-\end_inset
-
- on the maximization of 
+Affiliation of two random variables are equivlilant to the monotone likelihood
+ ration property, and the intuition behind definition 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:expected-posterior"
+reference "def:afflilation"
 
 \end_inset
 
- 
+ is that higher signal realization of 
+\begin_inset Formula $x$
+\end_inset
+
+ makes the probability that 
+\begin_inset Formula $s$
+\end_inset
+
+ is large, higher.
+ Similarly small signal realization of 
+\begin_inset Formula $x$
+\end_inset
+
+ makes the probability of a small 
+\begin_inset Formula $s$
+\end_inset
+
+ more likely.
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:accuracy"
+
+\end_inset
+
+(
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Lehmann1988,Acquisition2000"
+
+\end_inset
+
+) Given two signals (experiments) 
+\begin_inset Formula $X^{\eta}$
+\end_inset
+
+ and 
+\begin_inset Formula $X^{\eta'}$
+\end_inset
+
+, 
+\begin_inset Formula $X^{\eta'}$
+\end_inset
+
+ is more accurate than 
+\begin_inset Formula $X^{\eta}$
+\end_inset
+
+ if 
+\begin_inset Formula 
+\[
+T(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)
+\]
+
+\end_inset
+
+ is non decreasing in 
+\begin_inset Formula $s$
+\end_inset
+
+ for all 
+\begin_inset Formula $x$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Lehmans' order
+\end_layout
+
+\begin_layout Standard
+Consider two experiments 
+\begin_inset Formula $X,Y$
+\end_inset
+
+ on a state space 
+\begin_inset Formula $\Theta$
+\end_inset
+
+.
+ Denote the conditional distribution of signals for 
+\begin_inset Formula $X$
+\end_inset
+
+ by 
+\begin_inset Formula $F(x\mid\theta)$
+\end_inset
+
+ and the conditional signals for 
+\begin_inset Formula $Y$
+\end_inset
+
+ by 
+\begin_inset Formula $F(y\mid\theta)$
+\end_inset
+
+.
+ Select two realizations of 
+\begin_inset Formula $\Theta$
+\end_inset
+
+, 
+\begin_inset Formula $\theta_{1},\theta_{2}$
+\end_inset
+
+ with 
+\begin_inset Formula $\theta_{1}\preceq\theta_{2}$
+\end_inset
+
+.
+ Then plot the following parametric curves in the unit square
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\int_{a}^{b}u(t,s)dF^{\gamma}(x\mid s)dF^{\gamma}(x)dsdx-C(\gamma)\right]\label{eq:expected-posterior}
+\ensuremath{\left(F(x,\theta_{2}),F(x,\theta_{1})\right)\text{ and }\left(G(y,\theta_{2}),G(y,\theta_{1})\right)};\label{eq:lehman1}
 \end{equation}
 
 \end_inset
@@ -822,78 +703,7510 @@ u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\int_
 \end_layout
 
 \begin_layout Standard
-now the first order conditions of expected utility gives that 
-\begin_inset Formula 
-\begin{eqnarray*}
-\int_{X}\int_{a}^{b}u(t,s)\left[f(s\mid x,\gamma)f_{\gamma}(x,\gamma)+f_{\gamma}(s\mid x,\gamma)f(s,\theta)\right]dsdx & = & C_{\gamma}(\gamma)\\
-\int_{X}\int_{a}^{b}u_{t}(t,s)f(s\mid x,\gamma)f(x,\gamma)dsdx & = & 0
-\end{eqnarray*}
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% This file was created by matlab2tikz v0.4.3.
+\end_layout
+
+\begin_layout Plain Layout
+
+% Copyright (c) 2008--2013, Nico Schlömer <nico.schloemer@gmail.com>
+\end_layout
+
+\begin_layout Plain Layout
+
+% All rights reserved.
+\end_layout
+
+\begin_layout Plain Layout
+
+% 
+\end_layout
+
+\begin_layout Plain Layout
+
+% The latest updates can be retrieved from
+\end_layout
+
+\begin_layout Plain Layout
+
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+\end_layout
+
+\begin_layout Plain Layout
+
+% where you can also make suggestions and rate matlab2tikz.
+\end_layout
+
+\begin_layout Plain Layout
+
+% 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{axis}[%
+\end_layout
+
+\begin_layout Plain Layout
+
+width=12cm,
+\end_layout
+
+\begin_layout Plain Layout
+
+height=8cm,
+\end_layout
+
+\begin_layout Plain Layout
+
+scale only axis,
+\end_layout
+
+\begin_layout Plain Layout
+
+xmin=0,
+\end_layout
+
+\begin_layout Plain Layout
+
+xmax=1,
+\end_layout
+
+\begin_layout Plain Layout
+
+ymin=0,
+\end_layout
+
+\begin_layout Plain Layout
+
+ymax=1,
+\end_layout
+
+\begin_layout Plain Layout
+
+legend style={at={(0.03,0.97)},anchor=north west,draw=black,fill=white,legend
+ cell align=left}
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addplot [
+\end_layout
+
+\begin_layout Plain Layout
+
+color=blue,
+\end_layout
+
+\begin_layout Plain Layout
+
+solid
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+table[row sep=crcr]{
+\end_layout
+
+\begin_layout Plain Layout
+
+2.75362411860633e-89 3.27927801897912e-98
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.03464320878274e-88 2.67724949663753e-97
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.48846877588933e-87 2.16404514688061e-96
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.07810028636624e-86 1.73185187901983e-95
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.73119576813182e-86 1.37221519757797e-94
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.4891154756605e-85 1.0764673258791e-93
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.85856982898146e-84 8.36077862132829e-93
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.68546054279928e-83 6.42924446769842e-92
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.85046006994262e-82 4.89486365476539e-91
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.26243582218535e-81 3.68968086372145e-90
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.52722395263135e-81 2.75362411860633e-89
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.70262638423177e-80 2.03464320878274e-88
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.77581913269242e-79 1.48846877588933e-87
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.47523584514259e-78 1.07810028636624e-86
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.60653893432571e-77 7.73119576813182e-86
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.03236986895635e-76 5.4891154756605e-85
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.56823849338724e-76 3.85856982898146e-84
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.13744437350482e-75 2.68546054279928e-83
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.58038922065181e-74 1.85046006994262e-82
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.59333906788403e-73 1.26243582218535e-81
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.74094891893721e-73 8.52722395263135e-81
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.89609597726321e-72 5.70262638423177e-80
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.5334437754138e-71 3.77581913269242e-79
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.09653605431784e-70 2.47523584514259e-78
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.23162116859461e-69 1.60653893432571e-77
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.16345876623527e-69 1.03236986895635e-76
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.12514626507905e-68 6.56823849338724e-76
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.35194445880932e-67 4.13744437350482e-75
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.3276575042718e-66 2.58038922065181e-74
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.4202150716403e-66 1.59333906788403e-73
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.10599620209897e-65 9.74094891893721e-73
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.24953302305134e-64 5.89609597726321e-72
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.22022004059765e-63 3.5334437754138e-71
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.55323978194264e-63 2.09653605431784e-70
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.48454651995041e-62 1.23162116859461e-69
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.83446300316473e-61 7.16345876623527e-69
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.56190257423211e-61 4.12514626507905e-68
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.93460647706622e-60 2.35194445880932e-67
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.52135372531015e-59 1.3276575042718e-66
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.27552292445017e-58 7.4202150716403e-66
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.38875440053823e-58 4.10599620209897e-65
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.16823766537986e-57 2.24953302305134e-64
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.55558286895017e-56 1.22022004059765e-63
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.56210317468379e-56 6.55323978194264e-63
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.63970600148678e-55 3.48454651995041e-62
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.73446079179388e-54 1.83446300316473e-61
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.18346755401464e-54 9.56190257423211e-61
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.82283156207349e-53 4.93460647706622e-60
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.76810523412228e-52 2.52135372531015e-59
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.09666998801544e-52 1.27552292445017e-58
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.67096619931286e-51 6.38875440053823e-58
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.64789749770005e-50 3.16823766537986e-57
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.32413111982707e-50 1.55558286895017e-56
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.22298575774487e-49 7.56210317468379e-56
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.40422686696267e-48 3.63970600148678e-55
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.05749476441531e-48 1.73446079179388e-54
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.58717592540239e-47 8.18346755401464e-54
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.09404778701892e-46 3.82283156207349e-53
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.58062055189493e-46 1.76810523412228e-52
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.89884852122917e-45 8.09666998801544e-52
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.7935368191928e-45 3.67096619931286e-51
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.1670682681309e-44 1.64789749770005e-50
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.27426314550685e-43 7.32413111982707e-50
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.07621481159796e-43 3.22298575774487e-49
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.00216722368154e-42 1.40422686696267e-48
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.81880730565805e-42 6.05749476441531e-48
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.02315773594524e-41 2.58717592540239e-47
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.15734162836906e-40 1.09404778701892e-46
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.38675271307426e-40 4.58062055189493e-46
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.64628830695088e-39 1.89884852122917e-45
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.11716439954992e-39 7.7935368191928e-45
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.25048589341516e-38 3.1670682681309e-44
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.19756171316302e-38 1.27426314550685e-43
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.95648536485212e-37 5.07621481159796e-43
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.05572255808867e-36 2.00216722368154e-42
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.73256429887781e-36 7.81880730565805e-42
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.30661798312467e-35 3.02315773594524e-41
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.52870695615878e-35 1.15734162836906e-40
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.55411978638962e-34 4.38675271307426e-40
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.28055876743362e-34 1.64628830695088e-39
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.7764821120777e-33 6.11716439954992e-39
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.91735771630616e-33 2.25048589341508e-38
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.95155729316959e-32 8.19756171316329e-38
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.37267491568614e-32 2.95648536485212e-37
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.06039123615879e-31 1.05572255808867e-36
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.59577144611368e-31 3.73256429887781e-36
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.09059542173855e-30 1.30661798312463e-35
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.56089994090437e-30 4.52870695615892e-35
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.03866750354492e-29 1.55411978638962e-34
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.27219439321706e-29 5.28055876743362e-34
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.91065957449868e-28 1.7764821120777e-33
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.76286441383562e-28 5.91735771630616e-33
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.72101783947981e-27 1.95155729316959e-32
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.08891085502733e-27 6.37267491568614e-32
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.48990112729649e-26 2.06039123615879e-31
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.31900631780926e-26 6.59577144611368e-31
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.23966597958403e-25 2.09059542173861e-30
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.52306507892649e-25 6.56089994090437e-30
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.91362512256013e-25 2.03866750354492e-29
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.76210947176454e-24 6.27219439321706e-29
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.61985302416059e-24 1.91065957449868e-28
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.08137521949325e-23 5.76286441383578e-28
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.62928231137667e-23 1.72101783947981e-27
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.50749316881022e-22 5.08891085502733e-27
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.99722120572628e-22 1.48990112729649e-26
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.04945150753627e-21 4.31900631780926e-26
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.72815357134618e-21 1.23966597958403e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.02228424044181e-21 3.52306507892649e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.78974881201407e-20 9.91362512256013e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.51659149143546e-20 2.76210947176454e-24
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.12858840595384e-19 7.61985302416059e-24
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.79233437493972e-19 2.08137521949325e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.84080768593573e-19 5.62928231137667e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.65942086996479e-18 1.50749316881022e-22
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.98580496284819e-18 3.99722120572628e-22
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.47953482220335e-18 1.04945150753627e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.23239319728808e-17 2.72815357134618e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.20556974489034e-17 7.02228424044181e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.20193515427359e-16 1.78974881201407e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.74795939239824e-16 4.51659149143546e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.22096057427182e-16 1.12858840595384e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.39451714665929e-15 2.79233437493972e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.09535877195873e-15 6.84080768593573e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.80331154077404e-15 1.65942086996479e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.48065374900482e-14 3.98580496284819e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.19089167291092e-14 9.47953482220335e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.80922489062014e-14 2.23239319728808e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.43883863815761e-13 5.20556974489034e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.01062798111747e-13 1.20193515427359e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.23784446333164e-13 2.74795939239824e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.27981254388584e-12 6.22096057427182e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.60012696563822e-12 1.39451714665929e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.23095754414466e-12 3.09535877195873e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.04209769879652e-11 6.80331154077404e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.05578890939952e-11 1.48065374900482e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.01600058385912e-11 3.19089167291092e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.7688475817099e-11 6.80922489062014e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.48822822176232e-10 1.43883863815761e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.82315803704329e-10 3.01062798111747e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.30342326294885e-10 6.23784446333164e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.86587645037701e-10 1.27981254388584e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.81750786309945e-09 2.60012696563822e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.31574597832619e-09 5.23095754414466e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.99037140106358e-09 1.04209769879652e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.0717590258311e-08 2.05578890939952e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.89895624658877e-08 4.01600058385912e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.33204484854289e-08 7.7688475817099e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.79013403996464e-08 1.48822822176232e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.96442631693353e-08 2.82315803704329e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.6982674071476e-07 5.30342326294885e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.86651571879195e-07 9.86587645037701e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.79183276590324e-07 1.81750786309945e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.933281519756e-07 3.31574597832619e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.30080745391729e-06 5.99037140106358e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.11245470250286e-06 1.0717590258311e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.39767312473006e-06 1.89895624658877e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.4125439077039e-06 3.33204484854289e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.53990547099187e-06 5.79013403996464e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.33457490159064e-05 9.96442631693353e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.06575069125468e-05 1.6982674071476e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.167124183312e-05 2.86651571879195e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.8096344017603e-05 4.79183276590324e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.23480439251198e-05 7.93328151975592e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000107799733477389 1.30080745391729e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000159108590157535 2.11245470250287e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000232629079035525 3.39767312473006e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000336929265676883 5.4125439077039e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000483424142383777 8.53990547099179e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00068713793791585 1.33457490159064e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000967603213218365 2.0657506912547e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0013498980316301 3.167124183312e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00186581330038405 4.8096344017603e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00255513033042793 7.23480439251198e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00346697380304068 0.000107799733477389
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00466118802371878 0.000159108590157535
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00620966532577614 0.000232629079035525
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00819753592459617 0.000336929265676883
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0107241100216758 0.000483424142383777
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0139034475134986 0.00068713793791585
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0178644205628167 0.000967603213218365
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0227501319481792 0.0013498980316301
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0287165598160019 0.00186581330038405
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0359303191129258 0.00255513033042793
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0445654627585431 0.00346697380304068
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0547992916995582 0.00466118802371878
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0668072012688581 0.00620966532577614
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0807566592337713 0.00819753592459617
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0968004845856102 0.0107241100216758
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.115069670221708 0.0139034475134986
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.135666060946383 0.0178644205628167
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.158655253931457 0.0227501319481792
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.18406012534676 0.0287165598160019
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.211855398583398 0.035930319112926
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.241963652223073 0.0445654627585431
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.274253117750074 0.0547992916995582
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.308537538725987 0.0668072012688581
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.344578258389676 0.0807566592337713
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.382088577811048 0.0968004845856108
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.420740290560897 0.115069670221708
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.460172162722972 0.135666060946383
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.5 0.158655253931457
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.539827837277028 0.184060125346759
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.579259709439103 0.211855398583397
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.617911422188952 0.241963652223072
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.655421741610324 0.274253117750073
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.691462461274013 0.308537538725987
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.725746882249926 0.344578258389675
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.758036347776927 0.382088577811047
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.788144601416602 0.420740290560896
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.81593987465324 0.46017216272297
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.841344746068543 0.5
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.864333939053617 0.539827837277028
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.884930329778292 0.579259709439103
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.90319951541439 0.617911422188953
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.919243340766229 0.655421741610324
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.933192798731142 0.691462461274013
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.945200708300442 0.725746882249926
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.955434537241457 0.758036347776927
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.964069680887074 0.788144601416603
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.971283440183998 0.81593987465324
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.977249868051821 0.841344746068543
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.982135579437183 0.864333939053617
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.986096552486501 0.884930329778292
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.989275889978324 0.90319951541439
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.991802464075404 0.919243340766229
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.993790334674224 0.933192798731142
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.995338811976281 0.945200708300442
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.996533026196959 0.955434537241457
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.997444869669572 0.964069680887074
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.998134186699616 0.971283440183998
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99865010196837 0.977249868051821
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999032396786782 0.982135579437183
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999312862062084 0.986096552486501
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999516575857616 0.989275889978324
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999663070734323 0.991802464075404
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999767370920964 0.993790334674224
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999840891409842 0.995338811976281
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999892200266523 0.996533026196959
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999927651956075 0.997444869669572
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999951903655982 0.998134186699616
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999968328758167 0.99865010196837
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999979342493088 0.999032396786782
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999986654250984 0.999312862062084
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999991460094529 0.999516575857616
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999994587456092 0.999663070734323
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999996602326875 0.999767370920964
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999997887545298 0.999840891409842
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999998699192546 0.999892200266523
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999206671848 0.999927651956075
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999520816723 0.999951903655982
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999713348428 0.999968328758167
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999830173259 0.999979342493088
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999900355737 0.999986654250984
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999994209866 0.999991460094529
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999966679551 0.999994587456092
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999981010438 0.999996602326875
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999998928241 0.999997887545298
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999994009629 0.999998699192546
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999996684254 0.999999206671848
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999998182492 0.999999520816723
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999013412 0.999999713348428
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999469658 0.999999830173259
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999717684 0.999999900355737
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999851177 0.99999994209866
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999922311 0.999999966679551
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999999995984 0.999999981010438
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999979442 0.99999998928241
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999989579 0.999999994009629
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999994769 0.999999996684254
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.9999999999974 0.999999998182492
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999999999872 0.999999999013412
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999376 0.999999999469658
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999699 0.999999999717684
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999856 0.999999999851177
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999932 0.999999999922311
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999968 0.99999999995984
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999985 0.999999999979442
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999993 0.999999999989579
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999997 0.999999999994769
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999999 0.9999999999974
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999999 0.99999999999872
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999376
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999699
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999856
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999932
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999968
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999985
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999993
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999997
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999999
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999999
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlegendentry{$
+\backslash
+left(F(x,
+\backslash
+theta_2),F(x,
+\backslash
+theta_1)
+\backslash
+right)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addplot [
+\end_layout
+
+\begin_layout Plain Layout
+
+color=green!50!black,
+\end_layout
+
+\begin_layout Plain Layout
+
+solid
+\end_layout
+
+\begin_layout Plain Layout
+
+]
+\end_layout
+
+\begin_layout Plain Layout
+
+table[row sep=crcr]{
+\end_layout
+
+\begin_layout Plain Layout
+
+7.61985302416059e-24 4.31900631780926e-26
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.26091606702069e-23 7.32626143174437e-26
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.08137521949323e-23 1.23966597958401e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.42719879411368e-23 2.09242903757845e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.6292823113766e-23 3.52306507892645e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.22341352493945e-23 5.91717690736563e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.50749316881022e-22 9.91362512256013e-25
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.45778648347234e-22 1.65681711680267e-24
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.99722120572628e-22 2.76210947176454e-24
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.4848144530773e-22 4.59337105561298e-24
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.04945150753627e-21 7.61985302416059e-24
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.69415350248815e-21 1.26091606702069e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.72815357134612e-21 2.08137521949323e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.38238629906653e-21 3.42719879411368e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.02228424044164e-21 5.6292823113766e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.12246335913281e-20 9.22341352493945e-23
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.78974881201407e-20 1.50749316881022e-22
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.84667740846024e-20 2.45778648347234e-22
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.51659149143546e-20 3.99722120572628e-22
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.14841701126977e-20 6.4848144530773e-22
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.12858840595384e-19 1.04945150753627e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.77741178414555e-19 1.69415350248815e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.79233437493966e-19 2.72815357134612e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.37596479930907e-19 4.38238629906653e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.84080768593558e-19 7.02228424044164e-21
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.06676373754749e-18 1.12246335913281e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.65942086996479e-18 1.78974881201407e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.57497153801191e-18 2.84667740846024e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.98580496284819e-18 4.51659149143546e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.15442559085037e-18 7.14841701126977e-20
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.47953482220335e-18 1.12858840595384e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.45651411259095e-17 1.77741178414555e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.23239319728806e-17 2.79233437493966e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.41314832645818e-17 4.37596479930907e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.20556974489029e-17 6.84080768593558e-19
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.91972631464247e-17 1.06676373754749e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.20193515427359e-16 1.65942086996479e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.81962136352663e-16 2.57497153801191e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.74795939239824e-16 3.98580496284819e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.13970181627316e-16 6.15442559085037e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.22096057427182e-16 9.47953482220335e-18
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.32557577168138e-16 1.45651411259095e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.39451714665927e-15 2.23239319728806e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.08018635213939e-15 3.41314832645818e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.0953587719587e-15 5.20556974489029e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.5946274357786e-15 7.91972631464247e-17
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.80331154077404e-15 1.20193515427359e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.00489656565263e-14 1.81962136352663e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.48065374900482e-14 2.74795939239824e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.1762912097086e-14 4.13970181627316e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.19089167291092e-14 6.22096057427182e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.66701158871907e-14 9.32557577168138e-16
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.80922489062001e-14 1.39451714665927e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.91034274954759e-14 2.08018635213939e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.43883863815759e-13 3.0953587719587e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.08385815867208e-13 4.5946274357786e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.01062798111747e-13 6.80331154077404e-15
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.33889502717808e-13 1.00489656565263e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.23784446333164e-13 1.48065374900482e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.94588955876992e-13 2.1762912097086e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.27981254388584e-12 3.19089167291092e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.82643106197698e-12 4.66701158871907e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.60012696563817e-12 6.80922489062001e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.69249942723563e-12 9.91034274954759e-14
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.23095754414462e-12 1.43883863815759e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.39225777801786e-12 2.08385815867208e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.04209769879652e-11 3.01062798111747e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.46546509773029e-11 4.33889502717808e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.05578890939952e-11 6.23784446333164e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.87685417360433e-11 8.94588955876992e-13
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.01600058385912e-11 1.27981254388584e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.59250757594274e-11 1.82643106197698e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.76884758170984e-11 2.60012696563817e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.07657463851217e-10 3.69249942723563e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.48822822176232e-10 5.23095754414462e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.05226342521895e-10 7.39225777801786e-12
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.82315803704329e-10 1.04209769879652e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.87414734667566e-10 1.46546509773029e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.30342326294885e-10 2.05578890939952e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.24229170513766e-10 2.87685417360433e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.86587645037701e-10 4.01600058385912e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.34071244409188e-09 5.59250757594269e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.81750786309944e-09 7.7688475817099e-11
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.45786506180803e-09 1.07657463851217e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.31574597832616e-09 1.48822822176232e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.46217245390161e-09 2.05226342521895e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.99037140106353e-09 2.82315803704327e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.02239185066357e-09 3.87414734667569e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.0717590258311e-08 5.30342326294885e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.42834798939228e-08 7.24229170513766e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.89895624658877e-08 9.86587645037701e-10
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.51849100544612e-08 1.34071244409188e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.33204484854287e-08 1.81750786309944e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.3977115940059e-08 2.45786506180803e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.7901340399646e-08 3.31574597832616e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.60496051648873e-08 4.46217245390161e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+9.96442631693353e-08 5.99037140106358e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.30243229533202e-07 8.02239185066357e-09
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.6982674071476e-07 1.0717590258311e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.20905032269544e-07 1.42834798939228e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.86651571879195e-07 1.89895624658877e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.71067407963335e-07 2.51849100544613e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.79183276590322e-07 3.33204484854287e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.17307372009199e-07 4.3977115940059e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.93328151975597e-07 5.7901340399646e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.01708324256871e-06 7.60496051648873e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.30080745391729e-06 9.96442631693353e-08
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.65967514437147e-06 1.30243229533202e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.11245470250286e-06 1.6982674071476e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.68229577963886e-06 2.20905032269544e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.39767312473006e-06 2.86651571879195e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.2935144699719e-06 3.71067407963335e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.41254390770389e-06 4.79183276590322e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+6.80687659933407e-06 6.17307372009199e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.53990547099182e-06 7.93328151975597e-07
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.06885257749344e-05 1.01708324256871e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.33457490159064e-05 1.30080745391729e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1.66237637296523e-05 1.65967514437147e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.06575069125468e-05 2.11245470250286e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2.56088164740415e-05 2.68229577963886e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.167124183312e-05 3.39767312473006e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+3.90755965977877e-05 4.2935144699719e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+4.80963440176029e-05 5.41254390770389e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+5.90589124189227e-05 6.80687659933407e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+7.23480439251201e-05 8.53990547099182e-06
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+8.8417285200804e-05 1.06885257749344e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000107799733477389 1.33457490159064e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000131120154420485 1.66237637296523e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000159108590157534 2.06575069125468e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000192615575635634 2.56088164740415e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000232629079035525 3.167124183312e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000280293276816179 3.90755965977877e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000336929265676882 4.80963440176029e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000404057801864022 5.90589124189227e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000483424142383778 7.23480439251201e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000577025042390767 8.8417285200804e-05
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00068713793791585 0.000107799733477389
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000816352312828564 0.000131120154420485
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.000967603213218358 0.000159108590157534
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0011442068310227 0.000192615575635634
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0013498980316301 0.000232629079035525
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00158886964736487 0.000280293276816179
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00186581330038404 0.000336929265676882
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00218596145491325 0.000404057801864022
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00255513033042794 0.000483424142383778
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00297976323505456 0.000577025042390767
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00346697380304068 0.00068713793791585
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00402458854275832 0.000816352312828564
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00466118802371876 0.000967603213218358
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00538614595406669 0.0011442068310227
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00620966532577614 0.0013498980316301
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00714281073527144 0.00158886964736487
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00819753592459615 0.00186581330038404
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.00938670553483859 0.00218596145491325
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0107241100216758 0.00255513033042794
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0122244726550447 0.00297976323505456
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0139034475134986 0.00346697380304068
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0157776073910905 0.00402458854275832
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0178644205628166 0.00466118802371876
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0201822154057044 0.00538614595406669
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0227501319481792 0.00620966532577614
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0255880595216387 0.00714281073527144
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0287165598160018 0.00819753592459612
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0321567747956137 0.00938670553483859
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0359303191129259 0.0107241100216758
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0400591568638171 0.0122244726550447
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0445654627585431 0.0139034475134986
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0494714680336481 0.0157776073910905
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.054799291699558 0.0178644205628166
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0605707580020591 0.0201822154057045
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0668072012688581 0.0227501319481792
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0735292596096484 0.0255880595216387
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.080756659233771 0.0287165598160018
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0885079914374021 0.0321567747956137
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.0968004845856105 0.0359303191129259
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.105649773666855 0.0400591568638171
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.115069670221708 0.0445654627585431
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.12507193563715 0.0494714680336481
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.135666060946383 0.054799291699558
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.146859056375896 0.0605707580020591
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.158655253931457 0.0668072012688581
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.171056126308482 0.0735292596096484
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.184060125346759 0.080756659233771
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.197662543122692 0.0885079914374021
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.211855398583397 0.0968004845856105
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.226627352376868 0.105649773666855
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.241963652223073 0.115069670221708
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.257846110805865 0.12507193563715
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.274253117750074 0.135666060946383
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.291159686788347 0.146859056375896
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.308537538725987 0.158655253931457
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.32635522028792 0.171056126308482
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.344578258389676 0.18406012534676
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.363169348824381 0.197662543122692
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.382088577811048 0.211855398583397
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.401293674317076 0.226627352376868
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.420740290560897 0.241963652223073
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.440382307629758 0.257846110805865
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.460172162722971 0.274253117750074
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.480061194161628 0.291159686788347
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.5 0.308537538725987
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.519938805838372 0.32635522028792
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.539827837277029 0.344578258389676
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.559617692370242 0.36316934882438
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.579259709439103 0.382088577811047
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.598706325682924 0.401293674317076
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.617911422188952 0.420740290560897
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.636830651175619 0.440382307629757
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.655421741610324 0.46017216272297
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.67364477971208 0.480061194161627
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.691462461274013 0.5
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.708840313211653 0.519938805838372
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.725746882249926 0.539827837277029
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.742153889194135 0.559617692370243
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.758036347776927 0.579259709439103
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.773372647623132 0.598706325682924
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.788144601416603 0.617911422188952
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.802337456877308 0.636830651175619
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.815939874653241 0.655421741610324
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.828943873691518 0.67364477971208
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.841344746068543 0.691462461274013
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.853140943624104 0.708840313211653
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.864333939053617 0.725746882249926
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.87492806436285 0.742153889194135
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.884930329778292 0.758036347776927
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.894350226333145 0.773372647623132
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.903199515414389 0.788144601416603
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.911492008562598 0.802337456877308
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.919243340766229 0.815939874653241
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.926470740390352 0.828943873691518
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.933192798731142 0.841344746068543
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.939429241997941 0.853140943624104
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.945200708300442 0.864333939053617
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.950528531966352 0.87492806436285
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.955434537241457 0.884930329778292
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.959940843136183 0.894350226333145
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.964069680887074 0.903199515414389
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.967843225204386 0.911492008562598
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.971283440183998 0.919243340766229
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.974411940478361 0.926470740390352
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.977249868051821 0.933192798731142
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.979817784594296 0.939429241997941
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.982135579437183 0.945200708300442
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.984222392608909 0.950528531966352
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.986096552486501 0.955434537241457
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.987775527344955 0.959940843136183
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.989275889978324 0.964069680887074
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.990613294465161 0.967843225204386
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.991802464075404 0.971283440183998
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.992857189264729 0.974411940478361
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.993790334674224 0.977249868051821
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.994613854045933 0.979817784594296
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.995338811976281 0.982135579437183
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.995975411457242 0.984222392608909
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.996533026196959 0.986096552486501
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.997020236764945 0.987775527344955
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.997444869669572 0.989275889978324
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.997814038545087 0.990613294465161
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.998134186699616 0.991802464075404
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.998411130352635 0.992857189264729
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99865010196837 0.993790334674224
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.998855793168977 0.994613854045933
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999032396786782 0.995338811976281
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999183647687171 0.995975411457242
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999312862062084 0.996533026196959
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999422974957609 0.997020236764945
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999516575857616 0.997444869669572
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999595942198136 0.997814038545087
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999663070734323 0.998134186699616
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999719706723184 0.998411130352635
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999767370920964 0.99865010196837
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999807384424364 0.998855793168977
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999840891409842 0.999032396786782
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999868879845579 0.999183647687171
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999892200266523 0.999312862062084
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999911582714799 0.999422974957609
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999927651956075 0.999516575857616
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999940941087581 0.999595942198136
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999951903655982 0.999663070734323
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999960924403402 0.999719706723184
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999968328758167 0.999767370920964
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999974391183526 0.999807384424364
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999979342493088 0.999840891409842
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99998337623627 0.999868879845579
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999986654250984 0.999892200266523
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999989311474225 0.999911582714799
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999991460094529 0.999927651956075
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999993193123401 0.999940941087581
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999994587456092 0.999951903655982
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999570648553 0.999960924403402
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999996602326875 0.999968328758167
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999731770422 0.999974391183526
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999997887545298 0.999979342493088
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999998340324856 0.99998337623627
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999998699192546 0.999986654250984
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999998982916757 0.999989311474225
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999206671848 0.999991460094529
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999382692628 0.999993193123401
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999520816723 0.999994587456092
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999628932592 0.99999570648553
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999713348428 0.999996602326875
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999779094968 0.99999731770422
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999830173259 0.999997887545298
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999986975677 0.999998340324856
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999900355737 0.999998699192546
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999923950395 0.999998982916757
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999994209866 0.999999206671848
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999956022884 0.999999382692628
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999966679551 0.999999520816723
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999997481509 0.999999628932592
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999981010438 0.999999713348428
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999998571652 0.999999779094968
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999998928241 0.999999830173259
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999991977608 0.99999986975677
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999994009629 0.999999900355737
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999995537828 0.999999923950395
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999996684254 0.99999994209866
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999997542135 0.999999956022884
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999998182492 0.999999966679551
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999998659288 0.99999997481509
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999013412 0.999999981010438
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999275771 0.99999998571652
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999469658 0.99999998928241
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999612585 0.999999991977608
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999717684 0.999999994009629
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999794774 0.999999995537828
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999851177 0.999999996684254
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999892343 0.999999997542135
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999922311 0.999999998182492
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999944075 0.999999998659288
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999999995984 0.999999999013412
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999971231 0.999999999275771
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999979442 0.999999999469658
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999985345 0.999999999612585
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999989579 0.999999999717684
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999992608 0.999999999794774
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999994769 0.999999999851177
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999996308 0.999999999892343
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.9999999999974 0.999999999922311
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999998174 0.999999999944075
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999999999872 0.99999999995984
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999105 0.999999999971231
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999376 0.999999999979442
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999566 0.999999999985345
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999699 0.999999999989579
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999792 0.999999999992608
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999856 0.999999999994769
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999901 0.999999999996308
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999932 0.9999999999974
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999953 0.999999999998174
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999968 0.99999999999872
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999978 0.999999999999105
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999985 0.999999999999376
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.99999999999999 0.999999999999566
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999993 0.999999999999699
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999995 0.999999999999792
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999997 0.999999999999856
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999998 0.999999999999901
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999999 0.999999999999932
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999999 0.999999999999953
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+0.999999999999999 0.999999999999968
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999978
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999985
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.99999999999999
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999993
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999995
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999997
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999998
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999999
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999999
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 0.999999999999999
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+1 1
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlegendentry{$
+\backslash
+left(G(y,
+\backslash
+theta_2),G(y,
+\backslash
+theta_1)
+\backslash
+right)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{axis}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}%
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsubsection
-Case 1: a change in severity of illness
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Lehmann's Order
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-An increase in the severity of illness can be archived by shifting the patients
- distribution of 
-\begin_inset Formula $d$
+For Lehmans's condition to hold, the 
+\begin_inset Formula $F()$
 \end_inset
 
- to the right.
- let 
-\begin_inset Formula $\Delta$
+ in the graph generated by 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:lehman1"
+
 \end_inset
 
- be the distance by which the distribution is shifted and leave all other
- moments of the distribution unchanged.
- Then let 
-\begin_inset Formula $f(s,\theta)=q(s-\Delta,\theta)$
-\end_inset
-
-, so that the distribution of 
-\begin_inset Formula $f$
-\end_inset
-
- is simply the distribution of 
-\begin_inset Formula $q$
-\end_inset
-
- shifted to the right by the distance 
-\begin_inset Formula $\Delta$
-\end_inset
-
- for all 
-\begin_inset Formula $s$
+ must be lie below the 
+\begin_inset Formula $G()$
 \end_inset
 
 .
- Then I can write 
-\begin_inset Formula 
-\[
-u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\left\{ \int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\right\} f(x,\gamma)dx-C(\gamma)\right]
-\]
-
+ The intuition is that for every realization of 
+\begin_inset Formula $x,y$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Subsubsection
-Case 2: a change in the riskiness of 
-\begin_inset Formula $d$
+ and for 
+\begin_inset Formula $\theta_{1}\le\theta_{2}$
 \end_inset
 
+, the probability of 
+\begin_inset Formula $P(X\le\theta_{2})$
+\end_inset
 
-\end_layout
-
-\begin_layout Subsubsection
-Case 3: a change in the riskiness of the signal 
-\begin_inset Formula $s$
+ should be larger than the probability of 
+\begin_inset Formula $G(Y\le\theta_{2})$
 \end_inset
 
 

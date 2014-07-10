@@ -1,16 +1,12 @@
-%% LyX 2.1.0 created this file.  For more info, see http://www.lyx.org/.
-%% Do not edit unless you really know what you are doing.
-\documentclass[english,paper=a4,fontsize=10pt]{scrartcl}
-\usepackage[T1]{fontenc}
-\usepackage[latin9]{inputenc}
-\usepackage{color}
-\usepackage{babel}
-\usepackage{verbatim}
+
+%!TEX program = TS-xelatex 
+\documentclass[10pt,english,paper=a4,fontsize=10pt]{scrartcl}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{fontspec}
+\usepackage{color}
 \usepackage{esint}
-\usepackage[numbers]{natbib}
 \usepackage[unicode=true,
  bookmarks=true,bookmarksnumbered=true,bookmarksopen=false,
  breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=true]
@@ -20,31 +16,37 @@
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
-\RequirePackage{todonotes}
+  \theoremstyle{definition}
+  \newtheorem{defn}{\protect\definitionname}
 \theoremstyle{plain}
 \newtheorem{thm}{\protect\theoremname}
-  \theoremstyle{definition}
-  \newtheorem{defn}[thm]{\protect\definitionname}
+ \theoremstyle{definition}
+  \newtheorem{example}{\protect\examplename}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 % article example for classicthesis.sty
  % KOMA-Script article 
+\usepackage{lipsum}%\usepackage{../classicthesis-ldpkg}
 \usepackage[nochapters]{classicthesis}% nochapters
 \let\oldtitle\title
 \renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
 \let\oldauthor\author
 \renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
 \date{}
-
-\definecolor{Blue}{cmyk}{1, 0.878, 0, 0}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{amssymb}
-\usepackage{amsmath}
+\usepackage{auto-pst-pdf}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+\usepackage{pst-func}
+\usepackage{mathtools}
+\psset{algebraic}
 
 \makeatother
 
+\usepackage{xunicode}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
   \providecommand{\definitionname}{Definition}
+  \providecommand{\examplename}{Example}
 \providecommand{\theoremname}{Theorem}
 
 \begin{document}
@@ -57,74 +59,47 @@
 \maketitle
 \tableofcontents{}
 
-\begin{comment}
-To do:
-\begin{enumerate}
-\item Show that utility increases with information
-
-\begin{enumerate}
-\item Show that $u(t,s)f(s\mid x)$ is increasing in $x$
-
-\begin{enumerate}
-\item show that the greatest lower bound of $u(t,s)f(s\mid x)\ge u(t,s)f(s\mid x')\forall t\in T$
-where $x>x'$ implies that $f(s\mid x)$ is more accurate than $f(s\mid x')$
-\end{enumerate}
-\end{enumerate}
-\item Define how information is accumulated over time
-\item Show that if information is accumulated over time, such that $f_{t}(s\mid x)$
-is more accurate than $f_{t-1}(s\mid x)$, then $u_{t}(t,s)f_{t}(s\mid x)\ge u_{t-1}(t,s)f_{t-1}(s\mid x)\forall t\in T$
-\item Show that given 1-3 switching cost are increasing over time
-
-\begin{enumerate}
-\item Let the accuracy of $f(s\mid x)$ depend on physician skill $y$ and
-let $y$ be distributed with $G(y)$, then show that the expected
-value of $u_{t}(t,s)f_{t}(s\mid x)G(y)$ is decreasing in $t$
-\end{enumerate}
-\end{enumerate}
-Further it might be interesting to show that 
-\begin{enumerate}
-\item $\phi(x)=\argmax_{x} u(t,s)f(s\mid x)$ is increasing in $x$
-\item $\phi(t)$\end{enumerate}
-\end{comment}
 
 
 
-\section{The Patient}
+\section{The Patients Utility}
 
-Following \citep{Rochaix1989}, the patient has a utility function
+Following \cite{Rochaix1989}, the patient has a utility function
 \begin{eqnarray*}
-U & = & u(t,s)
+U & = & u(t,s):\, T\times S\rightarrow\mathbb{R}
 \end{eqnarray*}
 
 
 where $t$ is treatment, $s$ is disease variable classified by its
-severity of illness, which belongs to an interval $[a,b]$, where
-$a$ is the minimum level of severity and $b$ is the maximum. The
-patient has a preference over the level of treatment $t\in\mathbb{R}^{+}$,
-where $t$ is a mix of inputs used. $U$ is a von Neumann--Morgenstern
-utility function, which is three times differential. It is also assumed
-that $U$ has both increasing and decreasing segments to capture the
-negative health effects of over-treatment. I also assume that increasing
-the level of severity, has a negative first derivative $U_{s}<0$,
-and that a increase in severity increases the marginal utility of
-treatment $(U_{ts}>0)$. Under perfect agency and full information
-the maximization problem is simply given by 
+severity of illness, where both $t$ and $s$ traverse a real line.
+It is assumed that the utility function has both increasing and decreasing
+parts to capture the negative effects of both under and over treatment.
+It is further assumed that the disutility of moving away from the
+optimum is increasing in $s$, such that the patient is more \emph{risk-sensitive}
+for higher values of $s$. 
+\begin{defn}
+Assuming that the decision problem has a unique solution $t^{*}$,
+and for $s'>s$, $u(t^{*},s)=u(t^{*},s')$. Then for $t'\ne t$, the
+\emph{risk-sensitivity} is increasing in $s$, if 
 \begin{equation}
-\max_{t}u(t,s)\ F.O.C\ u_{t}=0\label{eq:eq:full-information}
+u(t',s)\ge u(t',s')\label{eq:risk-sensitivity}
 \end{equation}
 
-
-for all $s$, there is a unique solution $t^{*}$ to the problem in
-\eqref{eq:eq:full-information}, and the variable $t^{*}(s)$ has
-a positive first derivative whit respect to $s$ $(\partial t^{*}/\partial s>0)$
-.
-
+\end{defn}
+The notion of \emph{risk-sensitivity} is illustrated in figure \ref{fig:The-patients-utility}.
+\begin{thm}
+If the risk sensitivity is increasing in $s$, then for $s'>s$ $u(t,s')-u(t,s)$
+has a single crossing property in $(s,t)$\end{thm}
+\begin{proof}
+For $u(t,s')-u(t,s)$ to have a single crossing property in $(s,t)$,
+it must be true that for $s''>s'>s$ and $t'>t$, $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
+implies that $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$. Now, clearly,
+since \ref{eq:risk-sensitivity} holds for $s'>s$ it also holds for
+$s''>s'$. Therefore is is clear that $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
+implies $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$.
+\end{proof}
 \begin{figure}
-\include{fig/utility}
-
-\protect\caption{The patients utility functions}
-
-
+\protect\caption{\label{fig:The-patients-utility}The patients utility functions}
 \end{figure}
 
 
@@ -132,124 +107,95 @@ a positive first derivative whit respect to $s$ $(\partial t^{*}/\partial s>0)$
 \subsection{Uncertainty with perfect agency}
 
 In reality however, $s$ is never observed. The level of severity
-for the patients a random variable represented by $S$, characterized
-by a subjective density function $f(s,\theta)$, where $s$ is a realization
-of $S$ with support in $[a,b]$ and $\theta$ is a parameter that
-describes the uncertainty about $s$. Higher $\theta$'s corresponds
-to more uncertainty about $s$.%
-\footnote{In the extreme case where the agent has no clue about $s$, $\theta$
-is a uniform distribution%
-} The expected value of choosing an admissible treatment intensity$t$
-is given by 
+for the patients is a random variable represented by $S$, characterized
+by a subjective cdf. $F(s),$with density $f(s)$, where $s$ is a
+realization of $S$. The expected value of choosing an admissible
+treatment intensity$t$ is given by 
 \begin{equation}
-u(t,\theta)=E[u(t,s)]=\max_{t}\int_{a}^{b}u(t,s)f(s,\theta)ds\label{eq:expected-utility-prior}
+u(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)dF(s)\label{eq:expected-utility-prior}
 \end{equation}
 
 
 It is however possible to acquire costly information about $s$ through
-medical diagnostics and physician effort. However, for information
-to be a desirable good we must have that more information makes the
-patient better off. As it it not possible to know the result of the
-information before it is obtained it is not exactly clear that more
-information is always better than less. For example, a ``surprising''
-observation will increase, rather than decrease, the uncertainty about
-$d$. Therefore we need a way to order information. Assume that for
-each $\gamma\in[0,\infty]$ there is a potentially observable random
-variable $\tilde{x}_{\gamma}$ which is correlated with $d$ such
-that for $\gamma<\gamma'$ $\tilde{x}$ is sufficient for $\tilde{x}'$
-as defined by \citep{Blackwell1953}. Then it is possible to interpret
-$\gamma$ as a measure of the amount of information conveyed by $\tilde{x}$,
-such that smaller $\gamma$'s indicate more informative. 
+medical diagnostics and physician effort. However, for two experiment
+$X,Y$ on $S$, it is not a priori certain that one experiment $X$
+is necessary more \emph{informative} about $s$ than the experiment
+$Y$, where \emph{informative} is to be understood in the way the
+posterior decision induced by the experiment $X$ insures greater
+expected utility than the decision induced by the experiment $Y$.
+Therefore we must introduce an order of information. 
 \begin{defn}
-\label{def:sufficiency}Let $f(x\mid d,\gamma)$ be the likelihood
-function. An observation of the random variable $\tilde{x}$ is sufficient
-for all observation of the random variable $\tilde{x}'$ if there
-exists a conditional density function $g$ such that 
+\label{def:afflilation}(\cite{Milgrom1982}) For a family of density
+functions, let $x\lor s$ denote the component wise maximum and $x\land s$
+the component wise minimum. Then $x$ and $s$ are affiliated if,
+for all $s$ and $x$
 \[
-f(x_{\gamma},d,\gamma')=\int_{X}g(x_{\gamma}'\mid x)f(x_{\gamma}\mid d,\gamma)dx_{\gamma}\,\forall x_{\gamma},d
+f(s\lor x)f(s\land x)\ge f(s)f(x)
 \]
 
-
-where $X$ is the sample space of $\tilde{x}$. \citep{Kihlstrom1974a}
 \end{defn}
-After observing $x$, the physician updates his prior by Bayes rule
+Affiliation of two random variables are equivalent to the monotone
+likelihood ration property, and the intuition behind definition \ref{def:afflilation}
+is that higher signal realization of $x$ makes the probability that
+$s$ is large, higher. Similarly small signal realization of $x$
+makes the probability of a small $s$ more likely.
+\begin{defn}
+\label{def:accuracy}(\cite{Acquisition2000}) Given two signals (experiments)
+$X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate than $X^{\eta}$
+if 
 \begin{equation}
-f(s\mid x,\gamma)=f(x\mid s,\gamma)f(s,\theta)/f(x,\gamma)\label{eq:Bayes}
+T(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{equation}
+ is non decreasing in $s$ for all $x$.
 
-
-The change in the physicians expectation about $d$ from observing
-the realization of $\tilde{x}_{\gamma}=x$ change the expected utility.
-When $x$ is observed, the expected utility is now given by 
-\begin{equation}
-u(t,\theta,x)=E[u(t,s,x)]=\max_{t}\int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\label{eq:updated-bayes}
-\end{equation}
-
-
-however, as the physician does not a priori know what information
-he receives from $\tilde{x}_{\gamma}$, we must average his expectation
-in \ref{eq:updated-bayes} by the probability of all realization of
-$\tilde{x}_{\gamma}.$ Therefore the decision about the amount of
-treatment $t$ is based on the maximization of 
-\begin{equation}
-u(t,\theta,\gamma)=E[u(t,s,x)]=\int_{X}\max_{t}\left\{ \int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\right\} f(x,\gamma)dx\label{eq:expected-update}
-\end{equation}
-
-
-In equation \ref{eq:expected-update} we might similarly to $\theta$
-interpret the parameter $\gamma$ to measure the degree of uncertainty
-about the information received. If the sufficiency condition holds,
-such that for $\gamma<\gamma'$ the information generated by $\tilde{x'}_{\gamma}$
-is a garbling of $\tilde{x}_{\gamma}$, then \citet[theorem 6.3]{Marschak1968}
-has shown that utility increases, as $\gamma$ decreases. 
-
-Medical diagnostics and physician effort is, however, not free. To
-capture the cost of information I define the cost function $C(\gamma)$
-where $C$ is the price of observing $\tilde{x}_{\gamma}$ in utiles.
-It is assumed that $C'(\gamma)>0$ and $C''(\gamma)>0$.
-
-The physician must then make his decision about $t$ about $\gamma$
-sequentially. First the physician chooses a quantity of information
-$\gamma$ and then chooses a treatment that maximizes expected utility.
-However, as information cannot be returned, the physician must base
-his decision of $\gamma$ on the maximization of \ref{eq:expected-posterior}
-\begin{equation}
-u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\int_{a}^{b}u(t,s)dF^{\gamma}(x\mid s)dF^{\gamma}(x)dsdx-C(\gamma)\right]\label{eq:expected-posterior}
-\end{equation}
-
-
-now the first order conditions of expected utility gives that 
-\begin{eqnarray*}
-\int_{X}\int_{a}^{b}u(t,s)\left[f(s\mid x,\gamma)f_{\gamma}(x,\gamma)+f_{\gamma}(s\mid x,\gamma)f(s,\theta)\right]dsdx & = & C_{\gamma}(\gamma)\\
-\int_{X}\int_{a}^{b}u_{t}(t,s)f(s\mid x,\gamma)f(x,\gamma)dsdx & = & 0
-\end{eqnarray*}
-
-
-
-\subsubsection{Case 1: a change in severity of illness}
-
-An increase in the severity of illness can be archived by shifting
-the patients distribution of $d$ to the right. let $\Delta$ be the
-distance by which the distribution is shifted and leave all other
-moments of the distribution unchanged. Then let $f(s,\theta)=q(s-\Delta,\theta)$,
-so that the distribution of $f$ is simply the distribution of $q$
-shifted to the right by the distance $\Delta$ for all $s$. Then
-I can write 
+A family of signals $\left\{ X^{\eta}\right\} _{\eta\in E}$ is accuracy
+ordered (A-ordered) if a signal with higher index is more accurate
+than a signal with lower index. 
+\end{defn}
+To understand the concept of accuracy, it can be noted that 
 \[
-u(t,\theta,\gamma)=\mathbb{E}[u(t,s,x)]=\max_{\gamma}\left[\int_{X}\max_{t}\left\{ \int_{a}^{b}u(t,s)f(s\mid x,\gamma)ds\right\} f(x,\gamma)dx-C(\gamma)\right]
+T(X^{\eta}\mid s)\sim X^{\eta'}\mid s
 \]
 
 
-
-\subsubsection{Case 2: a change in the riskiness of $d$
+Thus a more accurate signal can be obtained from a less accurate signal,
+by the transformation $T(X)$. An illustrative example can also be
+given by applying $\eqref{eq:acuracy tranformation}$ to hypothesis
+testing. 
+\begin{example}
+Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let
+$X^{\eta}$ be a information structure affiliated with $S$. The optimal
+test based on $X^{\eta}$ is given by the rejection region $X^{\eta}>x^{*}$,
+such that $s_{1}$ is rejected in favor of $s_{2}$ when $X^{\eta}>x^{*}$.
+The probability of a type I error is then $\mathbb{P}(X^{\eta}\le x^{*})=F(x^{*}\mid s_{2})$
+and the probability of a type II error is $1-F(x^{*}\mid s_{1})$.
+Now given that $X^{\eta'}$ is more accurate than $X^{\eta}$ is is
+possible to design a test with the same probability of type I error,
+by choosing $x^{**}$ such that $F(x^{**}\mid s_{2})=F(x^{*}\mid s_{2})$
+(e.i. accept $s_{2}$ if $X^{\eta}\ge x^{**}$). However, since $X^{\eta'}$
+is more accurate than $X^{\eta}$, then $x^{**}\ge F^{\eta'^{-1}}(F^{\eta}(x\mid s_{1})\mid s_{1})$.
+As $x^{**}$ lies on or, to the right of $x^{*}$ then the test based
+on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$\cite{Lehmann1988,Acquisition2000}.
+\end{example}
+Another example
+\begin{example}
+Let $\eta\in[0,\infty]$ and let $S$ be distributed according to
+any CDF and let $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$. Then
+for $\eta'>\eta$ 
 \[
-\forall
+\frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
 \]
-}
-
-
-\subsubsection{Case 3: a change in the riskiness of the signal $s$}
-
+ Thus, $T(x)$ transforms $X^{\eta}$ into $X^{\eta'}$ \cite{Persico1996}.\end{example}
+\begin{thm}
+(\cite{Acquisition2000}) Suppose that $X^{\eta}$ and $X^{\eta'}$
+are affiliated with $S$ and that $\left\{ X^{\eta}\right\} _{\eta\in E}$
+is A-ordered, such that $X^{\eta'}$ is more accurate than $X^{\eta}$.
+Then for all utility functions with a single crossing property $X^{\eta'}$
+is more informative than $X^{\eta}$.\end{thm}
+\begin{proof}
+See \cite{Lehmann1988} section 4 and \cite{Karlin1956a} Lemma 3,4
+and theorem 1.
+\end{proof}
 \bibliographystyle{plainnat}
 \bibliography{C:/Users/okorf/Dropbox/PhD/Bibtexfiles/library}
 

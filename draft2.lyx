@@ -6,8 +6,6 @@
 \begin_preamble
 % article example for classicthesis.sty
  % KOMA-Script article 
-\usepackage{etex}
-\reserveinserts{28}
 \usepackage[nochapters]{classicthesis}% nochapters
 \let\oldtitle\title
 \renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
@@ -15,21 +13,16 @@
 \renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
 \date{}
 
-\definecolor{Blue}{cmyk}{1, 0.878, 0, 0}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{pst-plot}
-\usepackage{pst-func}
+\definecolor{Blue}{RGB}{0,100,255}
+
+\usepackage{tikzscale}
 \usepackage{mathtools}
-\psset{algebraic}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
 \end_preamble
 \options paper=a4,fontsize=10pt
-\use_default_options true
+\use_default_options false
 \begin_modules
-todonotes
 theorems-ams-bytype
+todonotes
 \end_modules
 \maintain_unincluded_children false
 \language english
@@ -51,7 +44,7 @@ theorems-ams-bytype
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 10
 \spacing single
 \use_hyperref true
 \pdf_bookmarks true
@@ -77,7 +70,7 @@ theorems-ams-bytype
 \use_package stmaryrd 0
 \use_package undertilde 0
 \cite_engine natbib
-\cite_engine_type numerical
+\cite_engine_type authoryear
 \biblio_style plain
 \use_bibtopic false
 \use_indices false
@@ -129,7 +122,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset FormulaMacro
-\newcommand{\argmax}{\operatornamewithlimits{arg\, min}}
+\newcommand{\argmax}{\operatornamewithlimits{arg\, max}}
 {\textrm{arg max}}
 \end_inset
 
@@ -265,6 +258,15 @@ Further it might be interesting to show that
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\argmax}{\operatornamewithlimits{arg\, max}}
+{\text{arg max}}
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 The Patients Utility
 \end_layout
@@ -347,7 +349,7 @@ Assuming that the decision problem has a unique solution
 \emph on
 risk-sensitivity
 \emph default
- is increasing in 
+ is monotonically increasing in 
 \begin_inset Formula $s$
 \end_inset
 
@@ -360,6 +362,23 @@ u(t',s)\ge u(t',s')\label{eq:risk-sensitivity}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Definition
+for all 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+, and I write that 
+\begin_inset Formula $u(t',s)\preceq u(t',s')$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -378,6 +397,12 @@ reference "fig:The-patients-utility"
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:single-crossing"
+
+\end_inset
+
 If the risk sensitivity is increasing in 
 \begin_inset Formula $s$
 \end_inset
@@ -451,13 +476,46 @@ reference "eq:risk-sensitivity"
 \end_layout
 
 \begin_layout Standard
+The intuition behind theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:single-crossing"
+
+\end_inset
+
+, is that the marginal change 
+\begin_inset Formula $u(t',\cdot)-u(t,\cdot)$
+\end_inset
+
+ is larger, when 
+\begin_inset Formula $s$
+\end_inset
+
+ is larger.
+ When 
+\begin_inset Formula $u(t,s)$
+\end_inset
+
+ is differentiable one might also see that 
+\begin_inset Formula $\partial u(t,s')/\partial t$
+\end_inset
+
+ crosses 
+\begin_inset Formula $\partial u(t,s)/\partial t$
+\end_inset
+
+ only once and from below, as 
+\begin_inset Formula $s$
+\end_inset
+
+ increases.
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
@@ -468,24 +526,6 @@ filename "fig/utility.tex"
 \end_inset
 
 
-\end_layout
-
-\end_inset
-
-
-\begin_inset Flex Missing Figure
-status open
-
-\begin_layout Plain Layout
-Risk sensitivity
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -495,7 +535,28 @@ name "fig:The-patients-utility"
 
 \end_inset
 
-The patients utility functions
+The patients utility functions.
+ If for the same change in 
+\begin_inset Formula $t$
+\end_inset
+
+ the loss in utility is smaller for 
+\begin_inset Formula $s$
+\end_inset
+
+ than for 
+\begin_inset Formula $s'$
+\end_inset
+
+, when 
+\begin_inset Formula $s<s',$
+\end_inset
+
+then I says that risk sensitivity is increasing in 
+\begin_inset Formula $s$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -503,16 +564,68 @@ The patients utility functions
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
+
+\begin_layout Proposition
+Given that 
+\begin_inset Formula $u(t,s')-u(t,s)$
+\end_inset
+
+ has a single crossing property in 
+\begin_inset Formula $s$
+\end_inset
+
+ and that both 
+\begin_inset Formula $S$
+\end_inset
+
+ and 
+\begin_inset Formula $T$
+\end_inset
+
+ are well ordered sets, then 
+\begin_inset Formula 
+\[
+t^{*}(s)=\argmax_{s\in S}u(t,s)
+\]
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Proposition
+is increasing in 
+\begin_inset Formula $s$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+As both 
+\begin_inset Formula $T$
+\end_inset
+
+ and 
+\begin_inset Formula $S$
+\end_inset
+
+ are real line, then it follows trivially that they are well ordered.
+ For the rest of the proof see 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Milgrom1994"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Uncertainty with perfect agency
 \end_layout
 
@@ -607,6 +720,10 @@ informative
 .
  Therefore we must introduce an order of information.
  
+\end_layout
+
+\begin_layout Subsection
+Information ordering
 \end_layout
 
 \begin_layout Definition
@@ -766,7 +883,59 @@ Thus a more accurate signal can be obtained from a less accurate signal,
 \end_inset
 
 .
- An illustrative example can also be given by applying 
+ An example is given in example 
+\end_layout
+
+\begin_layout Example
+Let  
+\begin_inset Formula $\eta\in[0,\infty]$
+\end_inset
+
+and let 
+\begin_inset Formula $S$
+\end_inset
+
+ be distributed according to any CDF and let 
+\begin_inset Formula $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$
+\end_inset
+
+ .
+ Then for 
+\begin_inset Formula $\eta'>\eta$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
+\]
+
+\end_inset
+
+ Thus, 
+\begin_inset Formula $T(x)$
+\end_inset
+
+ transforms 
+\begin_inset Formula $X^{\eta}$
+\end_inset
+
+ into 
+\begin_inset Formula $X^{\eta'}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Persico1996"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+An illustrative example can also be given by applying 
 \begin_inset Formula $\eqref{eq:acuracy tranformation}$
 \end_inset
 
@@ -879,7 +1048,7 @@ Consider the case where
 \begin_inset Formula $X^{\eta}$
 \end_inset
 
-
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Lehmann1988,Acquisition2000"
@@ -893,55 +1062,23 @@ key "Lehmann1988,Acquisition2000"
 Another example
 \end_layout
 
-\begin_layout Example
-Let 
-\begin_inset Formula $\eta\in[0,\infty]$
-\end_inset
+\begin_layout Subsection
+Demand for information
+\end_layout
 
- and let 
-\begin_inset Formula $S$
-\end_inset
-
- be distributed according to any CDF and let 
-\begin_inset Formula $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$
-\end_inset
-
-.
- Then for 
-\begin_inset Formula $\eta'>\eta$
-\end_inset
-
+\begin_layout Standard
+Given that we now know, when a test can be considered more informative than
+ another, I can know turn to the problem of informativeness.
  
-\begin_inset Formula 
-\[
-\frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
-\]
-
-\end_inset
-
- Thus, 
-\begin_inset Formula $T(x)$
-\end_inset
-
- transforms 
-\begin_inset Formula $X^{\eta}$
-\end_inset
-
- into 
-\begin_inset Formula $X^{\eta'}$
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "Persico1996"
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:informative"
+
+\end_inset
+
 (
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -1000,14 +1137,45 @@ key "Karlin1956a"
 
 \end_inset
 
- Lemma 3,4 and theorem 1.
+ Lemma 3--4 and theorem 1.
+\end_layout
+
+\begin_layout Standard
+It follows directly from theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:informative"
+
+\end_inset
+
+ that when 
+\begin_inset Formula $X^{\eta'}$
+\end_inset
+
+ is more informative than 
+\begin_inset Formula $X^{\eta}$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\[
+\int_{X}\int_{S}u(t,s)dG^{\eta'}(s\mid x)dF(x)\ge\int_{X}\int_{S}u(t,s)dG^{\eta}(s\mid x)dF(x)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Dynamic setting
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "C:/Users/okorf/Dropbox/PhD/Bibtexfiles/library"
-options "plainnat"
+options "econometrica"
 
 \end_inset
 

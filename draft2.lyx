@@ -15,8 +15,8 @@
 
 \definecolor{Blue}{RGB}{0,100,255}
 
-\usepackage{tikzscale}
 \usepackage{mathtools}
+\let\marginpar\oldmarginpar %fix for todo notes
 \end_preamble
 \options paper=a4,fontsize=10pt
 \use_default_options false
@@ -329,7 +329,7 @@ risk-sensitive
 
 \begin_layout Definition
 Assuming that the decision problem has a unique solution 
-\begin_inset Formula $t^{*}$
+\begin_inset Formula $t^{*}(s)$
 \end_inset
 
 , and for 
@@ -337,7 +337,7 @@ Assuming that the decision problem has a unique solution
 \end_inset
 
 , 
-\begin_inset Formula $u(t^{*},s)=u(t^{*},s')$
+\begin_inset Formula $u(t^{*}(s),s)=u(t^{*}(s),s')$
 \end_inset
 
 .
@@ -551,6 +551,16 @@ reference "fig:The-patients-utility"
 
  at most once and from below.
  
+\begin_inset Flex TODO Note (Margin)
+status open
+
+\begin_layout Plain Layout
+Need to be sure that this is true
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -643,6 +653,20 @@ is increasing in
 \begin_inset Formula $s$
 \end_inset
 
+.
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+It should be noted that the assumption of quasisupermodularity is not needed
+ as the choice space is well ordered (e.i.
+ a chain).
+ 
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -664,6 +688,64 @@ key "Milgrom1994"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Example
+A function with the properties defined in theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:single-crossing"
+
+\end_inset
+
+ and definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:risk-sensitivity"
+
+\end_inset
+
+ and have the form as in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-patients-utility"
+
+\end_inset
+
+ is 
+\begin_inset Formula 
+\begin{equation}
+u(t,s)=c-s(s-t)^{2}\label{eq:utility-example}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+where 
+\begin_inset Formula $t,s\in\mathbb{R}^{+}$
+\end_inset
+
+.
+ The derivative 
+\begin_inset Formula $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:utility-example"
+
+\end_inset
+
+ has increasing differences and thereby also a single crossing property
+ in 
+\begin_inset Formula $(t,s)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section

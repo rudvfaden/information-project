@@ -1,12 +1,15 @@
-
-%!TEX program = TS-xelatex 
+%% LyX 2.1.0 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
 \documentclass[10pt,english,paper=a4,fontsize=10pt]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{color}
+\usepackage{babel}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{fontspec}
-\usepackage{color}
 \usepackage{esint}
+\usepackage[authoryear]{natbib}
 \usepackage[unicode=true,
  bookmarks=true,bookmarksnumbered=true,bookmarksopen=false,
  breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=true]
@@ -16,37 +19,36 @@
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\RequirePackage{todonotes}
   \theoremstyle{definition}
   \newtheorem{defn}{\protect\definitionname}
 \theoremstyle{plain}
 \newtheorem{thm}{\protect\theoremname}
+  \theoremstyle{plain}
+  \newtheorem{prop}{\protect\propositionname}
  \theoremstyle{definition}
   \newtheorem{example}{\protect\examplename}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 % article example for classicthesis.sty
  % KOMA-Script article 
-\usepackage{lipsum}%\usepackage{../classicthesis-ldpkg}
 \usepackage[nochapters]{classicthesis}% nochapters
 \let\oldtitle\title
 \renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
 \let\oldauthor\author
 \renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
 \date{}
-\usepackage{auto-pst-pdf}
-\usepackage{pstricks}
-\usepackage{pst-plot}
-\usepackage{pst-func}
+
+\definecolor{Blue}{RGB}{0,100,255}
+
 \usepackage{mathtools}
-\psset{algebraic}
+\let\marginpar\oldmarginpar %fix for todo notes
 
 \makeatother
 
-\usepackage{xunicode}
-\usepackage{polyglossia}
-\setdefaultlanguage{english}
   \providecommand{\definitionname}{Definition}
   \providecommand{\examplename}{Example}
+  \providecommand{\propositionname}{Proposition}
 \providecommand{\theoremname}{Theorem}
 
 \begin{document}
@@ -61,10 +63,13 @@
 
 
 
+\global\long\def\argmax{\operatornamewithlimits{arg\, max}}
+
+
 
 \section{The Patients Utility}
 
-Following \cite{Rochaix1989}, the patient has a utility function
+Following \citet{Rochaix1989}, the patient has a utility function
 \begin{eqnarray*}
 U & = & u(t,s):\, T\times S\rightarrow\mathbb{R}
 \end{eqnarray*}
@@ -78,33 +83,80 @@ It is further assumed that the disutility of moving away from the
 optimum is increasing in $s$, such that the patient is more \emph{risk-sensitive}
 for higher values of $s$. 
 \begin{defn}
-Assuming that the decision problem has a unique solution $t^{*}$,
-and for $s'>s$, $u(t^{*},s)=u(t^{*},s')$. Then for $t'\ne t$, the
-\emph{risk-sensitivity} is increasing in $s$, if 
+Assuming that the decision problem has a unique solution $t^{*}(s)$,
+and for $s'>s$, $u(t^{*}(s),s)=u(t^{*}(s'),s')$. Then for $t'\ne t$,
+the \emph{risk-sensitivity} is monotonically increasing in $s$, if
 \begin{equation}
 u(t',s)\ge u(t',s')\label{eq:risk-sensitivity}
 \end{equation}
 
+
+for all $s$ and $t$, and I write that $u(t',s)\preceq u(t',s')$. 
 \end{defn}
 The notion of \emph{risk-sensitivity} is illustrated in figure \ref{fig:The-patients-utility}.
 \begin{thm}
-If the risk sensitivity is increasing in $s$, then for $s'>s$ $u(t,s')-u(t,s)$
-has a single crossing property in $(s,t)$\end{thm}
+\label{thm:single-crossing}If the risk sensitivity is increasing
+in $s$, then for $s'>s$ $u(t,s)$ has a single crossing property
+in $(s,t)$\end{thm}
 \begin{proof}
 For $u(t,s')-u(t,s)$ to have a single crossing property in $(s,t)$,
 it must be true that for $s''>s'>s$ and $t'>t$, $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
 implies that $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$. Now, clearly,
 since \ref{eq:risk-sensitivity} holds for $s'>s$ it also holds for
 $s''>s'$. Therefore is is clear that $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
-implies $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$.
+implies $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$. \todo{Need to be sure that this is true}
 \end{proof}
+The intuition behind theorem \ref{thm:single-crossing}, is that the
+marginal change $u(t',\cdot)-u(t,\cdot)$ is larger, when $s$ is
+larger. When $u(t,s)$ is differentiable and concave as in figure
+\ref{fig:The-patients-utility}, one might note $\partial u(t,s)/\partial t\ge0$
+for $t\le t^{*}(s)$ and that for $\partial u(t,s)/\partial t\le0$
+for $t\ge t^{*}(s)$. Thereby $\partial u(t,s')/\partial t>\partial u(t,s)/\partial t$
+for $t\le t^{*}(s)$ and $\partial u(t,s')/\partial t<\partial u(t,s)/\partial t$
+for $t\ge t^{*}(s)$. If $u(t,s)$ is convex, then one might note
+that $\partial u(t,s')/\partial t$ crosses $\partial u(t,s)/\partial t$
+at most once and from below. 
+
 \begin{figure}
-\protect\caption{\label{fig:The-patients-utility}The patients utility functions}
+\include{fig/utility}\protect\caption{\label{fig:The-patients-utility}The patients utility functions. If
+for the same change in $t$ the loss in utility is smaller for $s$
+than for $s'$, when $s<s',$then I says that risk sensitivity is
+increasing in $s$.}
 \end{figure}
 
+\begin{prop}
+Given that $u(t,s')-u(t,s)$ has a single crossing property in $s$
+and that both $S$ and $T$ are well ordered sets, then 
+\[
+t^{*}(s)=\argmax_{s\in S}u(t,s)
+\]
 
 
-\subsection{Uncertainty with perfect agency}
+is increasing in $s$. %
+\footnote{It should be noted that the assumption of quasisupermodularity is
+not needed as the choice space is well ordered (e.i. a chain). %
+}\end{prop}
+\begin{proof}
+As both $T$ and $S$ are real line, then it follows trivially that
+they are well ordered. For the rest of the proof see \citet{Milgrom1994}\end{proof}
+\begin{example}
+A function with the properties defined in theorem \ref{thm:single-crossing}
+and definition \ref{eq:risk-sensitivity} and have the form as in
+figure \ref{fig:The-patients-utility} is 
+\begin{equation}
+u(t,s)=c-s(s-t)^{2}\label{eq:utility-example}
+\end{equation}
+
+
+where $t,s\in\mathbb{R}^{+}$. Assuming that \eqref{eq:utility-example}
+is continuous and twice differential in $t,s$, the derivative $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$
+and \eqref{eq:utility-example} has increasing differences and thereby
+also a single crossing property in $(t,s)$. However, \eqref{eq:utility-example}
+is not supermodular ($\partial^{2}u(t,s)\big/\partial t^{2}=-2<0)$
+nor quasisupermodular in $(t,s)$. 
+\end{example}
+
+\section{Uncertainty with perfect agency}
 
 In reality however, $s$ is never observed. The level of severity
 for the patients is a random variable represented by $S$, characterized
@@ -124,8 +176,11 @@ $Y$, where \emph{informative} is to be understood in the way the
 posterior decision induced by the experiment $X$ insures greater
 expected utility than the decision induced by the experiment $Y$.
 Therefore we must introduce an order of information. 
+
+
+\subsection{Information ordering}
 \begin{defn}
-\label{def:afflilation}(\cite{Milgrom1982}) For a family of density
+\label{def:afflilation}(\citet{Milgrom1982}) For a family of density
 functions, let $x\lor s$ denote the component wise maximum and $x\land s$
 the component wise minimum. Then $x$ and $s$ are affiliated if,
 for all $s$ and $x$
@@ -140,9 +195,9 @@ is that higher signal realization of $x$ makes the probability that
 $s$ is large, higher. Similarly small signal realization of $x$
 makes the probability of a small $s$ more likely.
 \begin{defn}
-\label{def:accuracy}(\cite{Acquisition2000}) Given two signals (experiments)
-$X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate than $X^{\eta}$
-if 
+\label{def:accuracy}(\citet{Acquisition2000}) Given two signals
+(experiments) $X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate
+than $X^{\eta}$ if 
 \begin{equation}
 T(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{equation}
@@ -159,9 +214,18 @@ T(X^{\eta}\mid s)\sim X^{\eta'}\mid s
 
 
 Thus a more accurate signal can be obtained from a less accurate signal,
-by the transformation $T(X)$. An illustrative example can also be
-given by applying $\eqref{eq:acuracy tranformation}$ to hypothesis
-testing. 
+by the transformation $T(X)$. An example is given in example 
+\begin{example}
+Let  $\eta\in[0,\infty]$and let $S$ be distributed according to
+any CDF and let $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$ . Then
+for $\eta'>\eta$ 
+\[
+\frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
+\]
+ Thus, $T(x)$ transforms $X^{\eta}$ into $X^{\eta'}$ \citep{Persico1996}.
+\end{example}
+An illustrative example can also be given by applying $\eqref{eq:acuracy tranformation}$
+to hypothesis testing. 
 \begin{example}
 Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let
 $X^{\eta}$ be a information structure affiliated with $S$. The optimal
@@ -175,28 +239,44 @@ by choosing $x^{**}$ such that $F(x^{**}\mid s_{2})=F(x^{*}\mid s_{2})$
 (e.i. accept $s_{2}$ if $X^{\eta}\ge x^{**}$). However, since $X^{\eta'}$
 is more accurate than $X^{\eta}$, then $x^{**}\ge F^{\eta'^{-1}}(F^{\eta}(x\mid s_{1})\mid s_{1})$.
 As $x^{**}$ lies on or, to the right of $x^{*}$ then the test based
-on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$\cite{Lehmann1988,Acquisition2000}.
+on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$
+\citep{Lehmann1988,Acquisition2000}.
+
+\begin{figure}
+\include{fig/t-transformation}
+
+\protect\caption{The T(x) transformation}
+
+
+\end{figure}
+
 \end{example}
-Another example
-\begin{example}
-Let $\eta\in[0,\infty]$ and let $S$ be distributed according to
-any CDF and let $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$. Then
-for $\eta'>\eta$ 
-\[
-\frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
-\]
- Thus, $T(x)$ transforms $X^{\eta}$ into $X^{\eta'}$ \cite{Persico1996}.\end{example}
+
+\subsection{Demand for information}
+
+Given that we now know, when a test can be considered more informative
+than another, I can know turn to the problem of informativeness. 
 \begin{thm}
-(\cite{Acquisition2000}) Suppose that $X^{\eta}$ and $X^{\eta'}$
-are affiliated with $S$ and that $\left\{ X^{\eta}\right\} _{\eta\in E}$
+\label{thm:informative}(\citet{Acquisition2000}) Suppose that $X^{\eta}$
+and $X^{\eta'}$ are affiliated with $S$ and that $\left\{ X^{\eta}\right\} _{\eta\in E}$
 is A-ordered, such that $X^{\eta'}$ is more accurate than $X^{\eta}$.
 Then for all utility functions with a single crossing property $X^{\eta'}$
 is more informative than $X^{\eta}$.\end{thm}
 \begin{proof}
-See \cite{Lehmann1988} section 4 and \cite{Karlin1956a} Lemma 3,4
-and theorem 1.
+See \citet{Lehmann1988} section 4 and \citet{Karlin1956a} Lemma
+3--4 and theorem 1.
 \end{proof}
-\bibliographystyle{plainnat}
+It follows directly from theorem \ref{thm:informative} that when
+$X^{\eta'}$ is more informative than $X^{\eta}$, then 
+\[
+\int_{X}\int_{S}u(t,s)dG^{\eta'}(s\mid x)dF(x)\ge\int_{X}\int_{S}u(t,s)dG^{\eta}(s\mid x)dF(x)
+\]
+
+
+
+\section{Dynamic setting}
+
+\bibliographystyle{econometrica}
 \bibliography{C:/Users/okorf/Dropbox/PhD/Bibtexfiles/library}
 
 \end{document}

@@ -496,7 +496,52 @@ reference "thm:single-crossing"
 \begin_inset Formula $u(t,s)$
 \end_inset
 
- is differentiable one might also see that 
+ is differentiable and concave as in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-patients-utility"
+
+\end_inset
+
+, one might note 
+\begin_inset Formula $\partial u(t,s)/\partial t\ge0$
+\end_inset
+
+ for 
+\begin_inset Formula $t\le t^{*}(s)$
+\end_inset
+
+ and that for 
+\begin_inset Formula $\partial u(t,s)/\partial t\le0$
+\end_inset
+
+ for 
+\begin_inset Formula $t\ge t^{*}(s)$
+\end_inset
+
+.
+ Thereby 
+\begin_inset Formula $\partial u(t,s')/\partial t>\partial u(t,s)/\partial t$
+\end_inset
+
+ for 
+\begin_inset Formula $t\le t^{*}(s)$
+\end_inset
+
+ and 
+\begin_inset Formula $\partial u(t,s')/\partial t<\partial u(t,s)/\partial t$
+\end_inset
+
+ for 
+\begin_inset Formula $t\ge t^{*}(s)$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $u(t,s)$
+\end_inset
+
+ is convex, then one might note that 
 \begin_inset Formula $\partial u(t,s')/\partial t$
 \end_inset
 
@@ -504,11 +549,7 @@ reference "thm:single-crossing"
 \begin_inset Formula $\partial u(t,s)/\partial t$
 \end_inset
 
- only once and from below, as 
-\begin_inset Formula $s$
-\end_inset
-
- increases.
+ at most once and from below.
  
 \end_layout
 
@@ -1058,8 +1099,41 @@ key "Lehmann1988,Acquisition2000"
 .
 \end_layout
 
-\begin_layout Standard
-Another example
+\begin_layout Example
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset include
+LatexCommand include
+filename "fig/t-transformation.tex"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The T(x) transformation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

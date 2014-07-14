@@ -54,7 +54,6 @@ $RECYCLE.BIN/
 *.pdf
 
 ### LyX ###
-.lyx~
-draft2.lyx~
+*.lyx~
 omb3u03t.4xb.txt
-.lyx#
+*.lyx#

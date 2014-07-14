@@ -1,0 +1,9 @@
+
+%\resizebox{0.45\textwidth}{!}{%
+\begin{tikzpicture}
+\draw[very thin,color=gray] (-0.1,-0.1) grid (4.9,4.9);
+\draw[<-] (1,5) -- (1,0);
+\draw[->] (0,2.5)--(5,2.5);
+\draw[scale=0.5,domain=0:9,smooth,variable=\x] plot ({\x},{\x+0.5}) node[right]{$u(t,s)-u(t',s)$};
+\end{tikzpicture}
+%}

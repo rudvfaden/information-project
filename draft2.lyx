@@ -328,6 +328,12 @@ risk-sensitive
 \end_layout
 
 \begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:risk-sensitivity"
+
+\end_inset
+
 Assuming that the decision problem has a unique solution 
 \begin_inset Formula $t^{*}(s)$
 \end_inset
@@ -342,7 +348,19 @@ Assuming that the decision problem has a unique solution
 
 .
  Then for 
-\begin_inset Formula $t'\ne t$
+\begin_inset Formula $t^{*}(s)>t_{1}$
+\end_inset
+
+ , 
+\begin_inset Formula $t^{*}(s')>t_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $t_{2}\ge t_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $t^{*}(s')-t_{2}=t^{*}(s)-t_{1}=\Delta t$
 \end_inset
 
 , the 
@@ -356,7 +374,7 @@ risk-sensitivity
 , if 
 \begin_inset Formula 
 \begin{equation}
-u(t',s)\ge u(t',s')\label{eq:risk-sensitivity}
+0\le u(t^{*}(s),s)-u(t_{1},s)\le u(t^{*}(s'),s')-u(t_{2},s')\label{eq:risk-sensitivity}
 \end{equation}
 
 \end_inset
@@ -374,7 +392,7 @@ for all
 \end_inset
 
 , and I write that 
-\begin_inset Formula $u(t',s)\preceq u(t',s')$
+\begin_inset Formula $u(t_{1},s)\preceq u(t_{2},s')$
 \end_inset
 
 .
@@ -423,67 +441,57 @@ If the risk sensitivity is increasing in
 \end_layout
 
 \begin_layout Proof
-For 
-\begin_inset Formula $u(t,s')-u(t,s)$
-\end_inset
-
- to have a single crossing property in 
-\begin_inset Formula $(s,t)$
-\end_inset
-
-, it must be true that for 
-\begin_inset Formula $s''>s'>s$
+Let 
+\begin_inset Formula $t'=t^{*}(s')$
 \end_inset
 
  and 
-\begin_inset Formula $t'>t$
-\end_inset
-
-, 
-\begin_inset Formula $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
-\end_inset
-
- implies that 
-\begin_inset Formula $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$
+\begin_inset Formula $t=t^{*}(s)$
 \end_inset
 
 .
- Now, clearly, since 
+ Given definition 
 \begin_inset CommandInset ref
 LatexCommand ref
+reference "def:risk-sensitivity"
+
+\end_inset
+
+, it is clear that 
+\begin_inset Formula $t'\ge t_{2}>t\ge t_{1}.$
+\end_inset
+
+ Therefore I can rewrite 
+\begin_inset CommandInset ref
+LatexCommand eqref
 reference "eq:risk-sensitivity"
 
 \end_inset
 
- holds for 
-\begin_inset Formula $s'>s$
+ as 
+\begin_inset Formula 
+\begin{equation}
+u(t',s')-u(t_{2},s')\ge u(t,s)-u(t_{1},s)\ge0\label{eq:increasing-differences}
+\end{equation}
+
 \end_inset
 
- it also holds for 
-\begin_inset Formula $s''>s'$
-\end_inset
 
-.
- Therefore is is clear that 
-\begin_inset Formula $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
-\end_inset
-
- implies 
-\begin_inset Formula $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$
-\end_inset
-
-.
- 
-\begin_inset Flex TODO Note (Margin)
-status open
-
-\begin_layout Plain Layout
-Need to be sure that this is true
 \end_layout
 
+\begin_layout Proof
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:increasing-differences"
+
 \end_inset
 
+ clearly have increasing differences in 
+\begin_inset Formula $s$
+\end_inset
 
+ and thereby satisfies the single crossing property.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -614,7 +622,7 @@ draw[dashed] (4.3,8.8)--(5,8.8)node[right]{$u(t,s)$};
 
 
 \backslash
-draw[] (4.3,9.6)--(5,9.6)node[right]{$u(t',s)$};  
+draw[] (4.3,9.6)--(5,9.6)node[right]{$u(t,s')$};  
 \end_layout
 
 \begin_layout Plain Layout
@@ -633,9 +641,7 @@ draw[dotted] (2.7,0)node[below]{$t'$}--(2.7,10);
 
 
 \backslash
-draw[dotted] (1.5,0)node[below]{$
-\backslash
-Delta t$}--(1.5,8); 
+draw[dotted] (1.5,0)node[below]{$t_2$}--(1.5,8); 
 \end_layout
 
 \begin_layout Plain Layout
@@ -649,9 +655,7 @@ draw[dotted] (1,0)node[below]{$t$}--(1,10);
 
 
 \backslash
-draw[dotted] (-0.2,0)node[below]{$
-\backslash
-Delta t$}--(-0.23,9.15); 
+draw[dotted] (-0.2,0)node[below]{$ t_1$}--(-0.23,9.15); 
 \end_layout
 
 \begin_layout Plain Layout
@@ -742,7 +746,7 @@ begin{tikzpicture}[scale=0.9]
 
 
 \backslash
-draw[<-] (1,5) -- (1,0)node[below]{x}; 
+draw[<-] (1,5) -- (1,0)node[below,color=white]{x'}; 
 \end_layout
 
 \begin_layout Plain Layout
@@ -756,8 +760,8 @@ draw[->] (0,2.5)--(5,2.5);
 
 
 \backslash
-draw  plot[smooth, tension=1] coordinates {(0,0) (2,3) (5,5)} node[above]{$u(t',
-s)-u(t,s)$};
+draw  plot[smooth, tension=1] coordinates {(0,0) (2,3) (5,5)} node[above]{$u(t,s
+')-u(t,s)$};
 \end_layout
 
 \begin_layout Plain Layout
@@ -848,7 +852,7 @@ then I says that risk sensitivity is increasing in
 
 \begin_layout Proposition
 Given that 
-\begin_inset Formula $u(t,s')-u(t,s)$
+\begin_inset Formula $u(t',s)-u(t,s)$
 \end_inset
 
  has a single crossing property in 
@@ -1575,6 +1579,10 @@ reference "thm:informative"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+The physician problem
 \end_layout
 
 \begin_layout Section

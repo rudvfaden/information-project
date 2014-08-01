@@ -267,6 +267,35 @@ Further it might be interesting to show that
 
 \end_layout
 
+\begin_layout Abstract
+In this project, I examine provider and patient demand for information in
+ a dynamic model where the diagnosis precision is assumed to be related
+ to physician effort, and effort is noncontractible.
+ In each period where the patient and physician interact, the physician
+ gathers information about the patient, and the diagnostic precision is
+ increased.
+ Therefore optimal physician effort is decreases as the physician and patient
+ tie increases.
+ As the physician is unobserved, the insurance compensates the physician
+ by the average effort in the physician population and physician will not
+ provide an optimal level of diagnostic precision in the in the first encounters
+ with a new patient.
+ Therefore the switching cost of the patient increases as the tie with the
+ physician lengthens.
+ This model explains (i) why the cost is negatively related with patient
+ physician ties and (ii) also introduces the concept of a 
+\begin_inset Quotes eld
+\end_inset
+
+information trap
+\begin_inset Quotes erd
+\end_inset
+
+, where competition is deceasing in the patient physician tie as switching
+ cost increases.
+ 
+\end_layout
+
 \begin_layout Section
 The Patients Utility
 \end_layout

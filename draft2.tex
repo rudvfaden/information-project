@@ -1,7 +1,6 @@
-%% LyX 2.1.0 created this file.  For more info, see http://www.lyx.org/.
+%% LyX 2.1.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
 \documentclass[10pt,english,paper=a4,fontsize=10pt]{scrartcl}
-\usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{color}
 \usepackage{babel}
@@ -16,12 +15,12 @@
  {hyperref}
 \hypersetup{
  urlcolor=webbrown,linkcolor=Blue,citecolor=webgreen}
-
+\usepackage{tikz}
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
-\RequirePackage{todonotes}
   \theoremstyle{definition}
-  \newtheorem{defn}{\protect\definitionname}
+  \newtheorem{defn}{\protect\definiti
+  onname}
 \theoremstyle{plain}
 \newtheorem{thm}{\protect\theoremname}
   \theoremstyle{plain}
@@ -44,6 +43,9 @@
 \usepackage{mathtools}
 \let\marginpar\oldmarginpar %fix for todo notes
 
+\@ifundefined{showcaptionsetup}{}{%
+ \PassOptionsToPackage{caption=false}{subfig}}
+\usepackage{subfig}
 \makeatother
 
   \providecommand{\definitionname}{Definition}
@@ -65,14 +67,31 @@
 
 \global\long\def\argmax{\operatornamewithlimits{arg\, max}}
 
-
+\begin{abstract}
+In this project, I examine provider and patient demand for information
+in a dynamic model where the diagnostic precision is assumed to be
+related to physician effort, and effort is noncontractible. In each
+period where the patient and physician interact, the physician gathers
+information about the patient, and the diagnostic precision is increased.
+Therefore, optimal physician effort decreases as the physician and
+patient tie increases. As the physician is unobserved, the insurer
+compensates the physician by the average effort in the physician population
+and physician will not provide an optimal level of diagnostic precision
+in the in the first encounters with a new patient. Therefore the switching
+cost of the patient increases as the tie with the physician lengthens.
+This model explains (i) why the cost is negatively related with patient,
+physician ties and (ii) also introduces the concept of an \textquotedblleft information
+trap\textquotedblright , where competition is deceasing in the patient
+physician tie as switching cost increases. Increases.
+\end{abstract}
 
 \section{The Patients Utility}
 
 Following \citet{Rochaix1989}, the patient has a utility function
 \begin{eqnarray*}
-U=u(t,s):\, T\times S\rightarrow\mathbb{R}
+U & = & u(t,s):\, T\times S\rightarrow\mathbb{R}
 \end{eqnarray*}
+
 
 where $t$ is treatment, $s$ is disease variable classified by its
 severity of illness, where both $t$ and $s$ traverse a real line.
@@ -81,16 +100,19 @@ parts to capture the negative effects of both under and over treatment.
 It is further assumed that the disutility of moving away from the
 optimum is increasing in $s$, such that the patient is more \emph{risk-sensitive}
 for higher values of $s$. 
-\begin{defn}
-Assuming that the decision problem has a unique solution $t^{*}(s)$,
-and for $s'>s$, $u(t^{*}(s),s)=u(t^{*}(s'),s')$. Then for $t'\ne t$,
-the \emph{risk-sensitivity} is monotonically increasing in $s$, if
+\begin{defn}%
+%\label{def:risk-sensitivity}
+ Assuming that the decision problem has
+a unique solution $t^{*}(s)$, and for $s'>s$, $u(t^{*}(s),s)=u(t^{*}(s'),s')$.
+Then for $t^{*}(s)>t_{1}$ , $t^{*}(s')>t_{2}$, $t_{2}\ge t_{1}$
+and $t^{*}(s')-t_{2}=t^{*}(s)-t_{1}=\Delta t$, the \emph{risk-sensitivity}
+is monotonically increasing in $s$, if 
 \begin{equation}
-u(t',s)\ge u(t',s')\label{eq:risk-sensitivity}
+0\le u(t^{*}(s),s)-u(t_{1},s)\le u(t^{*}(s'),s')-u(t_{2},s')\label{eq:risk-sensitivity}
 \end{equation}
 
 
-for all $s$ and $t$, and I write that $u(t',s)\preceq u(t',s')$. 
+for all $s$ and $t$, and I write that $u(t_{1},s)\preceq u(t_{2},s')$. 
 \end{defn}
 The notion of \emph{risk-sensitivity} is illustrated in figure \ref{fig:The-patients-utility}.
 \begin{thm}
@@ -98,12 +120,16 @@ The notion of \emph{risk-sensitivity} is illustrated in figure \ref{fig:The-pati
 in $s$, then for $s'>s$ $u(t,s)$ has a single crossing property
 in $(s,t)$\end{thm}
 \begin{proof}
-For $u(t,s')-u(t,s)$ to have a single crossing property in $(s,t)$,
-it must be true that for $s''>s'>s$ and $t'>t$, $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
-implies that $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$. Now, clearly,
-since \ref{eq:risk-sensitivity} holds for $s'>s$ it also holds for
-$s''>s'$. Therefore is is clear that $u(t',s')-u(t,s')\ge u(t',s)-u(t,s)$
-implies $u(t',s'')-u(t,s'')\ge u(t',s')-u(t,s')$. \todo{Need to be sure that this is true}
+Let $t'=t^{*}(s')$ and $t=t^{*}(s)$. Given definition \ref{def:risk-sensitivity},
+it is clear that $t'\ge t_{2}>t\ge t_{1}.$ Therefore I can rewrite
+\eqref{eq:risk-sensitivity} as 
+\begin{equation}
+u(t',s')-u(t_{2},s')\ge u(t,s)-u(t_{1},s)\ge0\label{eq:increasing-differences}
+\end{equation}
+
+
+\eqref{eq:increasing-differences} clearly have increasing differences
+in $s$ and thereby satisfies the single crossing property. 
 \end{proof}
 The intuition behind theorem \ref{thm:single-crossing}, is that the
 marginal change $u(t',\cdot)-u(t,\cdot)$ is larger, when $s$ is
@@ -117,14 +143,43 @@ that $\partial u(t,s')/\partial t$ crosses $\partial u(t,s)/\partial t$
 at most once and from below. 
 
 \begin{figure}
-\include{fig/utility}\protect\caption{\label{fig:The-patients-utility}The patients utility functions. If
+\subfloat[Utility]{\resizebox{0.45\textwidth}{!}{%
+\begin{tikzpicture}[scale=0.5]
+\draw[<->] (-3.5,10) node[above]{}--(-3.5,0)--(6.5,0)node[right]{}; 
+\draw[dashed] (4.3,8.8)--(5,8.8)node[right]{$u(t,s)$}; 
+\draw[] (4.3,9.6)--(5,9.6)node[right]{$u(t,s')$};  
+\draw[dashed]  plot[smooth, tension=1.2] coordinates {(-3.2,0) (1,10) (4.16,0)}; \draw  plot[smooth, tension=1.2] coordinates {(0.5,0) (2.7,10) (5.86,0)}; \draw[dotted] (2.7,0)node[below]{$t'$}--(2.7,10); 
+\draw[dotted] (1.5,0)node[below]{$t_2$}--(1.5,8); 
+\draw[dotted] (1,0)node[below]{$t$}--(1,10); 
+\draw[dotted] (-0.2,0)node[below]{$ t_1$}--(-0.23,9.15); 
+\draw[dotted] (1.5,8)--(-3.5,8); 
+\draw[dotted] (-0.23,9.15)--(-3.5,9.15);
+\end{tikzpicture}
+}
+
+
+}\hfill{}\subfloat[Single Crossing]{
+%\resizebox{0.45\textwidth}{!}{%
+\begin{tikzpicture}[scale=0.9]
+\draw[<-] (1,5) -- (1,0)node[below,color=white]{x'}; 
+\draw[->] (0,2.5)--(5,2.5); 
+\draw  plot[smooth, tension=1] coordinates {(0,0) (2,3) (5,5)} node[above]{$u(t,s')-u(t,s)$};
+\end{tikzpicture}  
+%}
+
+
+
+
+}
+
+\protect\caption{\label{fig:The-patients-utility}The patients utility functions. If
 for the same change in $t$ the loss in utility is smaller for $s$
 than for $s'$, when $s<s',$then I says that risk sensitivity is
 increasing in $s$.}
 \end{figure}
 
 \begin{prop}
-Given that $u(t,s')-u(t,s)$ has a single crossing property in $s$
+Given that $u(t',s)-u(t,s)$ has a single crossing property in $s$
 and that both $S$ and $T$ are well ordered sets, then 
 \[
 t^{*}(s)=\argmax_{s\in S}u(t,s)
@@ -179,7 +234,8 @@ Therefore we must introduce an order of information.
 
 \subsection{Information ordering}
 \begin{defn}
-\label{def:afflilation}(\citet{Milgrom1982}) For a family of density
+%\label{def:afflilation}
+(\citet{Milgrom1982}) For a family of density
 functions, let $x\lor s$ denote the component wise maximum and $x\land s$
 the component wise minimum. Then $x$ and $s$ are affiliated if,
 for all $s$ and $x$
@@ -194,7 +250,8 @@ is that higher signal realization of $x$ makes the probability that
 $s$ is large, higher. Similarly small signal realization of $x$
 makes the probability of a small $s$ more likely.
 \begin{defn}
-\label{def:accuracy}(\citet{Acquisition2000}) Given two signals
+%\label{def:accuracy}
+(\citet{Acquisition2000}) Given two signals
 (experiments) $X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate
 than $X^{\eta}$ if 
 \begin{equation}
@@ -245,7 +302,6 @@ on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$
 \include{fig/t-transformation}
 
 \protect\caption{The T(x) transformation}
-
 \end{figure}
 
 \end{example}
@@ -272,9 +328,12 @@ $X^{\eta'}$ is more informative than $X^{\eta}$, then
 
 
 
+\section{The physician problem}
+
+
 \section{Dynamic setting}
 
-\bibliographystyle{econometrica}
-\bibliography{C:/Users/okorf/Dropbox/PhD/Bibtexfiles/library}
+%\bibliographystyle{econometrica}
+\bibliography{library.bib}
 
 \end{document}

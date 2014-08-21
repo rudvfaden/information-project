@@ -117,144 +117,6 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset FormulaMacro
-\newcommand{\argmax}{\operatornamewithlimits{arg\, max}}
-{\textrm{arg max}}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-To do:
-\end_layout
-
-\begin_layout Enumerate
-Show that utility increases with information
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-Show that 
-\begin_inset Formula $u(t,s)f(s\mid x)$
-\end_inset
-
- is increasing in 
-\begin_inset Formula $x$
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-show that the greatest lower bound of 
-\begin_inset Formula $u(t,s)f(s\mid x)\ge u(t,s)f(s\mid x')\forall t\in T$
-\end_inset
-
- where 
-\begin_inset Formula $x>x'$
-\end_inset
-
- implies that 
-\begin_inset Formula $f(s\mid x)$
-\end_inset
-
- is more accurate than 
-\begin_inset Formula $f(s\mid x')$
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Enumerate
-Define how information is accumulated over time
-\end_layout
-
-\begin_layout Enumerate
-Show that if information is accumulated over time, such that 
-\begin_inset Formula $f_{t}(s\mid x)$
-\end_inset
-
- is more accurate than 
-\begin_inset Formula $f_{t-1}(s\mid x)$
-\end_inset
-
-, then 
-\begin_inset Formula $u_{t}(t,s)f_{t}(s\mid x)\ge u_{t-1}(t,s)f_{t-1}(s\mid x)\forall t\in T$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Show that given 1-3 switching cost are increasing over time
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-Let the accuracy of 
-\begin_inset Formula $f(s\mid x)$
-\end_inset
-
- depend on physician skill 
-\begin_inset Formula $y$
-\end_inset
-
- and let 
-\begin_inset Formula $y$
-\end_inset
-
- be distributed with 
-\begin_inset Formula $G(y)$
-\end_inset
-
-, then show that the expected value of 
-\begin_inset Formula $u_{t}(t,s)f_{t}(s\mid x)G(y)$
-\end_inset
-
- is decreasing in 
-\begin_inset Formula $t$
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Plain Layout
-Further it might be interesting to show that 
-\end_layout
-
-\begin_layout Enumerate
-\begin_inset Formula $\phi(x)=\argmax_{x}u(t,s)f(s\mid x)$
-\end_inset
-
- is increasing in 
-\begin_inset Formula $x$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-\begin_inset Formula $\phi(t)=\argmax_{t}u(t,s)f(s\mid x)$
-\end_inset
-
- is increasing in 
-\begin_inset Formula $s$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
@@ -269,31 +131,24 @@ Further it might be interesting to show that
 
 \begin_layout Abstract
 In this project, I examine provider and patient demand for information in
- a dynamic model where the diagnosis precision is assumed to be related
+ a dynamic model where the diagnostic precision is assumed to be related
  to physician effort, and effort is noncontractible.
  In each period where the patient and physician interact, the physician
  gathers information about the patient, and the diagnostic precision is
  increased.
- Therefore optimal physician effort is decreases as the physician and patient
+ Therefore, optimal physician effort decreases as the physician and patient
  tie increases.
- As the physician is unobserved, the insurance compensates the physician
- by the average effort in the physician population and physician will not
- provide an optimal level of diagnostic precision in the in the first encounters
+ As the physician is unobserved, the insurer compensates the physician by
+ the average effort in the physician population and physician will not provide
+ an optimal level of diagnostic precision in the in the first encounters
  with a new patient.
  Therefore the switching cost of the patient increases as the tie with the
  physician lengthens.
- This model explains (i) why the cost is negatively related with patient
- physician ties and (ii) also introduces the concept of a 
-\begin_inset Quotes eld
-\end_inset
-
-information trap
-\begin_inset Quotes erd
-\end_inset
-
-, where competition is deceasing in the patient physician tie as switching
+ This model explains (i) why the cost is negatively related with patient,
+ physician ties and (ii) also introduces the concept of an “information
+ trap”, where competition is deceasing in the patient physician tie as switching
  cost increases.
- 
+ Increases.
 \end_layout
 
 \begin_layout Section

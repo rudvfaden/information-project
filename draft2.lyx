@@ -6,15 +6,11 @@
 \begin_preamble
 % article example for classicthesis.sty
  % KOMA-Script article 
-\usepackage[nochapters]{classicthesis}% nochapters
-\let\oldtitle\title
-\renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
-\let\oldauthor\author
-\renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
-\date{}
+
 
 \definecolor{Blue}{RGB}{0,100,255}
-
+\definecolor{webbrown}{RGB}{226, 109, 0}
+\definecolor{webgreen}{RGB}{45, 211, 0}
 \usepackage{mathtools}
 \let\marginpar\oldmarginpar %fix for todo notes
 \end_preamble
@@ -70,7 +66,7 @@ todonotes
 \use_package stmaryrd 0
 \use_package undertilde 0
 \cite_engine natbib
-\cite_engine_type authoryear
+\cite_engine_type numerical
 \biblio_style plain
 \use_bibtopic false
 \use_indices false
@@ -1476,11 +1472,15 @@ Dynamic setting
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "C:/Users/okorf/Dropbox/PhD/Bibtexfiles/library"
-options "econometrica"
+bibfiles "/home/rudfaden/Dropbox/PhD/Bibtexfiles/library"
+options "apalike"
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 

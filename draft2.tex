@@ -1,6 +1,7 @@
 %% LyX 2.1.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
 \documentclass[10pt,english,paper=a4,fontsize=10pt]{scrartcl}
+\usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{color}
 \usepackage{babel}
@@ -15,12 +16,12 @@
  {hyperref}
 \hypersetup{
  urlcolor=webbrown,linkcolor=Blue,citecolor=webgreen}
-\usepackage{tikz}
+
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\RequirePackage{todonotes}
   \theoremstyle{definition}
-  \newtheorem{defn}{\protect\definiti
-  onname}
+  \newtheorem{defn}{\protect\definitionname}
 \theoremstyle{plain}
 \newtheorem{thm}{\protect\theoremname}
   \theoremstyle{plain}
@@ -31,14 +32,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 % article example for classicthesis.sty
  % KOMA-Script article 
-\usepackage[nochapters]{classicthesis}% nochapters
-\let\oldtitle\title
-\renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
-\let\oldauthor\author
-\renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
+%\usepackage[nochapters]{classicthesis}% nochapters
+%\let\oldtitle\title
+%\renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
+%\let\oldauthor\author
+%\renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
 \date{}
 
 \definecolor{Blue}{RGB}{0,100,255}
+\definecolor{webbrown}{RGB}{226, 109, 0}
+\definecolor{webgreen}{RGB}{45, 211, 0}
 
 \usepackage{mathtools}
 \let\marginpar\oldmarginpar %fix for todo notes
@@ -100,9 +103,8 @@ parts to capture the negative effects of both under and over treatment.
 It is further assumed that the disutility of moving away from the
 optimum is increasing in $s$, such that the patient is more \emph{risk-sensitive}
 for higher values of $s$. 
-\begin{defn}%
-%\label{def:risk-sensitivity}
- Assuming that the decision problem has
+\begin{defn}
+\label{def:risk-sensitivity}Assuming that the decision problem has
 a unique solution $t^{*}(s)$, and for $s'>s$, $u(t^{*}(s),s)=u(t^{*}(s'),s')$.
 Then for $t^{*}(s)>t_{1}$ , $t^{*}(s')>t_{2}$, $t_{2}\ge t_{1}$
 and $t^{*}(s')-t_{2}=t^{*}(s)-t_{1}=\Delta t$, the \emph{risk-sensitivity}
@@ -234,8 +236,7 @@ Therefore we must introduce an order of information.
 
 \subsection{Information ordering}
 \begin{defn}
-%\label{def:afflilation}
-(\citet{Milgrom1982}) For a family of density
+\label{def:afflilation}(\citet{Milgrom1982}) For a family of density
 functions, let $x\lor s$ denote the component wise maximum and $x\land s$
 the component wise minimum. Then $x$ and $s$ are affiliated if,
 for all $s$ and $x$
@@ -250,8 +251,7 @@ is that higher signal realization of $x$ makes the probability that
 $s$ is large, higher. Similarly small signal realization of $x$
 makes the probability of a small $s$ more likely.
 \begin{defn}
-%\label{def:accuracy}
-(\citet{Acquisition2000}) Given two signals
+\label{def:accuracy}(\citet{Acquisition2000}) Given two signals
 (experiments) $X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate
 than $X^{\eta}$ if 
 \begin{equation}
@@ -302,6 +302,8 @@ on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$
 \include{fig/t-transformation}
 
 \protect\caption{The T(x) transformation}
+
+
 \end{figure}
 
 \end{example}
@@ -333,7 +335,7 @@ $X^{\eta'}$ is more informative than $X^{\eta}$, then
 
 \section{Dynamic setting}
 
-%\bibliographystyle{econometrica}
-\bibliography{library.bib}
+\bibliographystyle{plain}
+\bibliography{../Bibtexfiles/library.bib}
 
 \end{document}

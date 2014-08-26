@@ -6,12 +6,18 @@
 \begin_preamble
 % article example for classicthesis.sty
  % KOMA-Script article 
+\usepackage[nochapters]{classicthesis}% nochapters
+\let\oldtitle\title
+\renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
+\let\oldauthor\author
+\renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
+\date{}
 
+\definecolor{Blue}{cmyk}{1, 0.878, 0, 0}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amssymb}
 
-\definecolor{Blue}{RGB}{0,100,255}
-\definecolor{webbrown}{RGB}{226, 109, 0}
-\definecolor{webgreen}{RGB}{45, 211, 0}
-\usepackage{mathtools}
 \let\marginpar\oldmarginpar %fix for todo notes
 \end_preamble
 \options paper=a4,fontsize=10pt
@@ -66,7 +72,7 @@ todonotes
 \use_package stmaryrd 0
 \use_package undertilde 0
 \cite_engine natbib
-\cite_engine_type numerical
+\cite_engine_type authoryear
 \biblio_style plain
 \use_bibtopic false
 \use_indices false

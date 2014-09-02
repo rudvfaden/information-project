@@ -795,7 +795,7 @@ As both
 \begin_inset Formula $S$
 \end_inset
 
- are real line, then it follows trivially that they are well ordered.
+ are real lines, then it follows trivially that they are well ordered.
  For the rest of the proof see 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -1479,7 +1479,7 @@ Dynamic setting
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "/home/rudfaden/Dropbox/PhD/Bibtexfiles/library"
-options "apalike"
+options "plainnat"
 
 \end_inset
 

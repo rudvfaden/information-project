@@ -56,3 +56,5 @@ $RECYCLE.BIN/
 ### LyX ###
 *.lyx~
 *.lyx#
+#draft2.tex#
+_region_.tex

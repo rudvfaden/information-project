@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{standalone}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.10}
 \usetikzlibrary{patterns}
@@ -33,6 +33,7 @@ declare function={ normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\
 \node[below] at (axis cs:2,0){$s^0_1$};
 \node[below] at (axis cs:3,0){$s^0_2$};
 %power 
+
 \addplot+ [
     fill=orange,
     fill opacity=0.2,

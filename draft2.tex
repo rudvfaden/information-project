@@ -1,7 +1,6 @@
 %% LyX 2.1.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
 \documentclass[10pt,english,paper=a4,fontsize=10pt]{scrartcl}
-\usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{color}
 \usepackage{babel}
@@ -14,7 +13,8 @@
  bookmarks=true,bookmarksnumbered=true,bookmarksopen=false,
  breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=true]
  {hyperref}
-%\hypersetup{urlcolor=webbrown,linkcolor=Blue,citecolor=webgreen}
+\hypersetup{
+ urlcolor=webbrown,linkcolor=Blue,citecolor=webgreen}
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -29,20 +29,20 @@
   \newtheorem{example}{\protect\examplename}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-
 % article example for classicthesis.sty
  % KOMA-Script article 
-%\usepackage[nochapters]{classicthesis}% nochapters
-%\let\oldtitle\title
-%\renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
-%\let\oldauthor\author
-%\renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
+\usepackage[nochapters]{classicthesis}% nochapters
+\let\oldtitle\title
+\renewcommand{\title}[1]{\oldtitle{\rmfamily\normalfont\spacedallcaps{#1}}}
+\let\oldauthor\author
+\renewcommand{\author}[1]{\oldauthor{\spacedlowsmallcaps{#1}}}
 \date{}
 
-\definecolor{Blue}{RGB}{0,100,255}
+\definecolor{Blue}{cmyk}{1, 0.878, 0, 0}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{amssymb}
 
-
-\usepackage{mathtools}
 \let\marginpar\oldmarginpar %fix for todo notes
 
 \@ifundefined{showcaptionsetup}{}{%
@@ -192,7 +192,7 @@ is increasing in $s$. %
 not needed as the choice space is well ordered (e.i. a chain). %
 }\end{prop}
 \begin{proof}
-As both $T$ and $S$ are real line, then it follows trivially that
+As both $T$ and $S$ are real lines, then it follows trivially that
 they are well ordered. For the rest of the proof see \citet{Milgrom1994}\end{proof}
 \begin{example}
 A function with the properties defined in theorem \ref{thm:single-crossing}
@@ -335,6 +335,8 @@ $X^{\eta'}$ is more informative than $X^{\eta}$, then
 \section{Dynamic setting}
 
 \bibliographystyle{plainnat}
-\bibliography{../Bibtexfiles/library.bib}
+\bibliography{/home/rudfaden/Dropbox/PhD/Bibtexfiles/library}
+
+
 
 \end{document}

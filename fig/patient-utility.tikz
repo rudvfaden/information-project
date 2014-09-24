@@ -1,4 +1,4 @@
-% -*- root: ../draft2.tex -*-
+% -*- root: ../Main/draft2.tex -*-
 \begin{tikzpicture}[scale=0.5]
 \draw[<->] (-3.5,10) node[above]{}--(-3.5,0)--(6.5,0)node[right]{};
 \draw[dashed] (4.3,8.8)--(5,8.8)node[right]{$u(t,s)$};

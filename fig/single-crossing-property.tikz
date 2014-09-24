@@ -1,4 +1,4 @@
-% -*- root: ../draft2.tex -*-
+% -*- root: ../Main/draft2.tex -*-
 \begin{tikzpicture}[scale=0.9]
 \draw[<-] (1,5) -- (1,0)node[below,color=white]{x'};
 \draw[->] (0,2.5)--(5,2.5);

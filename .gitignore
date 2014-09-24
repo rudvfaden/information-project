@@ -52,6 +52,9 @@ $RECYCLE.BIN/
 *.xdy
 *.tdo
 *.pdf
+*.fls
+*.xls
+*.ptex
 
 ### LyX ###
 *.lyx~
@@ -65,3 +68,6 @@ fig/t-transformation.fls
 fig/t-transformation.ptex
 draft2-blx.bib
 draft2.run.xml
+
+### Sublime Text ###
+*.sublime-workspace

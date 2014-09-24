@@ -1,16 +1,9 @@
-\documentclass{standalone}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.10}
-\usetikzlibrary{patterns}
-\usepackage{tkz-fct}
-\usetikzlibrary{intersections}
-\begin{document}
-
+% -*- root: ../Main/draft2.tex -*-
 \begin{tikzpicture}[
-declare function={ normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\s));
-                 },
+declare function={ 
+    normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\s));
+    },
 ]
-
 \begin{axis}[
   no markers, domain=-2:8, samples=100,
   axis lines*=left, 
@@ -55,8 +48,8 @@ declare function={ normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\
 \end{tikzpicture}
 
 \begin{tikzpicture}[
-declare function={ normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\s));
-                 },
+    declare function={ normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\s));
+    },
 ]
 
 \begin{axis}[
@@ -102,6 +95,4 @@ declare function={ normal(\x,\u,\s) = 1/(\s*sqrt(2*pi))*exp(-pow((\x-\u),2)/(2*\
 \end{axis}
 
 
-\end{tikzpicture}
-
-\end{document}            
+\end{tikzpicture}           

@@ -1,8 +1,0 @@
-\resizebox{0.45\textwidth}{!}{%
-    \begin{tikzpicture}
-\draw[<->] (0,5.5) -- (0,0)--(5.5,0);
-\draw[very thin, color=gray] (0,0) grid (5.5,5.5);
-\draw[scale=0.5,domain=0.84:7.16,smooth,variable=\x,dashed] plot ({\x},{10-pow((\x-4),2)});
-\draw[scale=0.5,domain=1.84:8.16,smooth,variable=\x] plot ({\x},{10-pow((\x-5),2)});
-    \end{tikzpicture}
-}

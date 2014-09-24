@@ -1,62 +1,6 @@
-
 \documentclass[10pt,a4paper]{article} % KOMA-Script article scrartcl
-\usepackage{lipsum}
-\usepackage{url}
-\usepackage{tikz, mathtools}
-\usepackage{amsthm} %theorems and definition
-\usepackage[nochapters]{classicthesis} % nochapters
-\usepackage{booktabs} %for tables
-\usepackage{subfig} %sulbfigures
-\usepackage{wrapfig} % Allows wrapping text around tables and figures
-%Colors
-\hypersetup{
-	colorlinks = true,      %	Color links instead of ugly boxes
-	urlcolor   = webbrown,  %	Colors for external hyperlinks
-	linkcolor  = blue,      %	Colors of internal links
-	citecolor  = webgreen 	%	Colors of citations
-}
 
-%%--------------------------------------------------------------------------
-%% Theorem & Definitions
-%%--------------------------------------------------------------------------
-
-% Theorem Styles
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{lemma}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{corollary}[thm]{Corollary}
-% Definition Styles
-\theoremstyle{definition}
-\newtheorem{defn}{Definition}[section]
-\newtheorem{example}{Example}[section]
-\theoremstyle{remark}
-\newtheorem{remark}{Remark}
-
-%%--------------------------------------------------------------------------
-%% Biblatex
-%%--------------------------------------------------------------------------
-
-\usepackage[%
-  backend=bibtex,   % use BibTeX
-  style=authoryear,
-  natbib=true,
-  url=false
-]{biblatex}
-\addbibresource{Remote.bib}
-
-%%--------------------------------------------------------------------------
-%% User specified LaTeX commands.
-%%--------------------------------------------------------------------------
-
-\global\long\def\argmax{\operatornamewithlimits{arg\, max}} % make the \argmax command available
-
-%%--------------------------------------------------------------------------
-%% title and author
-%%--------------------------------------------------------------------------
-
-\title{\rmfamily\normalfont\spacedallcaps{Physician Information Acquisition In a Dynamic Setting}}
-\author{\spacedlowsmallcaps{Rud Faden}}
-\date{} % no date
+\input{configure}
 
 \begin{document}
 
@@ -121,12 +65,12 @@ The intuition behind theorem\ref{thm:single-crossing}, is that the marginal chan
 \begin{figure}
 	\subfloat[Utility]{
 		\resizebox{0.45\textwidth}{!}{%
-		\includegraphics{fig/patient-utility.pdf}
+		\includegraphics{../fig/patient-utility.pdf}
 	}
 }
 	\subfloat[Single Crossing]{
 		\resizebox{0.45\textwidth}{!}{%
-		\includegraphics{fig/single-crossing-property.pdf}
+		\includegraphics{../fig/single-crossing-property.pdf}
 	}
 }
 
@@ -237,7 +181,7 @@ Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let $X^{\eta}$ be
 \citep{Lehmann1988,Persico2000}.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{fig/t-transformation.pdf}
+\includegraphics[width=\textwidth]{../fig/t-transformation.pdf}
 \protect\caption{The $T(x)$ transformation}
 \end{figure}
 
@@ -282,5 +226,5 @@ In this section we will look at the physicans problem. Like in \citet{Allard2009
 
 \section{Dynamic setting}
 
-\printbibliography 
+\printbibliography
 \end{document}

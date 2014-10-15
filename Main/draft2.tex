@@ -1,6 +1,38 @@
-\documentclass[10pt,a4paper]{article} % KOMA-Script article scrartcl
-
-\input{configure}
+% -*- phrases: information-and-care -*-
+\RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package
+% Layout
+\documentclass[10pt,a4paper]{article} 					% KOMA-Script article scrartcl
+\usepackage[nochapters]{classicthesis} 					% nochapters
+%% Math
+\usepackage{mathtools} 									% math
+\usepackage{amsthm} 									% theorems and definition
+%% Figures and tables
+\usepackage{booktabs} 									% pretty tables
+\usepackage{subcaption} 								% subfigures
+\usepackage{pgfplots,tikz} \pgfplotsset{compat =1.11} 	% figures
+\usetikzlibrary{decorations.pathreplacing}
+%% References
+\usepackage{hyperref}  									% hypersetup
+\usepackage{cleveref} 									% auto-detect cross reference type when using \cref
+% bibliography
+\usepackage{csquotes}
+\emergencystretch=1em
+\usepackage[%
+backend=bibtex,   										% use BibTeX
+style=chicago-authordate,
+natbib=true,
+bibwarn=true,
+backref=true,
+url=false, isbn=false
+]{biblatex}
+\addbibresource[datatype=bibtex]{../../bib/library.bib}
+%% Misc. 
+\usepackage{microtype} 									% improves the spacing between words and letters
+\usepackage[colorinlistoftodos]{todonotes} 				% todo notes
+\usepackage{url} 										% for line breaks in url links
+\usepackage[titletoc,toc,title]{appendix} 				% appendices										
+% other configurations
+\input{configure.tex}
 
 \begin{document}
 
@@ -21,93 +53,83 @@ In this project, I examine provider and patient demand for information in a dyna
 \section{The Patients Utility}
 
 Following \citet{Rochaix1989}, the patient has a utility function
-\begin{eqnarray*}
-U & = & u(t,s):\, T\times S\rightarrow\mathbb{R}
-\end{eqnarray*}
- where $t$ is treatment, $s$ is disease variable classified by its severity of illness, where both $t$ and $s$ traverse a real line. It is assumed that the utility function has both increasing and decreasing parts to capture the negative effects of both under and over treatment. It is further assumed that the dis-utility of moving away from the optimum is increasing in $s$, such that the patient is more \emph{risk-sensitive} for higher values of $s$.
+\[
+	U = u(t,s):\, T\times S\rightarrow\mathbb{R}
+\]
+where $t$ is treatment, $s$ is disease variable classified by its severity of illness, where both $t$ and $s$ traverse a real line. It is assumed that the utility function has both increasing and decreasing parts to capture the negative effects of both under and over treatment. It is further assumed that the dis-utility of moving away from the optimum is increasing in $s$, such that the patient is more \emph{risk-sensitive} for higher values of $s$.
 
 %========== DEFINITION: Risk-sensitivity ==========%
-\begin{defn}
-\label{def:risk-sensitivity} 
+\begin{defn}\label{def:risk-sensitivity}
 Assuming that the decision problem has a unique solution $t^{*}(s)$, and for $s'>s$, $u(t^{*}(s),s)=u(t^{*}(s'),s')$. Then for $t^{*}(s)>t_{1}$, $t^{*}(s')>t_{2}$, $t_{2}\ge t_{1}$ and $t^{*}(s')-t_{2}=t^{*}(s)-t_{1}=\Delta t$, the \emph{risk-sensitivity} is monotonically increasing in $s$, if
-\begin{equation}
-0\le u(t^{*}(s),s)-u(t_{1},s)\le u(t^{*}(s'),s')-u(t_{2},s')\label{eq:risk-sensitivity}
-\end{equation}
+
+\[
+	0\le u(t^{*}(s),s)-u(t_{1},s)\le u(t^{*}(s'),s')-u(t_{2},s')\label{eq:risk-sensitivity}
+\]
+
 for all $s$ and $t$, and I write that $u(t_{1},s)\preceq u(t_{2},s')$.
 \end{defn}
 %==================================================%
 
-The notion of \emph{risk-sensitivity} is illustrated in figure\ref{fig:The-patients-utility}.
+The notion of \emph{risk-sensitivity} is illustrated in \cref{fig:The-patients-utility}.
 
 %========== THEOREM: Single crossing property ==========%
-\begin{thm}
-\label{thm:single-crossing} 
+\begin{thm}\label{thm:single-crossing}
 If the risk sensitivity is increasing in $s$, then for $s'>s$ $u(t,s)$ has a single crossing property in $(s,t)$
 \end{thm}
 %==================================================%
 
 %========== PROF - crossing property ==========%
 \begin{proof}
-Let $t'=t^{*}(s')$ and $t=t^{*}(s)$. Given definition\ref{def:risk-sensitivity}, it is clear that $t'\ge t_{2}>t\ge t_{1}$. Therefore I can rewrite
-\eqref{eq:risk-sensitivity} as
+Let $t'=t^{*}(s')$ and $t=t^{*}(s)$. Given \cref{def:risk-sensitivity}, it is clear that $t'\ge t_{2}>t\ge t_{1}$. Therefore I can rewrite \cref{eq:risk-sensitivity} as
 
-\begin{equation}
-u(t',s')-u(t_{2},s')\ge u(t,s)-u(t_{1},s)\ge0\label{eq:increasing-differences}
-\end{equation}
+\[
+	u(t',s')-u(t_{2},s')\ge u(t,s)-u(t_{1},s)\ge0\label{eq:increasing-differences}
+\]
 
-\eqref{eq:increasing-differences} clearly have increasing differences in $s$ and thereby satisfies the single crossing property.
+\cref{eq:increasing-differences} clearly have increasing differences in $s$ and thereby satisfies the single crossing property.
 \end{proof}
 %==================================================%
 
-The intuition behind theorem\ref{thm:single-crossing}, is that the marginal change $u(t',\cdot)-u(t,\cdot)$ is larger, when $s$ is larger. When $u(t,s)$ is differentiable and concave as in figure \ref{fig:The-patients-utility}, one might note $\partial u(t,s)/\partial t\ge0$ for $t\le t^{*}(s)$ and that for $\partial u(t,s)/\partial t\le0$ for $t\ge t^{*}(s)$. Thereby $\partial u(t,s')/\partial t>\partial u(t,s)/\partial t$ for $t\le t^{*}(s)$ and $\partial u(t,s')/\partial t<\partial u(t,s)/\partial t$ for $t\ge t^{*}(s)$. If $u(t,s)$ is convex, then one might note that $\partial u(t,s')/\partial t$ crosses $\partial u(t,s)/\partial t$ at most once and from below.
+The intuition behind \cref{thm:single-crossing}, is that the marginal change $u(t',\cdot)-u(t,\cdot)$ is larger, when $s$ is larger. When $u(t,s)$ is differentiable and concave as in \cref{fig:The-patients-utility}, one might note $\partial u(t,s)/\partial t\ge0$ for $t\le t^{*}(s)$ and that for $\partial u(t,s)/\partial t\le0$ for $t\ge t^{*}(s)$. Thereby $\partial u(t,s')/\partial t>\partial u(t,s)/\partial t$ for $t\le t^{*}(s)$ and $\partial u(t,s')/\partial t<\partial u(t,s)/\partial t$ for $t\ge t^{*}(s)$. If $u(t,s)$ is convex, then one might note that $\partial u(t,s')/\partial t$ crosses $\partial u(t,s)/\partial t$ at most once and from below.
 
-%========== Begin figure: Utility and single-crossing ==========%
+%========== FIGURE: Utility and single-crossing ==========%
 \begin{figure}
-	\subfloat[Utility]{
-		\resizebox{0.45\textwidth}{!}{%
-		\includegraphics{../fig/patient-utility.pdf}
-	}
-}
-	\subfloat[Single Crossing]{
-		\resizebox{0.45\textwidth}{!}{%
-		\includegraphics{../fig/single-crossing-property.pdf}
-	}
-}
-
-\caption{\label{fig:The-patients-utility}The patients utility functions. If for the same change in $t$ the loss in utility is smaller for $s$ than for $s'$, when $s<s'$, then I says that risk sensitivity isincreasing in $s$.}
+     \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{../fig/patient-utility.pdf}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{../fig/single-crossing-property.pdf}
+	\end{subfigure}
+\caption{\label{fig:The-patients-utility}The patients utility functions. If for the same change in $t$ the loss in utility is smaller for $s$ than for $s'$, when $s<s'$, then I says that risk sensitivity is increasing in $s$.}
 \end{figure}
-%========== End figure: Utility ==========%
+%=======================================================%
 
-%========== Begin proposition: Single-crossing property ==========%
+%========== PROPOSITION: Single-crossing property ==========%
 \begin{prop}
 Given that $u(t',s)-u(t,s)$ has a single crossing property in $s$ and that both $S$ and $T$ are well ordered sets, then
+\[
+	t^{*}(s)=\argmax_{s\in S}u(t,s)\label{eq:increasing-solution}
+\]
+is increasing in $s$.\footnote{It should be noted that the assumption of quasi-supermodularity is not needed as the choice space is well ordered (e.i.\ a chain).}
+\end{prop}
+
+\begin{proof}
+As both $T$ and $S$ are real lines, then it follows trivially that they are well ordered. For the rest of the proof see \textcite{Milgrom1994}
+\end{proof}
+%===========================================%
+
+%========== EXAMPLE: Single-crossing ==========%
+\begin{example}
+A function with the properties defined in \cref{thm:single-crossing} and \cref{eq:risk-sensitivity} and have the form as in \cref{fig:The-patients-utility} is
 
 \[
-t^{*}(s)=\argmax_{s\in S}u(t,s)
+	u(t,s) = c-s{(s-t)}^{2}\label{eq:utility-example}
 \]
 
-is increasing in $s$.\footnote{It should be noted that the assumption of quasisupermodularity is not needed as the choice space is well ordered (e.i.\ a chain). %
-}
-\end{prop}
-%========== End proposition: Single-crossing property ==========%
-
-%========== Begin prof: Single-crossing ==========%
-\begin{proof}
-As both $T$ and $S$ are real lines, then it follows trivially that they are well ordered. For the rest of the proof see \citet{Milgrom1994}
-\end{proof}
-%========== End prof: Single-crossing ==========%
-
-%========== Begin example: Single-crossing ==========%
-\begin{example}
-A function with the properties defined in theorem\ref{thm:single-crossing} and definition\ref{eq:risk-sensitivity} and have the form as in figure\ref{fig:The-patients-utility} is
-
-\begin{equation}
-u(t,s)=c-s{(s-t)}^{2}\label{eq:utility-example}
-\end{equation}
-
-where $t,s\in\mathbb{R}^{+}$. Assuming that\eqref{eq:utility-example} is continuous and twice differential in $t,s$, the derivative $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$ and~\eqref{eq:utility-example} has increasing differences and thereby also a single crossing property in $(t,s)$.
+where $t,s\in\mathbb{R}^{+}$. Assuming that \cref{eq:utility-example} is continuous and twice differential in $t,s$, the derivative $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$ and \cref{eq:utility-example} has increasing differences and thereby also a single crossing property in $(t,s)$.
 \end{example}
-%========== End example: Single-crossing ==========%
+%============================================%
 
 %%--------------------------------------------------------------------------
 %% Uncertainty with perfect agency
@@ -115,11 +137,11 @@ where $t,s\in\mathbb{R}^{+}$. Assuming that\eqref{eq:utility-example} is continu
 
 \section{Uncertainty with perfect agency}
 
-In reality however, $s$ is never observed. The level of severity for the patients is a random variable represented by $S$, characterized by a subjective cdf. $F(s)$, with density $f(s)$, where $s$ is a realization of $S$. The expected value of choosing an admissible treatment intensity$t$ is given by
+In reality however, $s$ is never observed. The level of severity for the patients is a random variable represented by $S$, characterized by a subjective cdf. $F(s)$, with density $f(s)$, where $s$ is a realization of $S$. The expected value of choosing an admissible treatment intensity $t$ is given by
 
-\begin{equation}
-u(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)dF(s)\label{eq:expected-utility-prior}
-\end{equation}
+\[
+	u(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)dF(s)\label{eq:expected-utility-prior}
+\]
 
 It is however possible to acquire costly information about $s$ through medical diagnostics and physician effort. However, for two experiment $X,Y$ on $S$, it is not a priori certain that one experiment $X$ is necessary more \emph{informative} about $s$ than the experiment $Y$, where \emph{informative} is to be understood in the way the posterior decision induced by the experiment $X$ insures greater expected utility than the decision induced by the experiment $Y$. Therefore we must introduce an order of information.
 
@@ -129,64 +151,62 @@ It is however possible to acquire costly information about $s$ through medical d
 
 \subsection{Information ordering}
 
-%========== Begin definition: affiliation ==========%
-\begin{defn}
-\label{def:afflilation} (\citet{Milgrom1982}) 
-For a family of densityfunctions, let $x\lor s$ denote the component wise maximum and $x\land s$the component wise minimum. Then $x$ and $s$ are affiliated if,for all $s$ and $x$
+%========== DEFINITION: affiliation ==========%
+\begin{defn}\label{def:afflilation} \parencite{Milgrom1982}
+For a family of densityfunctions, let $x\lor s$ denote the component wise maximum and $x\land s$ the component wise minimum. Then $x$ and $s$ are affiliated if for all $s$ and $x$
 \[
-f(s\lor x)f(s\land x)\ge f(s)f(x)
+	f(s\lor x)f(s\land x)\ge f(s)f(x)
 \]
 \end{defn}
-%========== End definition: affiliation ==========%
+%=============================================%
 
-Affiliation of two random variables are equivalent to the monotone likelihood ration property, and the intuition behind definition~\ref{def:afflilation} is that higher signal realization of $x$ makes the probability that $s$ is large, higher. Similarly small signal realization of $x$ makes the probability of a small $s$ more likely.
+Affiliation of two random variables are equivalent to the monotone likelihood ratio property, and the intuition behind definition\cref{def:afflilation} is that higher signal realization of $x$ makes the probability that $s$ is large, higher. Similarly small signal realization of $x$ makes the probability of a small $s$ more likely.
 
-%========== Begin definition: Accuracy ==========%
+%========== DEFINITION: Accuracy ==========%
 \begin{defn}\label{def:accuracy}
-(\citet{Persico2000}) Given two signals
-(experiments) $X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate than $X^{\eta}$ if
+\parencite{Persico2000} Given two signals (experiments) $X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate than $X^{\eta}$ if
 
-\begin{equation}
-T(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
-\end{equation}
+\[
+	T(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
+\]
 
 is non decreasing in $s$ for all $x$.
 
-A family of signals $\left\{ X^{\eta}\right\} _{\eta\in E}$ is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
+A family of signals $\left \{ X^{\eta}\right \} _{\eta\in E}$ is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
 \end{defn}
-%========== End definition: Accuracy ==========%
+%================================================%
 
 To understand the concept of accuracy, it can be noted that
 \[
-T(X^{\eta}\mid s)\sim X^{\eta'}\mid s
+	T(X^{\eta}\mid s)\sim X^{\eta'}\mid s
 \]
 
-Thus a more accurate signal can be obtained from a less accurate signal, by the transformation $T(X)$. An example is given in example
+Thus a more accurate signal can be obtained from a less accurate signal, by the transformation $T(X)$. For a better understanding of the accuracy concept, see \cref{ex:t-transformation-1,ex:t-transformation-2}.
 
-%========== Begin example: T-transformation 1 ==========%
-\begin{example}
-Let  $\eta\in[0,\infty]$and let $S$ be distributed according to any CDF and let $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$. Then for $\eta'>\eta$
+%========== EXAMPLE: T-transformation 1 ==========%
+\begin{example}\label{ex:t-transformation-1}
+Let  $\eta\in[0,\infty]$ and let $S$ be distributed according to any CDF and let $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$. Then for $\eta'>\eta$
 
 \[
 \frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
 \]
 
-Thus, $T(x)$ transforms $X^{\eta}$ into $X^{\eta'}$ \citep{Persico1996}.
-\end{example}
-An illustrative example can also be given by applying $\eqref{eq:acuracy tranformation}$ to hypothesis testing.
-
-%========== Begin Example: T-transformation 2==========%
-\begin{example}
-Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let $X^{\eta}$ be a information structure affiliated with $S$. The optimal test based on $X^{\eta}$ is given by the rejection region $X^{\eta}>x^{*}$, such that $s_{1}$ is rejected in favor of $s_{2}$ when $X^{\eta}>x^{*}$. The probability of a type I error is then $\mathbb{P}(X^{\eta}\le x^{*})=F(x^{*}\mid s_{2})$ and the probability of a type II error is $1-F(x^{*}\mid s_{1})$. Now given that $X^{\eta'}$ is more accurate than $X^{\eta}$ is is possible to design a test with the same probability of type I error, by choosing $x^{**}$ such that $F(x^{**}\mid s_{2})=F(x^{*}\mid s_{2})$ (e.i. \ accept $s_{2}$ if $X^{\eta}\ge x^{**}$). However, since $X^{\eta'}$ is more accurate than $X^{\eta}$, then $x^{**}\ge F^{\eta'^{-1}}(F^{\eta}(x\mid s_{1})\mid s_{1})$. As $x^{**}$ lies on or, to the right of $x^{*}$ then the test based on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$
-\citep{Lehmann1988,Persico2000}.
-
 \begin{figure}
-\includegraphics[width=\textwidth]{../fig/t-transformation.pdf}
-\protect\caption{The $T(x)$ transformation}
+	\includegraphics[width=\textwidth]{../fig/t-transformation.pdf}
+	\caption{\label{fig:t-transformation}The $T(x)$ transformation}
 \end{figure}
 
+Thus, $T(x)$ transforms $X^{\eta}$ into $X^{\eta'}$ \citep{Persico1996}. See also \cref{fig:t-transformation}.
 \end{example}
-%========== End example: T-transformation ==========%
+%=======================================================%
+An illustrative example can also be given by applying \cref{eq:acuracy tranformation} to hypothesis testing.
+
+%========== EXAMPLE: T-transformation 2==========%
+\begin{example}\label{ex:t-transformation-2}
+Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let $X^{\eta}$ be a information structure affiliated with $S$. The optimal test based on $X^{\eta}$ is given by the rejection region $X^{\eta}>x^{*}$, such that $s_{1}$ is rejected in favor of $s_{2}$ when $X^{\eta}>x^{*}$. The probability of a type I error is then $\mathbb{P}(X^{\eta}\le x^{*})=F(x^{*}\mid s_{2})$ and the probability of a type II error is $1-F(x^{*}\mid s_{1})$. Now given that $X^{\eta'}$ is more accurate than $X^{\eta}$ is is possible to design a test with the same probability of type I error, by choosing $x^{**}$ such that $F(x^{**}\mid s_{2})=F(x^{*}\mid s_{2})$ (e.i. \ accept $s_{2}$ if $X^{\eta}\ge x^{**}$). However, since $X^{\eta'}$ is more accurate than $X^{\eta}$, then $x^{**}\ge F^{\eta'^{-1}}(F^{\eta}(x\mid s_{1})\mid s_{1})$. As $x^{**}$ lies on or, to the right of $x^{*}$ then the test based on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$
+\citep{Lehmann1988,Persico2000}.\footnote{For a graphical example, see \cref{app:test-power}}
+\end{example}
+%=====================================================%
 
 %%--------------------------------------------------------------------------
 %% Subsection: Demand for information
@@ -196,35 +216,96 @@ Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let $X^{\eta}$ be
 
 Given that we now know, when a test can be considered more informative than another, I can know turn to the problem of informativeness.
 
-%========== Begin theorem: ilnformative ==========%
-\begin{thm}
-\label{thm:informative}
-(\citet{Persico2000}) 
-Suppose that $X^{\eta}$ and $X^{\eta'}$ are affiliated with $S$ and that $\left\{ X^{\eta}\right\} _{\eta\in E}$ is A-ordered, such that $X^{\eta'}$ is more accurate than $X^{\eta}$. Then for all utility functions with a single crossing properlty $X^{\eta'}$is more informative than $X^{\eta}$.
+%========== THEOREM: informative ==========%
+\begin{thm}\label{thm:informative}
+\parencite{Persico2000}
+Suppose that $X^{\eta}$ and $X^{\eta'}$ are affiliated with $S$ and that $\left \{X^{\eta}\right \} _{\eta\in E}$ is A-ordered, such that $X^{\eta'}$ is more accurate than $X^{\eta}$. Then for all utility functions with a single crossing property, $X^{\eta'}$ is more informative than $X^{\eta}$.
 \end{thm}
-%========== End theorem: informative ==========%
 
-%========== Begin prof: informative ==========%
 \begin{proof}
-See \citet{Lehmann1988} section 4 and \citet{Karlin1956} Lemma 3--4 and theorem 1.
+See \citet{Lehmann1988} section 4 and \citet{Karlin1956a} Lemma 3--4 and theorem 1.
 \end{proof}
-%========== End prof: informative ==========%
+%=============================================%
 
-It follows directly from Theorem~\ref{thm:informative} that when $X^{\eta'}$ is more informative than $X^{\eta}$, then
+It follows directly from \cref{thm:informative} that when $X^{\eta'}$ is more informative than $X^{\eta}$, then
 
 \[
-\int_{X}\int_{S}u(t,s)dG^{\eta'}(s\mid x)dF(x)\ge\int_{X}\int_{S}u(t,s)dG^{\eta}(s\mid x)dF(x)
+	\int_{X}\int_{S}u(t,s)dG^{\eta'}(s\mid x)dF(x)\ge\int_{X}\int_{S}u(t,s)dG^{\eta}(s\mid x)dF(x)
 \]
 
+\subsection{The patients search for treatment}
+
+The patient has a  
 %%--------------------------------------------------------------------------
 %% Section: The physician problem
 %%--------------------------------------------------------------------------
 
 \section{The physician problem}
 
-In this section we will look at the physicans problem. Like in \citet{Allard2009} and \citet{Weiss1996}
+The physician has a utility function given by
+\[
+	V=v(M,\eta)\label{eq:physician-utility}
+\]
+where the physicians payment,$M$ is given by
+\[
+	M=\delta+(p-\omega)q
+\]
+where $\delta$ is a fixed payment, $p$ is the physician payment per unit of treatment, $q$ is quantity of treatment and $\eta$ is the physicians effort, which has a cost of $c$. Assuming a separable utility function, the physician problem can be expressed as
+\[
+	v(M,e)=M-c(\eta)
+\] 
 
-\section{Dynamic setting}
+assuming for simplicity that the payment for treatment $p$ can be set exactly equal to the cost $\omega$, the problem simplifies to 
+\[
+	v(\delta,\eta)=\delta-c(\eta)
+\] 
 
-\printbibliography
+It is clear from the above that the physician's effort will never exceed the point where $\delta-c(\eta)=0$. I will refer to this point as $\bar{\eta}$
+%%--------------------------------------------------------------------------
+%% Dynamic Settings
+%%--------------------------------------------------------------------------
+
+\printbibliography%
+
+%%------------------b--------------------------------------------------------
+%% Appendix
+%%--------------------------------------------------------------------------
+
+\begin{appendices}
+\section{Appendix}
+\subsection{More informative \& least as powerful test}\label{app:test-power}
+
+See~\cref{fig:test-power}
+
+\begin{figure}[!ht]
+	   \centering
+    \begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{../fig/test-power-1.pdf}
+		\caption{}\label{fig:test-power-1}
+	\end{subfigure}
+    \begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{../fig/test-power-2.pdf}
+		\caption{}\label{fig:test-power-2}
+	\end{subfigure}
+\caption{The blue shaded area is the probability of a type I error, and the red shaded area is the test power, while the non-shaded area under the red curve is the probability of a type II error. \Cref{fig:test-power-1,fig:test-power-2} have the same probability of a type I error, but the power of the test in \cref{fig:test-power-2} is higher than in \cref{fig:test-power-2}, as the probability of a type 2 error is smaller}\label{fig:test-power}
+\end{figure}
+
+\subsection{A simplified proof of Topiks 1998}
+\begin{thm}
+	Consider the problem
+	\[
+		t^*(s)=\argmax_{s\in S} u(t,s)
+	\]
+	where $T,S\in \mathbb{R}$ and $T_s\subset T$ is the correspondence from $S$ to $T$, with $T_s$ being the set of feasible treatments, when the diseases is $s$. Assume also that (i) $u$ has increasing differences in $(t,s)$, and (ii) $T_s=[g(s),h(s)]$, where $h,g:S \rightarrow \mathbb{R}$ are increasing functions with $g\leq h$. Then the optimal solution $t^*(s)$ is an increasing function.
+\end{thm}
+
+\begin{proof}
+	The proof is done by contradiction. Assume that $t^*(s)$ is not increasing. Then for some $s'>s$, $t^*(s')<t^*(s)$. Then using assumption (ii) and the fact that $t^*(s)\in T_s$, and $t^*(s')\in T_{s'}$, it follows that $g(s)\leq g(s')\leq t^*(s') < t^*(s) \leq h(s) \leq h(s')$, so that $t^*(s)\in T_{s'}$ and $t^*(s')\in T_s$. Using the latter facts along with $t^*(s)\in t(s)$ and $t^*(s')\in t(s')$, we have 
+	\[
+		0\geq u[s',t^*(s)]-u[s',t^*(s')]\geq u[s,t^*(s)]-u[s,t^*(s')]\geq 0,
+	\]
+which holds throughout. Hence, $t^*(s)\in t(s')$ is a contradiction to the fact that $t^*(s')=\max \{t(s')\}$, since $t^*(s')<t^*(s)$. Hence, $t^*(s)$ is an increasing function \parencite{Amir2005a}.\footnote{In this proof, it is assumed that $A_s\cap A_{s'}\ne \emptyset$. If this was the case, one would trivially have that $t^*(s)<t^*(s')$}
+\end{proof}
+\end{appendices}
+
 \end{document}

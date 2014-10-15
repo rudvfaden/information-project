@@ -1,18 +1,15 @@
-\usepackage{lipsum}
-\usepackage{url} % for line breaks in url links
-\usepackage{mathtools} % math
-\usepackage{amsthm} %theorems and definition
-\usepackage[nochapters]{classicthesis} % nochapters
-\usepackage{booktabs} % pretty tables
-\usepackage{subfig} %sulbfigures
-\usepackage{wrapfig} % Allows wrapping text around tables and figures
-\usepackage{pgfplots,tikz} % figures
-%Colors
+%%--------------------------------------------------------------------------
+%% Colors and hypersetup
+%%--------------------------------------------------------------------------
 \hypersetup{
-	colorlinks = true,      %	Color links instead of ugly boxes
-	urlcolor   = webbrown,  %	Colors for external hyperlinks
-	linkcolor  = blue,      %	Colors of internal links
-	citecolor  = webgreen 	%	Colors of citations
+	colorlinks = true,      					%	Color links instead of ugly boxes
+	urlcolor   = webbrown,  					%	Colors for external hyperlinks
+	linkcolor  = blue,      					%	Colors of internal links
+	citecolor  = webgreen,						%	Colors of citations
+	pdfauthor = {Rud Faden: rudfaden@gmail.com},      
+	pdfsubject = {Health Economics},
+	pdfkeywords = {Physician Payment}{Long term patient-physician relationship}{informateion-trap},           
+	pdfcreator = {LaTeXing}
 }
 
 %%--------------------------------------------------------------------------
@@ -31,24 +28,19 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
-%%--------------------------------------------------------------------------
-%% Biblatex
-%%--------------------------------------------------------------------------
-
-\usepackage[%
-  backend=bibtex,   % use BibTeX
-  style=authoryear,
-  natbib=true,
-  url=false, isbn=false
-]{biblatex}
-\addbibresource[datatype=bibtex]{Remote.bib}
-
 
 %%--------------------------------------------------------------------------
 %% User specified LaTeX commands.
 %%--------------------------------------------------------------------------
 
 \global\long\def\argmax{\operatornamewithlimits{arg\, max}} % make the \argmax command available
+\let\marginpar\oldmarginpar% fix for todonotes margin notes
+
+%%--------------------------------------------------------------------------
+%% Misc
+%%--------------------------------------------------------------------------
+
+\setkeys{Gin}{width=1\textwidth} % make figures as wide as the margins
 
 %%--------------------------------------------------------------------------
 %% title and author

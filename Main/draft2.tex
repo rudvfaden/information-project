@@ -1,4 +1,3 @@
-% -*- phrases: information-and-care -*-
 \RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package
 % Layout
 \documentclass[10pt,a4paper]{article} 					% KOMA-Script article scrartcl
@@ -26,11 +25,13 @@ backref=true,
 url=false, isbn=false
 ]{biblatex}
 \addbibresource[datatype=bibtex]{../../bib/library.bib}
-%% Misc. 
+%% Misc.
 \usepackage{microtype} 									% improves the spacing between words and letters
 \usepackage[colorinlistoftodos]{todonotes} 				% todo notes
 \usepackage{url} 										% for line breaks in url links
-\usepackage[titletoc,toc,title]{appendix} 				% appendices										
+\usepackage[titletoc,toc,title]{appendix} 				% appendices
+\usepackage{accents} 									% underbar
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
 % other configurations
 \input{configure.tex}
 
@@ -61,11 +62,9 @@ where $t$ is treatment, $s$ is disease variable classified by its severity of il
 %========== DEFINITION: Risk-sensitivity ==========%
 \begin{defn}\label{def:risk-sensitivity}
 Assuming that the decision problem has a unique solution $t^{*}(s)$, and for $s'>s$, $u(t^{*}(s),s)=u(t^{*}(s'),s')$. Then for $t^{*}(s)>t_{1}$, $t^{*}(s')>t_{2}$, $t_{2}\ge t_{1}$ and $t^{*}(s')-t_{2}=t^{*}(s)-t_{1}=\Delta t$, the \emph{risk-sensitivity} is monotonically increasing in $s$, if
-
 \[
 	0\le u(t^{*}(s),s)-u(t_{1},s)\le u(t^{*}(s'),s')-u(t_{2},s')\label{eq:risk-sensitivity}
 \]
-
 for all $s$ and $t$, and I write that $u(t_{1},s)\preceq u(t_{2},s')$.
 \end{defn}
 %==================================================%
@@ -81,11 +80,9 @@ If the risk sensitivity is increasing in $s$, then for $s'>s$ $u(t,s)$ has a sin
 %========== PROF - crossing property ==========%
 \begin{proof}
 Let $t'=t^{*}(s')$ and $t=t^{*}(s)$. Given \cref{def:risk-sensitivity}, it is clear that $t'\ge t_{2}>t\ge t_{1}$. Therefore I can rewrite \cref{eq:risk-sensitivity} as
-
-\[
-	u(t',s')-u(t_{2},s')\ge u(t,s)-u(t_{1},s)\ge0\label{eq:increasing-differences}
-\]
-
+\begin{align}
+  u(t',s')-u(t_{2},s')\ge u(t,s)-u(t_{1},s)\ge0\label{eq:increasing-differences}
+\end{align}
 \cref{eq:increasing-differences} clearly have increasing differences in $s$ and thereby satisfies the single crossing property.
 \end{proof}
 %==================================================%
@@ -122,11 +119,9 @@ As both $T$ and $S$ are real lines, then it follows trivially that they are well
 %========== EXAMPLE: Single-crossing ==========%
 \begin{example}
 A function with the properties defined in \cref{thm:single-crossing} and \cref{eq:risk-sensitivity} and have the form as in \cref{fig:The-patients-utility} is
-
 \[
 	u(t,s) = c-s{(s-t)}^{2}\label{eq:utility-example}
 \]
-
 where $t,s\in\mathbb{R}^{+}$. Assuming that \cref{eq:utility-example} is continuous and twice differential in $t,s$, the derivative $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$ and \cref{eq:utility-example} has increasing differences and thereby also a single crossing property in $(t,s)$.
 \end{example}
 %============================================%
@@ -138,11 +133,9 @@ where $t,s\in\mathbb{R}^{+}$. Assuming that \cref{eq:utility-example} is continu
 \section{Uncertainty with perfect agency}
 
 In reality however, $s$ is never observed. The level of severity for the patients is a random variable represented by $S$, characterized by a subjective cdf. $F(s)$, with density $f(s)$, where $s$ is a realization of $S$. The expected value of choosing an admissible treatment intensity $t$ is given by
-
 \[
 	u(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)dF(s)\label{eq:expected-utility-prior}
 \]
-
 It is however possible to acquire costly information about $s$ through medical diagnostics and physician effort. However, for two experiment $X,Y$ on $S$, it is not a priori certain that one experiment $X$ is necessary more \emph{informative} about $s$ than the experiment $Y$, where \emph{informative} is to be understood in the way the posterior decision induced by the experiment $X$ insures greater expected utility than the decision induced by the experiment $Y$. Therefore we must introduce an order of information.
 
 %%--------------------------------------------------------------------------
@@ -153,7 +146,7 @@ It is however possible to acquire costly information about $s$ through medical d
 
 %========== DEFINITION: affiliation ==========%
 \begin{defn}\label{def:afflilation} \parencite{Milgrom1982}
-For a family of densityfunctions, let $x\lor s$ denote the component wise maximum and $x\land s$ the component wise minimum. Then $x$ and $s$ are affiliated if for all $s$ and $x$
+For a family of density functions, let $x\lor s$ denote the component wise maximum and $x\land s$ the component wise minimum. Then $x$ and $s$ are affiliated if for all $s$ and $x$
 \[
 	f(s\lor x)f(s\land x)\ge f(s)f(x)
 \]
@@ -165,11 +158,9 @@ Affiliation of two random variables are equivalent to the monotone likelihood ra
 %========== DEFINITION: Accuracy ==========%
 \begin{defn}\label{def:accuracy}
 \parencite{Persico2000} Given two signals (experiments) $X^{\eta}$ and $X^{\eta'}$, $X^{\eta'}$ is more accurate than $X^{\eta}$ if
-
 \[
 	T(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \]
-
 is non decreasing in $s$ for all $x$.
 
 A family of signals $\left \{ X^{\eta}\right \} _{\eta\in E}$ is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
@@ -180,17 +171,14 @@ To understand the concept of accuracy, it can be noted that
 \[
 	T(X^{\eta}\mid s)\sim X^{\eta'}\mid s
 \]
-
 Thus a more accurate signal can be obtained from a less accurate signal, by the transformation $T(X)$. For a better understanding of the accuracy concept, see \cref{ex:t-transformation-1,ex:t-transformation-2}.
 
 %========== EXAMPLE: T-transformation 1 ==========%
 \begin{example}\label{ex:t-transformation-1}
 Let  $\eta\in[0,\infty]$ and let $S$ be distributed according to any CDF and let $X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)$. Then for $\eta'>\eta$
-
 \[
 \frac{\eta'}{2}=\frac{\eta}{2}\left(T^{-1}(x)\right)'\Leftrightarrow T(x)=\frac{\eta}{\eta'}(x-s)+s
 \]
-
 \begin{figure}
 	\includegraphics[width=\textwidth]{../fig/t-transformation.pdf}
 	\caption{\label{fig:t-transformation}The $T(x)$ transformation}
@@ -221,21 +209,23 @@ Given that we now know, when a test can be considered more informative than anot
 \parencite{Persico2000}
 Suppose that $X^{\eta}$ and $X^{\eta'}$ are affiliated with $S$ and that $\left \{X^{\eta}\right \} _{\eta\in E}$ is A-ordered, such that $X^{\eta'}$ is more accurate than $X^{\eta}$. Then for all utility functions with a single crossing property, $X^{\eta'}$ is more informative than $X^{\eta}$.
 \end{thm}
-
+% the real important fact here is that u is monotonically increasing in s
 \begin{proof}
 See \citet{Lehmann1988} section 4 and \citet{Karlin1956a} Lemma 3--4 and theorem 1.
 \end{proof}
 %=============================================%
 
 It follows directly from \cref{thm:informative} that when $X^{\eta'}$ is more informative than $X^{\eta}$, then
-
+\begin{align*}
+	\int_{X}\int_{S}u(t,s)dG^{\eta'}(s\mid x)dF(x)&\geq \int_{X}\int_{S}u(t,s)dG^{\eta}(s\mid x)dF(x) \Leftrightarrow \\
+	U(t,s;\eta')&\geq U(s,t;\eta)
+\end{align*}
+From the above equation, it is clear that the patient will always prefer a more accurate signal to a less accurate signal. Further, \textcite{Athey2002} also shows that solution given in \cref{eq:increasing-solution} is robust to uncertainty, such that
 \[
-	\int_{X}\int_{S}u(t,s)dG^{\eta'}(s\mid x)dF(x)\ge\int_{X}\int_{S}u(t,s)dG^{\eta}(s\mid x)dF(x)
+	t^*(x)=\argmax_{s\in S, x\in X}\int_Su(t,s)d G^\eta(s\mid x)
 \]
+is increasing in $x$, whenever $x$ and $s$ are affiliated.\footnote{Note that here we, unlike in \cref{thm:informative}, consider the problem of deciding a treatment $t$ before the state $s$ is know, but \emph{after} observing the signal $x$}
 
-\subsection{The patients search for treatment}
-
-The patient has a  
 %%--------------------------------------------------------------------------
 %% Section: The physician problem
 %%--------------------------------------------------------------------------
@@ -244,35 +234,58 @@ The patient has a
 
 The physician has a utility function given by
 \[
-	V=v(M,\eta)\label{eq:physician-utility}
+	V=v(M,\eta)
 \]
-where the physicians payment,$M$ is given by
+where the physicians payment, $M$ is given by
 \[
 	M=\delta+(p-\omega)q
 \]
-where $\delta$ is a fixed payment, $p$ is the physician payment per unit of treatment, $q$ is quantity of treatment and $\eta$ is the physicians effort, which has a cost of $c$. Assuming a separable utility function, the physician problem can be expressed as
+where $\delta$ is a fixed payment, $p$ is the physician payment per unit of treatment, $q$ is quantity of treatment.
+
+I also assume that the physician can increase the quality of treatment by increasing the diagnosis accuracy through effort, such that $\eta$ increases when more effort is applied. Where $\eta$ is the level of accuracy in $X^\eta$.The cost of accuracy is given by $c$. Assuming a separable utility function, the physician problem can be expressed as
 \[
 	v(M,e)=M-c(\eta)
-\] 
+\]
+As the subject of this paper, is the acquisition of information, through physician effort, I ignore the treatment decision and assume for simplicity that the payment for treatment $p$ can be set exactly equal to the cost $\omega$. The problem then simplifies to
+\begin{align}
+v(\delta,\eta)=\delta-c(\eta)\label{eq:phys-utility}
+\end{align}
+Further, the physician will only apply effort as long as \cref{eq:phys-utility} is positive. Let $\bar{\eta}$ be the solution to $\delta=c(\eta)$. Then $\bar{\eta}$ must be between $[0,\bar{\eta}]$.
 
-assuming for simplicity that the payment for treatment $p$ can be set exactly equal to the cost $\omega$, the problem simplifies to 
-\[
-	v(\delta,\eta)=\delta-c(\eta)
-\] 
+If I let $\lambda\in[0,1]$ be the physician preference for effort we can restate the physicans problem in \cref{eq:phys-utility} as
+\begin{align*}
+ 	 v(\delta,\lambda,\bar{\eta})=\delta-c(\lambda\bar{\eta})\label{eq:phys-utility2}
+\end{align*}
 
-It is clear from the above that the physician's effort will never exceed the point where $\delta-c(\eta)=0$. I will refer to this point as $\bar{\eta}$
+%%--------------------------------------------------------------------------
+%% The patients search for treatment in a static setting
+%%--------------------------------------------------------------------------
+\section{The patients search for treatment}
+
+While a patient will always prefer more accuracy to less, the patient also has an acceptable minimum level of accuracy $\ubar{\eta}$. $\ubar{\eta}$ is obtained from the patients acceptable level of treatment accuracy, such that if the level of accuracy $\eta\geq\ubar{\eta}$ leads to a treatment $t_1\leq t \leq t_2$ the patient will be satisfied and continue to consult the same physician. If $\eta\leq\ubar{\eta}$, such that $t\notin [t_1,t_2]$, the patient will consult another physician. In insinuative terms, the patient has an expectation to the level of health he will experience after treatment. In the extreme cases where the patients expects perfect health (no change in health) $t_1=t^*=t_2$ ($-\infty< t^* <\infty$).
+
+The patient does not know $\lambda$. But he knows the distribution of $Q(\lambda,\rho)$, where $\lambda$ is a realization of $\Lambda$ and $\rho$ is a risk parameter, characterizing the market dispersion. %Further I also assume that the probability $P(\lambda)$ of $t\in [t_1,t_2]$ is increasing in $\lambda$
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.95\textwidth]{../fig/acceptable-treatment.pdf}
+	\caption{The patient acceptable levels of treatment}\label{fig:acceptable-treatment}
+\end{figure}
+
+
 %%--------------------------------------------------------------------------
 %% Dynamic Settings
 %%--------------------------------------------------------------------------
 
 \printbibliography%
 
+
 %%------------------b--------------------------------------------------------
 %% Appendix
 %%--------------------------------------------------------------------------
 
 \begin{appendices}
-\section{Appendix}
+\section{Appendix}\label{sec:appendix}
 \subsection{More informative \& least as powerful test}\label{app:test-power}
 
 See~\cref{fig:test-power}
@@ -287,10 +300,10 @@ See~\cref{fig:test-power}
 		\includegraphics[width=\textwidth]{../fig/test-power-2.pdf}
 		\caption{}\label{fig:test-power-2}
 	\end{subfigure}
-\caption{The blue shaded area is the probability of a type I error, and the red shaded area is the test power, while the non-shaded area under the red curve is the probability of a type II error. \Cref{fig:test-power-1,fig:test-power-2} have the same probability of a type I error, but the power of the test in \cref{fig:test-power-2} is higher than in \cref{fig:test-power-2}, as the probability of a type 2 error is smaller}\label{fig:test-power}
+\caption{The blue shaded area is the probability of a type I error, and the red shaded area is the test power, while the non-shaded area under the red curve is the probability of a type II error. \Cref{fig:test-power-1,fig:test-power-2} have the same probability of a type I error, but the power of the test in \cref{fig:test-power-2} is higher than in \cref{fig:test-power-2}, as the probability of a type II error is smaller}\label{fig:test-power}
 \end{figure}
 
-\subsection{A simplified proof of Topiks 1998}
+\subsection[A simplified proof of Topkis’s Monotonicity Theorem is]{A simplified proof of \Citeauthor{Topkis1998}'s Monotonicity Theorem}
 \begin{thm}
 	Consider the problem
 	\[
@@ -300,12 +313,14 @@ See~\cref{fig:test-power}
 \end{thm}
 
 \begin{proof}
-	The proof is done by contradiction. Assume that $t^*(s)$ is not increasing. Then for some $s'>s$, $t^*(s')<t^*(s)$. Then using assumption (ii) and the fact that $t^*(s)\in T_s$, and $t^*(s')\in T_{s'}$, it follows that $g(s)\leq g(s')\leq t^*(s') < t^*(s) \leq h(s) \leq h(s')$, so that $t^*(s)\in T_{s'}$ and $t^*(s')\in T_s$. Using the latter facts along with $t^*(s)\in t(s)$ and $t^*(s')\in t(s')$, we have 
+	The proof is done by contradiction. Assume that $t^*(s)$ is not increasing. Then for some $s'>s$, $t^*(s')<t^*(s)$. Then using assumption (ii) and the fact that $t^*(s)\in T_s$, and $t^*(s')\in T_{s'}$, it follows that $g(s)\leq g(s')\leq t^*(s') < t^*(s) \leq h(s) \leq h(s')$, so that $t^*(s)\in T_{s'}$ and $t^*(s')\in T_s$. Using the latter facts along with $t^*(s)\in t(s)$ and $t^*(s')\in t(s')$, we have
 	\[
 		0\geq u[s',t^*(s)]-u[s',t^*(s')]\geq u[s,t^*(s)]-u[s,t^*(s')]\geq 0,
 	\]
-which holds throughout. Hence, $t^*(s)\in t(s')$ is a contradiction to the fact that $t^*(s')=\max \{t(s')\}$, since $t^*(s')<t^*(s)$. Hence, $t^*(s)$ is an increasing function \parencite{Amir2005a}.\footnote{In this proof, it is assumed that $A_s\cap A_{s'}\ne \emptyset$. If this was the case, one would trivially have that $t^*(s)<t^*(s')$}
+which holds throughout. Hence, $t^*(s)\in t(s')$ is a contradiction to the fact that $t^*(s')=\max \{t(s')\}$, since $t^*(s')<t^*(s)$. Hence, $t^*(s)$ is an increasing function \parencite{Amir2005a}.\footnote{In this proof, it is assumed that $T_s\cap T_{s'}\ne \emptyset$If this was the case, one would trivially have that $t^*(s)<t^*(s')$}
+
 \end{proof}
 \end{appendices}
 
 \end{document}
+

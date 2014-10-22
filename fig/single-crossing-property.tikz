@@ -1,5 +1,5 @@
 \begin{tikzpicture}[scale=0.9]
 \draw[<-] (1,5) -- (1,0)node[below,color=white]{x'};
 \draw[->] (0,2.5)--(5,2.5);
-\draw  plot[smooth, tension=1] coordinates {(0,0) (2,3) (5,5)} node[above]{$u(t,s')-u(t,s)$};
+\draw  plot[smooth, tension=1] coordinates {(0,0) (2,3) (5,5)} node[above]{\(u(t,s')-u(t,s)\)};
 \end{tikzpicture}

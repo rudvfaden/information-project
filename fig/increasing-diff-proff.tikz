@@ -1,12 +1,12 @@
 \begin{tikzpicture}
-  \draw[->] (0,1)node[left]{$S$}--(10,1);
-  \draw[->] (0,0)node[left]{$T$} -- (10,0);	
+  \draw[->] (0,1)node[left]{\(S\)}--(10,1);
+  \draw[->] (0,0)node[left]{\(T\)} -- (10,0);
   % nodes
-  \node[above](t1) at (2.5,1){$s$};
-  \node[above](t2) at (6.5,1){$s'$};
-  \node[above](t3) at (5,0){$t^*(s)$};
+  \node[above](t1) at (2.5,1){\(s\)};
+  \node[above](t2) at (6.5,1){\(s'\)};
+  \node[above](t3) at (5,0){\(t^*(s)\)};
   %braces
-  \draw [decoration={brace,amplitude=15pt,mirror},decorate,dashed, thick] (0,0) -- node [ pos=0.5,yshift=-0.8cm] {$T_s$}(5,0);
-  \draw [decoration={brace,amplitude=15pt,mirror},decorate,dotted,thick] (3,0) -- node [ pos=0.5,yshift=-0.8cm] {$T_{s'}$}(10,0);
-   \draw [decoration={brace,amplitude=5pt},decorate] (3,0) -- node [ pos=0.5,above,yshift=0.1cm] {$t^*(s')$}(5,0);
+  \draw [decoration={brace,amplitude=15pt,mirror},decorate,dashed, thick] (0,0) -- node [ pos=0.5,yshift=-0.8cm] {\(T_s\)}(5,0);
+  \draw [decoration={brace,amplitude=15pt,mirror},decorate,dotted,thick] (3,0) -- node [ pos=0.5,yshift=-0.8cm] {\(T_{s'}\)}(10,0);
+   \draw [decoration={brace,amplitude=5pt},decorate] (3,0) -- node [ pos=0.5,above,yshift=0.1cm] {\(t^*(s')\)}(5,0);
 \end{tikzpicture}

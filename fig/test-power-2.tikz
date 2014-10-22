@@ -22,8 +22,8 @@
 %mean
 \draw[dashed] (axis cs:2,0) -- (axis cs:2,\meanone);
 \draw[dashed] (axis cs:3,0) -- (axis cs:3,\meantwo);
-\node[below] at (axis cs:2,0){$s^0_1$};
-\node[below] at (axis cs:3,0){$s^0_2$};
+\node[below] at (axis cs:2,0){\(s^0_1\)};
+\node[below] at (axis cs:3,0){\(s^0_2\)};
 
 %power
 \addplot+ [
@@ -37,7 +37,7 @@
 % alpha value
 \pgfmathsetmacro\alphaval{normal(1.72,2,1)}
 \draw[solid] (axis cs:1.72,0) -- (axis cs:1.72,\alphaval);
-\node[below] at (axis cs:1.72,0){$x^{**}$};
+\node[below] at (axis cs:1.72,0){\(x^{**}\)};
 \addplot+[mark=none, domain=-2:1.72,
         fill=blue,
         fill opacity=0.5,

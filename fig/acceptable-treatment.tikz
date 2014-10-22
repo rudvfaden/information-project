@@ -1,7 +1,7 @@
 \begin{tikzpicture}
 	\draw[<->] (-3.5,10) node[above]{}--(-3.5,0)--(6.5,0)node[right]{};
-	\draw[] (4.3,8.8)--(5,8.8)node[right]{$u(t,s)$};
+	\draw[] (4.3,8.8)--(5,8.8)node[right]{\(u(t,s)\)};
 	\draw[]  plot[smooth, tension=1.2] coordinates {(-3,0) (1,8) (6,0)};
-	\draw[dotted,thick] (-2.2,0)node[below]{$t_1$} -- (-2.2,3.66);
-	\draw[dotted,thick] (4.75,0)node[below]{$t_2$}  -- (4.75,3.66);
+	\draw[dotted,thick] (-2.2,0)node[below]{\(t_1\)} -- (-2.2,3.66);
+	\draw[dotted,thick] (4.75,0)node[below]{\(t_2\)}  -- (4.75,3.66);
 \end{tikzpicture}

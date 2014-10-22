@@ -2,15 +2,15 @@
 	%figure 1
 	\draw[<->] (0,8) node[above]{}--(0,0)--(8,0)node[right]{};
 	%
-	\draw (2.5,0)node[below]{$s-\frac{1}{\eta}$}--(2.5,2.5)--(6.5,2.5)--(6.5,0)node[below]{$s+\frac{1}{\eta}$};
-	\draw (3.5,0)node[below]{$s+\frac{1}{\eta'}$}--(3.5,4)--(5.5,4)--(5.5,0)node[below]{$s+\frac{1}{\eta '}$};
-	\filldraw (4.5,0)node[below]{$s$} circle (2pt);
+	\draw (2.5,0)node[below]{\(s-\frac{1}{\eta}\)}--(2.5,2.5)--(6.5,2.5)--(6.5,0)node[below]{\(s+\frac{1}{\eta}\)};
+	\draw (3.5,0)node[below]{\(s+\frac{1}{\eta'}\)}--(3.5,4)--(5.5,4)--(5.5,0)node[below]{\(s+\frac{1}{\eta '}\)};
+	\filldraw (4.5,0)node[below]{\(s\)} circle (2pt);
 	% Figure 2
 	\draw[<->] (11,8) node[above]{}--(11,0)--(19,0)node[right]{};
-	\draw (13.5,0)node[below]{$s-\frac{1}{\eta}$}--(13.5,2.5)--(17.5,2.5)--(17.5,0)node[below]{$s+\frac{1}{\eta}$};
-	\draw (11,4)node[below,xshift=-15]{$s+\frac{1}{\eta'}$}--(7,4)--(7,6)--(11,6)node[above,xshift=-15]{$s+\frac{1}{\eta '}$};
+	\draw (13.5,0)node[below]{\(s-\frac{1}{\eta}\)}--(13.5,2.5)--(17.5,2.5)--(17.5,0)node[below]{\(s+\frac{1}{\eta}\)};
+	\draw (11,4)node[below,xshift=-15]{\(s+\frac{1}{\eta'}\)}--(7,4)--(7,6)--(11,6)node[above,xshift=-15]{\(s+\frac{1}{\eta '}\)};
 	%lines
 	\draw[dashed] (13.5,2.5)--(13.5,4)--(11,4);
 	\draw[dashed] (17.5,2.5)--(17.5,6)--(11,6);
-	\draw (11.5,3)-- (18.5,6.5)node[right]{$T(x)$};
+	\draw (11.5,3)-- (18.5,6.5)node[right]{\(T(x)\)};
 \end{tikzpicture}

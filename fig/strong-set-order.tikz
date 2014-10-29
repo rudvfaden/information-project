@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\draw[very thick, red] (0,0)node[above]{\( X \)}-- (3,0);
+	\draw[very thick, black!60!green] (2,0.1) -- (5,0.1)node[above]{\( X' \)};
+	\fill[fill=none]
+	-- (0,0) node[below]{\(0\)}
+	-- (1,0) node[below]{\(1\)}
+	-- (2,0) node[below]{\(2\)}
+	-- (3,0) node[below]{\(3\)}
+	-- (4,0) node[below]{\(4\)}
+	-- (5,0) node[below]{\(5\)};
+
+	\fill[red] (0,-0.8) circle[radius=2pt];
+	\fill[red] (3,-0.8) circle[radius=2pt];
+	\fill[black!60!green] (2,-0.8) circle[radius=2pt];
+	\fill[black!60!green] (5,-0.8) circle[radius=2pt];
+
+	\draw[->] (1,-1.5) node[below]{\color{red}\(X\)}-- (0.1,-0.9);
+	\draw[->] (1,-1.5) -- (2.9,-0.9);
+
+	\draw[->] (3,-1.5) node[below]{\color{black!60!green}\(X'\)}-- (2.1,-0.9);
+	\draw[->] (3,-1.5) -- (4.9,-0.9);
+\end{tikzpicture}

@@ -12,5 +12,9 @@
 	%lines
 	\draw[dashed] (13.5,2.5)--(13.5,4)--(11,4);
 	\draw[dashed] (17.5,2.5)--(17.5,6)--(11,6);
-	\draw (11.5,3)-- (18.5,6.5)node[right]{\(T(x)\)};
+	\draw[thick] (11.5,3)-- (18.5,6.5)node[right]{\(T(x)\)};
+	\draw (11,0) -- (18,8);
+	%\draw[help lines] (11,0) -- (45:7);
+    \draw (11,0)+(0:1) arc(0:45:1);
+    \node at (1:11.6) {$45^\circ$};
 \end{tikzpicture}

@@ -21,6 +21,7 @@
 \newtheorem{lemma}[thm]{Lemma}
 \newtheorem{prop}[thm]{Proposition}
 \newtheorem{corollary}[thm]{Corollary}
+\newtheorem{assumption}[thm]{Assumption}
 % Definition Styles
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[section]
@@ -41,7 +42,10 @@
 %%--------------------------------------------------------------------------
 
 \setkeys{Gin}{width=1\textwidth} % make figures as wide as the margins
-
+%solves wird tikz error
+\makeatletter
+\global\let\tikz@ensure@dollar@catcode=\relax
+\makeatother
 %%--------------------------------------------------------------------------
 %% title and author
 %%--------------------------------------------------------------------------

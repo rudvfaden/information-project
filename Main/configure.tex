@@ -7,8 +7,6 @@
 	linkcolor  = blue,      					%	Colors of internal links
 	citecolor  = webgreen,						%	Colors of citations
 	pdfauthor = {Rud Faden: rudfaden@gmail.com},
-	pdfsubject = {Health Economics},
-	pdfkeywords = {Physician Payment}{Long term patient-physician relationship}{informateion-trap},
 	pdfcreator = {LaTeXing}
 }
 
@@ -36,7 +34,11 @@
 
 \global\long\def\argmax{\operatornamewithlimits{arg\, max}} % make the \argmax command available
 \let\marginpar\oldmarginpar% fix for todonotes margin notes
-
+\makeatletter
+\DeclareRobustCommand{\pder}[1]{%
+  \@ifnextchar\bgroup{\@pder{#1}}{\@pder{}{#1}}}
+\newcommand{\@pder}[2]{\frac{\partial#1}{\partial#2}}
+\makeatother
 %%--------------------------------------------------------------------------
 %% Misc
 %%--------------------------------------------------------------------------

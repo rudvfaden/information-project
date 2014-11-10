@@ -1,11 +1,12 @@
 \RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package % Layout
 \documentclass[10pt,a4paper]{article} 					% KOMA-Script article scrartcl
-\usepackage[nochapters]{classicthesis} 					% nochapters
+\usepackage[nochapters,eulermath]{classicthesis} 					% nochapters
 \usepackage[top=2.5cm, bottom=2.5cm, left=4cm, right=4cm]{geometry} %Margins
+\usepackage{fixltx2e} 									% fix common latex errors
 %% Math
 \usepackage{mathtools} 									% math
 \usepackage{amsthm} 									% theorems and definition
-\usepackage[all,error]{onlyamsmath}
+\usepackage{bm} 										% Bold math
 %% Figures and tables
 \usepackage{booktabs} 									% pretty tables
 \usepackage{subcaption} 								% subfigures
@@ -74,7 +75,7 @@ The notion of \emph{risk-sensitivity} is illustrated in \cref{fig:The-patients-u
 
 %========== THEOREM: Single crossing property ==========%
 \begin{thm}\label{thm:single-crossing}
-If the risk sensitivity is increasing in \(s\)  then for \(s'>s\)  \(u(t,s)\) has a single crossing property in \((s,t)\)
+If the risk sensitivity is increasing in \(s\)  then for \(s'>s\), \(u(t,s)\) has a single crossing property in \((s,t)\)
 \end{thm}
 %==================================================%
 
@@ -109,7 +110,7 @@ Given that \(u(t',s)-u(t,s)\) has a single crossing property in \(s\) and that b
 \[
 	t^{*}(s)=\argmax_{s\in S}u(t,s)\label{eq:increasing-solution}
 \]
-is increasing in \(s\) \footnote{It should be noted that the assumption of quasi-supermodularity is not needed as the choice space is well ordered (e.i.\ a chain).}
+is increasing in \(s\).\footnote{It should be noted that the assumption of quasi-supermodularity is not needed as the choice space is well ordered (e.i.\ a chain).}
 \end{prop}
 
 \begin{proof}
@@ -158,17 +159,17 @@ Affiliation of two random variables are equivalent to the monotone likelihood ra
 
 \textcite{Athey2002}  shows that solution given in \cref{eq:increasing-solution} is robust to uncertainty, such that
 \[
-	t^*(x)=\argmax_{s\in S, x\in X}\int_Su(t,s)\, dG^\eta(s\mid x)
+	t^*(x)=\argmax_{x\in X}\int_Su(t,s)\, dG^\eta(s\mid x)
 \]
 is increasing in \(x\)  whenever \(x\) and \(s\) are affiliated.\footnote{Note that here we, unlike in \cref{thm:informative}, consider the problem of deciding a treatment \(t\) before the state \(s\) is know, but \emph{after} observing the signal \(x\) }
 
 %========== DEFINITION: Accuracy ==========%
 \begin{defn}\label{def:accuracy}
 \parencite{Persico2000} Given two signals (experiments) \(X^{\eta}\) and \(X^{\eta'}\),  \(X^{\eta'}\) is more accurate than \(X^{\eta}\) if
-\[
-	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
-\]
-is non decreasing in \(s\) for all \(x\)
+\begin{align}
+    	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
+\end{align}
+is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\)}
 
 Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
 \end{defn}
@@ -189,8 +190,8 @@ Let  \(\eta\in[0,\infty]\) and let \(S\) be distributed according to any CDF and
 To see why, note that
 
 \begin{align*}
-	T_{\eta,s}(x)^{-1}               &=\frac{\eta'+\eta s-s}{\eta} \Rightarrow \\
-	\left(T_{\eta,s}(x)^{-1}\right)' &=\frac{\eta'}{\eta}
+	T^{-1}_{\eta,s}(x)               &=\frac{\eta'+\eta s-s}{\eta} \Rightarrow \\
+	\left(T^{-1}_{\eta,s}(x)\right)' &=\frac{\eta'}{\eta}
 \end{align*}
 
 \begin{figure}
@@ -200,9 +201,9 @@ To see why, note that
 
 Further, one might also note that \(T_{\eta,s}(x)\) is an increasing function by taking the derivative
 \[
-	\frac{\partial^2}{\partial \eta'\partial \eta}T_{\eta,s}(x)=\frac{\eta}{\eta'^2}>0
+	\frac{\partial^2}{\partial \eta'\partial s}T_{\eta,s}(x)=\frac{\eta}{\eta'^2}>0
 \]
-Thus, \(T_{\eta,s}(x)\) transforms \(X^{\eta}\) into \(X^{\eta'}\) when \(T_{\eta,s}(x)\) is increasing. \citep{Persico1996}.
+Thus, \(T_{\eta,s}(x)\) transforms \(X^{\eta}\) into \(X^{\eta'}\) when \(T_{\eta,s}(x)\) is increasing~\citep{Persico1996}.
 
 From \cref{fig:t-transformation}, the ting to note is that \(T_{\eta,s}(x)\) has a slope less than 1 and crosses the \(45^\circ\) line at \(s\). This means that \(T_{\eta,s}(x)\) contracts mass around \(s\). Further, observe that \(T_{\eta,s}(x)\) is a straight line passing through \((s,s)\). Thus increasing \(s\) to \(s'\) will course \(T_{\eta,s}(x)\) to shift up, so the line passes through \((s',s')\). Hence the notation of ``more accurate signal'' can be interpreted as one signal \(X^{\eta'}\) being more correlated with the ransom state \(s\) than another signal \(X^\eta\), and the function \(T_{\eta,s}(x)\) imposes this additional correlation.
 
@@ -269,11 +270,88 @@ From \cref{eq:marginal-value-of-information} it follows straight forward that th
 \end{align}
  is increasing in \(s\), where \(C(\eta)\) is the cost of obtaining the signal \(X^\eta\). In all of this paper it will be assumed that the cost of signal acquisition is increasing in \(\eta\), such that more accurate signals are more costly.
 %%--------------------------------------------------------------------------
+%% Information aggregation and ordering over time
+%%--------------------------------------------------------------------------
+
+\subsection{Information Aggregation and Ordering Over Time}
+i now turn to the problem of aggregating information over time. The question is, if the physician receives a signal \(x_1\) in period 1 and \(x_2\) in period 2, when will the aggregation of the two signals overt time then be better than just one of them? Stated more formally, when will \(MR(\eta(i))\) be increasing in time \(i\)?
+
+\begin{lemma}\label{lem:produc-affiliation}
+	if \(f(\cdot)\) and \(h(\cdot)\) are affiliated and non-negative, then \(f(\cdot)=f(\cdot)h(\cdot)\) is also affiliated.
+\end{lemma}
+\begin{proof}
+	See \textcite{Milgrom1982a}
+\end{proof}
+A consequence of \cref{lem:produc-affiliation} is that the posterior of a density will be affiliated if both the prior and the likelihood function are affiliated.
+
+\begin{example}
+ Assume that in the first period, the agent receives a signal \(x_1\) and forms the posterior \(h(s\mid x_1)\) where \(x_1,s\) is affiliated. In the second period the agent receives a new signal \(x_2\). \Cref{lem:produc-affiliation} then says that the posterior \(f(s\mid x_2,x_1) \propto h(s\mid x_1)g(x_2\mid x_1,s)\) is affiliated, if \(x_2,s\) is also affiliated.
+ \end{example}
+
+\Cref{lem:produc-affiliation} is needed to guarantee that the optimal treatment is still an increasing function of the signal, even after updating, such that \(t^*(x_i)\) is increasing in \(x_i\).
+
+I now turn to the problem of ordering information over time. Let \(\eta(i)\) be the information order at time \(i\) after receiving \(\pmb{X}^{\eta(i)}=X^{1},\ldots,X^{i}\) signals. It is still assumed that \(\{\pmb{X}^{\eta(i)}\}_{\eta(i)\in E}\) and that higher \(\eta(i)\) implies higher accuracy.
+
+The question is then, under which conditions the expected utility of the patient is increasing in time. But first I introduce a technical lemma by \textcite{Persico1996} and one assumption that will be used in the proof
+
+\begin{lemma}\label{lem:optimal-condition-lemma}
+    Let \([a,b]\) be in interval on \(\mathbb{R}\). Let \(J(\cdot)\) be a nondecreasing real function and \(H(\cdot)\) be a quasi monotone increasing real function. Assume that for some measure \(\mu\in\mathbb{R}\) it holds that
+	\begin{align}
+	\int_a^b H(s)\, d\mu(s)=0\label{eq:optimal-condition-lemma}
+	\end{align}
+   then
+   \[
+    	\int_a^b H(s)J(s)\, d\mu(s)\ge0
+   \]
+
+\end{lemma}
+\begin{proof}
+	Because of \cref{eq:optimal-condition-lemma} and the fact the \(H(\cdot)\) is quasi-monotone there must be a part on \(s_0\in[a,b]\) before which \(H\) is non-positive and after which is it non-negative. Let \(\bar{J}=J(s)-J(s_0)\): because \(J\) is non-decreasing, \(\bar{J}\) non-positive before \(s_0\) and non-negative after. I can then write
+	\[
+		\int_a^b H(s)J(s)\, d\mu(s)=\int_a^b H(s)\bar{J}(s)\, d\mu(s)
+	\]
+because of \cref{eq:optimal-condition-lemma}. Rewriting the rhs the above to
+\[
+	\int_a^{s_0} H(s)\bar{J}(s)\, d\mu(s)+ \int_{s_0}^b H(s)\bar{J}(s)\, d\mu(s)\geq 0
+\]
+because of the fact that \(H(\cdot)\) and \(\bar{J}(\cdot)\) have the same sign on \([a,s_0]\) and \([s_0,b]\)
+\end{proof}
+
+\begin{assumption}
+	\(\eta(i)\) is continuous and differential in \(i\)
+\end{assumption}
+\begin{thm}\label{thm:mri}
+For a A-ordered family of signals the \(MR(i)\geq0\) iff the T-transformation function \(T_{\eta(i),s}\) is increasing in \(i\)
+\end{thm}
+\begin{proof}
+I want to show that
+\[
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x),s)\, dG^{\eta(i)}\, dF(x)\geq0
+\]
+Given the definition of the T-function, I can write the above as
+\[
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)),s)\, dG^{\eta(i-1)}\, dF(x)
+\]
+as the T-function transform the signal from the previous period in to the signal in this period.
+
+The envelope theorem states that I can ignore the differentiation of the optimal treatment wrt. \(i\). The inner integral can the be written as
+\[
+	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)),s)\right]\pder{\eta(i)}t^{\eta(i)}(x)\pder{i}T_{\eta(i),s}(x)\, dG^{\eta(i-1)}(s\mid x)
+\]
+However the first-order-condition says that
+\[
+	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)),s)\right]\pder{\eta(i)}t^{\eta(i)}(x)dG^{\eta(i-1)}(s\mid x)=0
+\]
+
+The term \(\left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\) is quasi-monotone by the fact that it has a single crossing property. \textcite{Quah2009} discuss in proposition 9, under which circumstances and increasing decision rule under the signal \(\eta\) is also increasing under \(\eta'\). If this is the case, then the term \(\pder{\eta(i)}t^{\eta(i)}(x)\) is also quasi-monotone. Thus the first part of the integral is quasi-monotone. If \(\pder{i}T_{\eta(i),s}(x)\) is a non-decreasing function then \(MR(i)\geq0\) by \cref{lem:optimal-condition-lemma}.
+\end{proof}
+The intuition behind \cref{thm:mri}, is that the T-function transforms add correlation between the state \(s\) and the signal \(x\) only when \(T_{\eta(i),s}\) is an increasing function.
+%%--------------------------------------------------------------------------
 %% Section: The physician problem
 %%--------------------------------------------------------------------------
 
 \section{The physician problem}
-
+\todo{From here, it is very preliminary work in progress.}
 The physician has a utility function given by
 \[
 	V=v(M,\eta)
@@ -295,34 +373,32 @@ v(\delta,\eta)=\delta-C(\eta)\label{eq:phys-utility}
 Further, the physician will only apply effort as long as \cref{eq:phys-utility} is positive. Let \(\bar{\eta}\) be the solution to \(\delta=C(\eta)\). Then \(\bar{\eta}\) must be between \([0,\bar{\eta}]\).
 
 If I let \(\lambda\in[0,1]\) be the physician preference for effort we can restate the physicians problem in \cref{eq:phys-utility} as
-\begin{align*}
+\begin{align}
  	 v(\delta,\lambda,\bar{\eta})=\delta-C(\lambda\bar{\eta})\label{eq:phys-utility2}
-\end{align*}
+\end{align}
 
 %%--------------------------------------------------------------------------
 %% Section: The patients search for treatment in a static setting
 %%--------------------------------------------------------------------------
 \section{The patients search for the best treatment}
 
-From \cref{eq:utility-increasing-information} it is clear that the patient will always prefer more information to less information. A optimal search strategy for the patient must then be to maximize \(\eta\)  To define the patients search, I assume that the patient knows the distribution of types \(\lambda\in \Lambda\)  \(Q(\lambda, \rho)\)  where \(\rho\) is parameter that indicates the dispersion of the market. In the first period, the patient consults a random physician and gets a utility of
-\[
-	u(t,S;\lambda)=\int_\Lambda\int_X\int_S u(t,s)\, dG^{\lambda\bar{\eta}}(s\mid x)\, dF(x)\, dQ(\lambda,\rho)
-\]
-In the next period, the patient has observed \(\lambda\). Further, the information obtained in the previous period \(\beta(\lambda\bar{\eta})_{i-1}\) about the patient is still available at the current physician, where \(\beta\) is the amount of information from the previous period that is still relevant in the current period. Therefore, the patient knows that he will get an expected utility of
-\[
-	u_{stay}(t,S;\lambda)=\int_X\int_S u(t,s)\, dG^{\beta\sum(\lambda\bar{\eta})_{i}}(s\mid x)\, dF(x)
-\]
-if he stays, and an expected utility of
-\[
-	u_{leave}(t,S;\lambda)=-C+\int_\Lambda\int_X\int_S u(t,s)\, dG^{\lambda\bar{\eta}}(s\mid x)\, dF(x)\, dQ(\lambda,\rho)
-\]
-if he leaves, where \(C\)  is the search cost.
+From \cref{eq:utility-increasing-information} it is clear that the patient will always prefer more information to less information. Given the definition of information aggregation, the question is for which values of \(\dot{\eta}_i\) the patients utility is increasing.
 
-It then follows that as the \(i\) increases \(u_{stay}\) will dominate \(u_{leave}\)
-\begin{thm}
- 	As \(i\) increases \(u_{stay}\) will dominate \(u_{leave}\) for some values of \(\beta\) and \(\lambda\)
-\end{thm}
-\todo[inline]{Herfra vil jeg gerne vise at n\aa r \(i\)  stiger, s\aa \  vil det altid v\ae re mere fordelagtigt for patienten at blive hos den samme l\ae ge (da informationen aggregers) end at finde en anden l\ae ge, selvom en ny l\ae ge m\aa ske er bedre (har h\o jre \(\lambda\) . S\aa ledes er der alts\aa \ en ``informations f\ae lde'', i og med at omkostnignerne ved at skifte er st\o rre end ved ikke at skifte, pga. informationen aggregeres.}
+%==========  DEFINITION: Accuracy order in i  ==========%
+\begin{defn}\label{def:i-accuracy-order}
+	The accuracy order is increasing in \(i\) iff \(\dot{\eta}_i=\partial^2 \big/\partial \eta \partial i>0\)
+\end{defn}
+%=========================================================%
+ Given \cref{def:i-accuracy-order} and~\cref{thm:informative} is is clear that the patients expected utility is increasing in \(i\) only if the physician accumulates information over time, in such a way that the information order is increasing.
+
+ \begin{lemma}\label{lem:increasing-utilitiy-i}
+ 	If the accuracy order is increasing in \(i\) then the expected utility function has increasing differences in \(s,i\)
+ \end{lemma}
+ \begin{proof}
+  	As \(\eta\) increases in \(i\) it is enough to show that \(\eta\) is increasing in \(s\). This follows directly from~\cref{eq:marginal-value-of-information}
+ \end{proof}
+
+ The intuition behind \cref{lem:increasing-utilitiy-i} is the as the risk sensitivity is increasing in \(s\), then form higher values of \(s\) information is more valuable. As more information is aggregated over time, then a patient with higher \(s\) benefits more from a higher \(i\) than a patient with a lower \(s\).
 %%--------------------------------------------------------------------------
 %% Dynamic Settings
 %%--------------------------------------------------------------------------
@@ -353,7 +429,7 @@ See~\cref{fig:test-power}
 \end{figure}
 
 %%--------------------------------------------------------------------------
-%% Appendeix: Stochastic Affiliation
+%% Appendix: Stochastic Affiliation
 %%--------------------------------------------------------------------------
 
 \subsection{Stochastic Affiliation}\label{app:affiliation}
@@ -369,16 +445,19 @@ When \(f\) is twice continuously differentiable, then equivalently \(bX_1,\ldots
 \end{defn}
 Consider two joint random variables \(X\) and \(S\). Affiliation then tells us about the conditional distribution of \(f(S\mid x)\). If \(x\leq x', y\leq y'\), then affiliation implies that
 \[
-	\frac{f(x,y')}{f(x,y)}\leq \frac{f(x',y')}{f(x'y)}
+	\frac{f(x,y')}{f(x,y)}\leq \frac{f(x',y')}{f(x',y)}
 \]
 which we can rewrite as
 \[
 	\frac{f(y'\mid x)f_X(x)}{f(y\mid x)f_X(x)}=\frac{f(y'\mid x)}{f(y\mid x)}\leq \frac{f(y'\mid x')}{f(y\mid x')} = \frac{f(y'\mid x')f_X(x')}{f(y\mid x')f_X(x')}
 \]
-which tells us the that likelihood ratio \(f(\cdot\mid x)\big/ f(\cdot\mid x)\) is increasing in \(x\) and thereby displays the monotone likelihood ratio property, which implies first-order (and hence second-order) stochastic dominance. \cite[in proposision 8 and 10 ]{Quah2009}, proofs that the monotone likelihood ratio property is required for the familiy of functions with the single-crossing property to have an increasing optimal solution in the signal \(x\).
+which tells us the that likelihood ratio \(f(\cdot\mid x)\big/ f(\cdot\mid x)\) is increasing in \(x\) and thereby displays the monotone likelihood ratio property, which implies first-order (and hence second-order) stochastic dominance. \cite[in proposition 8 and 10 ]{Quah2009}, proofs that the monotone likelihood ratio property is required for the family of functions with the single-crossing property to have an increasing optimal solution in the signal \(x\).
 
+A further property of affiliation is that it is preserved under Bayesian updating, such that if the prior \(f(s')\big/f(s),\, s'\geq s\) has a monotone likelihood ratio property, then the posterior \(f(s'\mid x)\big/f(s\mid x)\) also have the monotone likelihood ratio property for any likelihood function \(f(x\mid \cdot)\).
+
+At last, affiliation is also preserved under multiplication, such that if \(f(\mathbf{x})=h(\mathbf{x})g(\mathbf{x})\), where \(g\) and \(h\) is nonnegative and affiliated, then \(f\) is also affiliated.
 %%--------------------------------------------------------------------------
-%% Appendeix: Proof Topiks
+%% Appendix: Proof Topiks
 %%--------------------------------------------------------------------------
 
 \subsection[A simplified proof of Topkis’s Monotonicity Theorem is]{A simplified proof of \Citeauthor{Topkis1998}'s Monotonicity Theorem}\label{app:topiks-proof}
@@ -387,7 +466,7 @@ which tells us the that likelihood ratio \(f(\cdot\mid x)\big/ f(\cdot\mid x)\) 
 	\[
 		t^*(s)=\argmax_{s\in S} u(t,s)
 	\]
-	where \(T,S\in \mathbb{R}\) and \(T_s\subset T\) is the correspondence from \(S\) to \(T\)  with \(T_s\) being the set of feasible treatments, when the diseases is \(s\)  Assume also that (i) \(u\) has increasing differences in \((t,s)\)  and (ii) \(T_s=[g(s),h(s)]\)  where \(h,g:S \rightarrow \mathbb{R}\) are increasing functions with \(g\leq h\).  Then the optimal solution \(t^*(s)\) is an increasing function.
+	where \(T,S\in \mathbb{R}\) and \(T_s\subset T\) is the correspondence from \(S\) to \(T\)  with \(T_s\) being the set of feasible treatments, when the diseases is \(s\).  Assume also that (i) \(u\) has increasing differences in \((t,s)\)  and (ii) \(T_s=[g(s),h(s)]\)  where \(h,g:S \rightarrow \mathbb{R}\) are increasing functions with \(g\leq h\).  Then the optimal solution \(t^*(s)\) is an increasing function.
 \end{thm}
 
 \begin{proof}
@@ -395,7 +474,7 @@ which tells us the that likelihood ratio \(f(\cdot\mid x)\big/ f(\cdot\mid x)\) 
 	\[
 		0\geq u[s',t^*(s)]-u[s',t^*(s')]\geq u[s,t^*(s)]-u[s,t^*(s')]\geq 0,
 	\]
-	which holds throughout. Hence, \(t^*(s)\in t(s')\) is a contradiction to the fact that \(t^*(s')=\max \{t(s')\}\)  since \(t^*(s')<t^*(s)\).  Hence, \(t^*(s)\) is an increasing function \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\) }
+	which holds throughout. Hence, \(t^*(s)\in t(s')\) is a contradiction to the fact that \(t^*(s')=\max \{t(s')\}\) since \(t^*(s')<t^*(s)\).  Hence, \(t^*(s)\) is an increasing function \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\) }
 \end{proof}
 \end{appendices}
 

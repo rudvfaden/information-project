@@ -12,6 +12,7 @@
 \usepackage{subcaption} 								% subfigures
 \usepackage{pgfplots,tikz} \pgfplotsset{compat =1.11} 	% figures
 \usetikzlibrary{decorations.pathreplacing}
+\graphicspath{{../fig/}}
 %% References
 \usepackage{hyperref}  									% hypersetup
 \usepackage{cleveref} 									% auto-detect cross reference type when using \cref
@@ -40,15 +41,35 @@ url=false, isbn=false
 \begin{document}
 
 \maketitle
-
+{\begin{center}
+\footnotesize Incomplete Draft. Please do not cite without permission.
+\end{center}
+\vskip 3em}
 %%--------------------------------------------------------------------------
 %% Abstract
 %%--------------------------------------------------------------------------
-
 \begin{abstract}
 In this project, I examine provider and patient demand for information in a dynamic model where the diagnostic precision is assumed to be related to physician effort, and effort is non-contractible. In each period where the patient and physician interact, the physician gathers information about the patient, and the diagnostic precision is increased. Therefore, optimal physician effort decreases as the physician and patient tie increases. As the physician is unobserved, the insurer compensates the physician by the average effort in the physician population and physician will not provide an optimal level of diagnostic precision in the in the first encounters with a new patient. Therefore the switching cost of the patient increases as the tie with the physician lengthens. This model explains (i) why the cost is negatively related with patient, physician ties and (ii) also introduces the concept of an ``information trap'', where competition is deceasing in the patient physician tie as switching cost increases. Increases.
 \end{abstract}
+%%--------------------------------------------------------------------------
+%% Introduction
+%%--------------------------------------------------------------------------
+\section{Introduction}
+It is a popular view among doctors that long term relationship between doctor and patient is a vital to good primary health care and promote patient satisfaction, and cost-effectiveness. Long term relationships are thought to increase in value because
+\begin{quotation}
+the practitioners come to know patients over time, and patients come to know the practitioners. The benefits of this knowledge [can] be expected to accrue in a variety of ways. For example, patients should make fewer visits be- cause many problems can be managed on the phone. Fewer hospitalizations should also result, since practitioners are more likely to be able to ascertain whether or not the problem [can] be managed at home \parencite[p. 41--42]{Starfield1992}.
+\end{quotation}
+and
+\begin{quotation}
+it ... takes time for physicians to understand and empathize with patients' values and feelings and to be able to help patients identify and utilize health care services that are appropriate for their condition and life situation\ldots Decisions to adopt healthy habits, to stop smoking to spare a child from passive smoke \ldots are more likely to be made if recommended by a trusted physician in the context of an ongoing relationship \parencite[p. 324--235]{Emanuel1995}.\todo{find more recent quotation}
+\end{quotation}
+This has to some degree been backed by empirical evidence. Using insurance data \textcite{Weiss1996} find that long-term relations are associated with more preventive care, less hospitalization, and lower costs. However \citeauthor{Weiss1996} does not attempt to separate matching effects from the patient tie effect, which makes the results hard to interpret. In another study on the physician knowledge about his patient,   \textcite{Hjortdahl1991}  finds that physicians with more knowledge about a patient is less likely to order lab tests, more likely to adopt a ``wait-and-see'' approach, and more likely to prescribe drugs and refer patients to specialists.
 
+Despite this evidence, models that incorporate physician knowledge about their patients are scares, and no models exists which describes how physician knowledge is obtained.
+
+In my model, information about a patient is seen as an economics good, which can be produced at a price by the physician. Further it attempts to describe the process of how information is accumulated by the physician and how this may both decrease cost and competition among physicians at the same time.
+
+Very general models of (Bayesian) learning have been developed by \textcite{Grossman1977}. However such a model quickly becomes very complex and as a results applications are not easy. Instead I limit myself to a class of monotone decision problems, which greatly simplifies the analysis.
 %%--------------------------------------------------------------------------
 %% Section: The Patients Utility}
 %%--------------------------------------------------------------------------
@@ -95,10 +116,10 @@ The intuition behind \cref{thm:single-crossing}, is that the marginal change \(u
 \begin{figure}
      \centering
     \begin{subfigure}[b]{0.49\textwidth}
-		\includegraphics[width=\textwidth]{../fig/patient-utility.pdf}
+		\includegraphics[width=\textwidth]{patient-utility.pdf}
 	\end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
-		\includegraphics[width=\textwidth]{../fig/single-crossing-property.pdf}
+		\includegraphics[width=\textwidth]{single-crossing-property.pdf}
 	\end{subfigure}
 \caption{\label{fig:The-patients-utility}The patients utility functions. If for the same change in \(t\) the loss in utility is smaller for \(s\) than for \(s'\)  when \(s<s'\)  then I says that risk sensitivity is increasing in \(s\) }
 \end{figure}
@@ -106,7 +127,9 @@ The intuition behind \cref{thm:single-crossing}, is that the marginal change \(u
 
 %========== PROPOSITION: Single-crossing property ==========%
 \begin{prop}
-Given that \(u(t',s)-u(t,s)\) has a single crossing property in \(s\) and that both \(S\) and \(T\) are well ordered sets (in the strong set order)\footnote{If \(X' \geq X\) in the strong set order, then \(\max (x',x)\in X'\) and \(\min (x',x)\in X\). E.g. \([2,5]\geq[0,3]\) in the strong set order, while \(\{2,5\} \) and \(\{0,3\}\) is not.}, then
+Given that \(u(t',s)-u(t,s)\) has a single crossing property in \(s\) and that both \(S\) and \(T\) are well ordered sets (in the strong set order)\footnote{If \(X' \geq X\) in the strong set order, then \(\max (x',x)\in X'\) and \(\min (x',x)\in X\). E.g. \([2,5]\geq[0,3]\) in the strong set order, while \(\{2,5\} \) and \(\{0,3\}\) is not. \\
+	\includegraphics[width=0.4\textwidth]{strong-set-order.pdf}
+}, then
 \[
 	t^{*}(s)=\argmax_{s\in S}u(t,s)\label{eq:increasing-solution}
 \]
@@ -134,9 +157,9 @@ where \(t,s\in\mathbb{R}^{+}\). Assuming that \cref{eq:utility-example} is conti
 
 \section{Uncertainty with perfect agency}
 
-In reality however, \(s\) is never observed. The level of severity for the patients is a random variable represented by \(S\)  characterized by a subjective CDF. \(F(s)\)  with density \(f(s)\)  where \(s\) is a realization of \(S\). The expected value of choosing an admissible treatment intensity \(t\) is given by
+In reality however, \(s\) is never observed. The level of severity for the patients is a random variable represented by \(S\)  characterized by a subjective CDF.\@ \(F(s)\)  with density \(f(s)\)  where \(s\) is a realization of \(S\). The expected value of choosing an admissible treatment intensity \(t\) is given by
 \[
-	u(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)\, dF(s)\label{eq:expected-utility-prior}
+	U(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)\, dF(s)\label{eq:expected-utility-prior}
 \]
 It is however possible to acquire costly information about \(s\) through medical diagnostics and physician effort. However, for two experiment \(X,Y\) on \(S\)  it is not a priori certain that one experiment \(X\) is necessary more \emph{informative} about \(s\) than the experiment \(Y\)  where \emph{informative} is to be understood in the way the posterior decision induced by the experiment \(X\) insures greater expected utility than the decision induced by the experiment \(Y\). Therefore we must introduce an order of information.
 
@@ -169,9 +192,7 @@ is increasing in \(x\)  whenever \(x\) and \(s\) are affiliated.\footnote{Note t
 \begin{align}
     	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{align}
-is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\)}
-
-Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
+is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\)} Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
 \end{defn}
 %================================================%
 
@@ -195,8 +216,8 @@ To see why, note that
 \end{align*}
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{../fig/t-transformation.pdf}
-	\caption{\label{fig:t-transformation}The \(T:{\eta,s}(x)\) transformation}
+	\includegraphics[width=\textwidth]{t-transformation.pdf}
+	\caption{\label{fig:t-transformation}The \(T_{\eta,s}(x)\) transformation}
 \end{figure}
 
 Further, one might also note that \(T_{\eta,s}(x)\) is an increasing function by taking the derivative
@@ -205,10 +226,10 @@ Further, one might also note that \(T_{\eta,s}(x)\) is an increasing function by
 \]
 Thus, \(T_{\eta,s}(x)\) transforms \(X^{\eta}\) into \(X^{\eta'}\) when \(T_{\eta,s}(x)\) is increasing~\citep{Persico1996}.
 
-From \cref{fig:t-transformation}, the ting to note is that \(T_{\eta,s}(x)\) has a slope less than 1 and crosses the \(45^\circ\) line at \(s\). This means that \(T_{\eta,s}(x)\) contracts mass around \(s\). Further, observe that \(T_{\eta,s}(x)\) is a straight line passing through \((s,s)\). Thus increasing \(s\) to \(s'\) will course \(T_{\eta,s}(x)\) to shift up, so the line passes through \((s',s')\). Hence the notation of ``more accurate signal'' can be interpreted as one signal \(X^{\eta'}\) being more correlated with the ransom state \(s\) than another signal \(X^\eta\), and the function \(T_{\eta,s}(x)\) imposes this additional correlation.
-
+From \cref{fig:t-transformation}, the ting to note is that \(T_{\eta,s}(x)\) has a slope less than 1 and crosses the \(45^\circ\) line at \(s\). This means that \(T_{\eta,s}(x)\) contracts mass around \(s\). Further, observe that \(T_{\eta,s}(x)\) is a straight line passing through \((s,s)\). Thus increasing \(s\) to \(s'\) will course \(T_{\eta,s}(x)\) to shift up, so the line passes through \((s',s')\). Hence the notation of ``more accurate signal'' can be interpreted as one signal \(X^{\eta'}\) being more correlated with the random state \(s\) than another signal \(X^\eta\), and the function \(T_{\eta,s}(x)\) imposes this additional correlation.
 \end{example}
 %=======================================================%
+
 An illustrative example can also be given by applying \cref{eq:acuracy tranformation} to hypothesis testing.
 
 %========== EXAMPLE: T-transformation 2==========%
@@ -256,7 +277,7 @@ It follows directly from \cref{thm:informative} that when \(X^{\eta'}\) is more 
 
 From the above equation, it is clear that the patient will always prefer a more accurate signal to a less accurate signal.
 
-\cite{Persico2000} goes on to show that when \(u(t,s)\) is risk-sensitive increasing in \(s\), then the marginal value of information
+\textcite{Persico2000} goes on to show that when \(u(t,s)\) is risk-sensitive increasing in \(s\), then the marginal value of information
 \begin{align}
 		MR(\eta)=\frac{\partial}{\partial \eta} \int_{X}\int_{S}u(t,s)\, dG^{\eta}(s\mid x)\, dF(x) \label{eq:marginal-value-of-information}
 \end{align}
@@ -268,7 +289,7 @@ From \cref{eq:marginal-value-of-information} it follows straight forward that th
 \begin{align}
 	MR(\eta)-C(\eta)=0
 \end{align}
- is increasing in \(s\), where \(C(\eta)\) is the cost of obtaining the signal \(X^\eta\). In all of this paper it will be assumed that the cost of signal acquisition is increasing in \(\eta\), such that more accurate signals are more costly.
+ is increasing in \(s\), where \(C(\eta)\) is the cost of obtaining the signal \(X^\eta\). In all of this paper it will be assumed that the cost of signal acquisition is increasing in \(\eta\), such that more accurate signals are more costly. The intuition is that when the risk sensitivity increases, information becomes more valuable.
 %%--------------------------------------------------------------------------
 %% Information aggregation and ordering over time
 %%--------------------------------------------------------------------------
@@ -290,7 +311,7 @@ A consequence of \cref{lem:produc-affiliation} is that the posterior of a densit
 
 \Cref{lem:produc-affiliation} is needed to guarantee that the optimal treatment is still an increasing function of the signal, even after updating, such that \(t^*(x_i)\) is increasing in \(x_i\).
 
-I now turn to the problem of ordering information over time. Let \(\eta(i)\) be the information order at time \(i\) after receiving \(\pmb{X}^{\eta(i)}=X^{1},\ldots,X^{i}\) signals. It is still assumed that \(\{\pmb{X}^{\eta(i)}\}_{\eta(i)\in E}\) and that higher \(\eta(i)\) implies higher accuracy.
+I now turn to the problem of ordering information over time. Let \(\eta(i)\) be the information order at time \(i\) after receiving \({X}^{\eta(i)}=X^{1},\ldots,X^{i}\) signals. It is still assumed that \(\{{X}^{\eta(i)}\}_{\eta(i)\in E}\) and that higher \(\eta(i)\) implies higher accuracy.
 
 The question is then, under which conditions the expected utility of the patient is increasing in time. But first I introduce a technical lemma by \textcite{Persico1996} and one assumption that will be used in the proof
 
@@ -318,29 +339,30 @@ because of the fact that \(H(\cdot)\) and \(\bar{J}(\cdot)\) have the same sign 
 \end{proof}
 
 \begin{assumption}
-	\(\eta(i)\) is continuous and differential in \(i\)
+	\(i\) is a continues real variable and \(\eta(i)\) is continuous and differential in \(i\)
 \end{assumption}
+
 \begin{thm}\label{thm:mri}
-For a A-ordered family of signals the \(MR(i)\geq0\) iff the T-transformation function \(T_{\eta(i),s}\) is increasing in \(i\)
+For a A-ordered family of signals the \(MR(i)\geq0\) iff (i) the T-transformation function \(T_{\eta(i),s}\) is increasing in \(i\) (ii) a decision rule \(t^\eta(i)(x)\) is quasi-monotone in the accuracy-order, such that higher A-order cannot lead to a decreasing \(t^\eta(i)(x)\)
 \end{thm}
 \begin{proof}
 I want to show that
 \[
-	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x),s)\, dG^{\eta(i)}\, dF(x)\geq0
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x))\, dG^{\eta(i)}\, dF(x)\geq0
 \]
 Given the definition of the T-function, I can write the above as
 \[
-	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)),s)\, dG^{\eta(i-1)}\, dF(x)
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)))\, dG^{\eta(i-1)}\, dF(x)
 \]
 as the T-function transform the signal from the previous period in to the signal in this period.
 
 The envelope theorem states that I can ignore the differentiation of the optimal treatment wrt. \(i\). The inner integral can the be written as
 \[
-	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)),s)\right]\pder{\eta(i)}t^{\eta(i)}(x)\pder{i}T_{\eta(i),s}(x)\, dG^{\eta(i-1)}(s\mid x)
+	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)\pder{i}T_{\eta(i),s}(x)\, dG^{\eta(i-1)}
 \]
 However the first-order-condition says that
 \[
-	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)),s)\right]\pder{\eta(i)}t^{\eta(i)}(x)dG^{\eta(i-1)}(s\mid x)=0
+	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)dG^{\eta(i-1)}=0
 \]
 
 The term \(\left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\) is quasi-monotone by the fact that it has a single crossing property. \textcite{Quah2009} discuss in proposition 9, under which circumstances and increasing decision rule under the signal \(\eta\) is also increasing under \(\eta'\). If this is the case, then the term \(\pder{\eta(i)}t^{\eta(i)}(x)\) is also quasi-monotone. Thus the first part of the integral is quasi-monotone. If \(\pder{i}T_{\eta(i),s}(x)\) is a non-decreasing function then \(MR(i)\geq0\) by \cref{lem:optimal-condition-lemma}.
@@ -418,11 +440,11 @@ See~\cref{fig:test-power}
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{../fig/test-power-1.pdf}
+		\includegraphics[width=\textwidth]{test-power-1.pdf}
 		\caption{}\label{fig:test-power-1}
 	\end{subfigure}
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{../fig/test-power-2.pdf}
+		\includegraphics[width=\textwidth]{test-power-2.pdf}
 		\caption{}\label{fig:test-power-2}
 	\end{subfigure}
 \caption{The blue shaded area is the probability of a type I error, and the red shaded area is the test power, while the non-shaded area under the red curve is the probability of a type II error. \Cref{fig:test-power-1,fig:test-power-2} have the same probability of a type I error, but the power of the test in \cref{fig:test-power-2} is higher than in \cref{fig:test-power-2}, as the probability of a type II error is smaller}\label{fig:test-power}

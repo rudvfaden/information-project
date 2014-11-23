@@ -14,9 +14,9 @@
 	\fill[black!60!green] (2,-0.8) circle[radius=2pt];
 	\fill[black!60!green] (5,-0.8) circle[radius=2pt];
 
-	\draw[->] (1,-1.5) node[below]{\color{red}\(X\)}-- (0.1,-0.9);
-	\draw[->] (1,-1.5) -- (2.9,-0.9);
+	\draw[->] (1.5,-1.5) node[below]{\color{red}\(X\)}-- (0.1,-0.9);
+	\draw[->] (1.5,-1.5) -- (2.9,-0.9);
 
-	\draw[->] (3,-1.5) node[below]{\color{black!60!green}\(X'\)}-- (2.1,-0.9);
-	\draw[->] (3,-1.5) -- (4.9,-0.9);
+	\draw[->] (3.5,-1.5) node[below]{\color{black!60!green}\(X'\)}-- (2.1,-0.9);
+	\draw[->] (3.5,-1.5) -- (4.9,-0.9);
 \end{tikzpicture}

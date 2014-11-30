@@ -1,50 +1,42 @@
 \RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package % Layout
-\documentclass[10pt,a4paper]{article} 					% KOMA-Script article scrartcl
-\usepackage[nochapters,eulermath]{classicthesis} 					% nochapters
-\usepackage[top=2.5cm, bottom=2.5cm, left=4cm, right=4cm]{geometry} %Margins
-\usepackage{fixltx2e} 									% fix common latex errors
-%% Math
-\usepackage{mathtools} 									% math
-\usepackage{amsthm} 									% theorems and definition
-\usepackage{bm} 										% Bold math
-%% Figures and tables
-\usepackage{booktabs} 									% pretty tables
-\usepackage{subcaption} 								% subfigures
-\usepackage{pgfplots,tikz} \pgfplotsset{compat =1.11} 	% figures
+\documentclass[10pt,a4paper]{article}
+
+%% font
+%\usepackage{MnSymbol}
+%\usepackage[mathlf,textlf,minionint,smallfamily]{MinionPro} % must have Minion pro installed Palationo is similar
+\usepackage{mathpazo} % add possibly `sc` and `osf` optionsl
+\usepackage{eulervm}
+
+%% Author
+\def\myaffiliation{University of Copenhagen}
+\def\myauthor{Rud Faden}
+\def\myemail{rud.faden@econ.ku.dk}
+\def\mytitle{Physician Information Acquisition In a Dynamic Setting}
+\def\mykeywords{bla, bla bla}
+
+%% packages
+\usepackage{faden}
 \usetikzlibrary{decorations.pathreplacing}
 \graphicspath{{../fig/}}
-%% References
-\usepackage{hyperref}  									% hypersetup
-\usepackage{cleveref} 									% auto-detect cross reference type when using \cref
-% bibliography
-\usepackage{csquotes}
-\emergencystretch=1em
-\usepackage[%
-backend=bibtex,   										% use BibTeX
-style=chicago-authordate,
-natbib=true,
-bibwarn=true,
-backref=true,
-url=false, isbn=false
-]{biblatex}
+\usepackage{commath}
+
+%% biblatex path
 \addbibresource[datatype=bibtex]{../../bib/library.bib}
-%% Misc.
-\usepackage{microtype} 									% improves the spacing between words and letters
-\usepackage[colorinlistoftodos]{todonotes} 				% todo notes
-\usepackage{url} 										% for line breaks in url links
-\usepackage[titletoc,toc,title]{appendix} 				% appendices
-\usepackage{accents} 									% underbar
-\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
-% other configurations
-\input{configure.tex}
+\makeindex
+
+% Author and title
+\title{\mytitle}
+\author{
+{\myauthor} \\
+\textit{\small \myaffiliation} \\
+\small{\texttt{\href{\myemail}{\myemail}}}
+}
+\date{\today} % no date
 
 \begin{document}
 
 \maketitle
-{\begin{center}
-\footnotesize Incomplete Draft. Please do not cite without permission.
-\end{center}
-\vskip 3em}
+
 %%--------------------------------------------------------------------------
 %% Abstract
 %%--------------------------------------------------------------------------
@@ -69,7 +61,7 @@ Despite this evidence, models that incorporate physician knowledge about their p
 
 In my model, information about a patient is seen as an economics good, which can be produced at a price by the physician. Further it attempts to describe the process of how information is accumulated by the physician and how this may both decrease cost and competition among physicians at the same time.
 
-Very general models of (Bayesian) learning have been developed by \textcite{Grossman1977}. However such a model quickly becomes very complex and as a results applications are not easy. Instead I limit myself to a class of monotone decision problems, which greatly simplifies the analysis.
+Very general models of learning have been developed by \textcite{Grossman1977}. However such a model quickly becomes very complex and as a results applications are not easy. Instead I limit myself to a class of monotone decision problems, which greatly simplifies the analysis.
 %%--------------------------------------------------------------------------
 %% Section: The Patients Utility}
 %%--------------------------------------------------------------------------
@@ -78,26 +70,26 @@ Very general models of (Bayesian) learning have been developed by \textcite{Gros
 
 Following \citet{Rochaix1989}, the patient has a utility function
 \[
-	U = u(t,s):\, T\times S\rightarrow\mathbb{R}
+	U = u(t,s):\, T\times S\longrightarrow\mathbb{R}
 \]
 where \(t\) is treatment, \(s\) is disease variable classified by its severity of illness, where both \(t\) and \(s\) traverse a real line. It is assumed that the utility function has both increasing and decreasing parts to capture the negative effects of both under and over treatment. It is further assumed that the dis-utility of moving away from the optimum is increasing in \(s\)  such that the patient is more \emph{risk-sensitive} for higher values of \(s\)
 
 %========== DEFINITION: Risk-sensitivity ==========%
-\begin{defn}\label{def:risk-sensitivity}
+\begin{definition}\label{def:risk-sensitivity}
 Assuming that the decision problem has a unique solution \(t^{*}(s)\)  and for \(s'>s\),  \(u(t^{*}(s),s)=u(t^{*}(s'),s')\). Then for \(t^{*}(s)>t_{1}\), \(t^{*}(s')>t_{2}\),  \(t_{2}\ge t_{1}\), and \(t^{*}(s')-t_{2}=t^{*}(s)-t_{1}=\Delta t\) the \emph{risk-sensitivity} is monotonically increasing in \(s\)  if
 \[
 	0\le u(t^{*}(s),s)-u(t_{1},s)\le u(t^{*}(s'),s')-u(t_{2},s')\label{eq:risk-sensitivity}
 \]
 for all \(s\) and \(t\)  and I write that \(u(t_{1},s)\preceq u(t_{2},s')\)
-\end{defn}
+\end{definition}
 %==================================================%
 
 The notion of \emph{risk-sensitivity} is illustrated in \cref{fig:The-patients-utility}.
 
 %========== THEOREM: Single crossing property ==========%
-\begin{thm}\label{thm:single-crossing}
+\begin{theorem}\label{thm:single-crossing}
 If the risk sensitivity is increasing in \(s\)  then for \(s'>s\), \(u(t,s)\) has a single crossing property in \((s,t)\)
-\end{thm}
+\end{theorem}
 %==================================================%
 
 %========== PROF - crossing property ==========%
@@ -126,15 +118,15 @@ The intuition behind \cref{thm:single-crossing}, is that the marginal change \(u
 %=======================================================%
 
 %========== PROPOSITION: Single-crossing property ==========%
-\begin{prop}
-Given that \(u(t',s)-u(t,s)\) has a single crossing property in \(s\) and that both \(S\) and \(T\) are well ordered sets (in the strong set order)\footnote{If \(X' \geq X\) in the strong set order, then \(\max (x',x)\in X'\) and \(\min (x',x)\in X\). E.g. \([2,5]\geq[0,3]\) in the strong set order, while \(\{2,5\} \) and \(\{0,3\}\) is not. \\
+\begin{proposition}
+Given that \(u(t',s)-u(t,s)\) has a single crossing propositionerty in \(s\) and that both \(S\) and \(T\) are well ordered sets (in the strong set order)\footnote{If \(X' \geq X\) in the strong set order, then \(\max (x',x)\in X'\) and \(\min (x',x)\in X\). E.g. \([2,5]\geq[0,3]\) in the strong set order, while \(\{2,5\} \) and \(\{0,3\}\) is not. \\
 	\includegraphics[width=0.4\textwidth]{strong-set-order.pdf}
 }, then
 \[
 	t^{*}(s)=\argmax_{s\in S}u(t,s)\label{eq:increasing-solution}
 \]
 is increasing in \(s\).\footnote{It should be noted that the assumption of quasi-supermodularity is not needed as the choice space is well ordered (e.i.\ a chain).}
-\end{prop}
+\end{proposition}
 
 \begin{proof}
 As both \(T\) and \(S\) are real lines, then it follows trivially that they are well ordered. For the rest of the proof see \textcite{Milgrom1994} or \cref{app:topiks-proof}
@@ -159,7 +151,7 @@ where \(t,s\in\mathbb{R}^{+}\). Assuming that \cref{eq:utility-example} is conti
 
 In reality however, \(s\) is never observed. The level of severity for the patients is a random variable represented by \(S\)  characterized by a subjective CDF.\@ \(F(s)\)  with density \(f(s)\)  where \(s\) is a realization of \(S\). The expected value of choosing an admissible treatment intensity \(t\) is given by
 \[
-	U(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)\, dF(s)\label{eq:expected-utility-prior}
+	U(t,S)=E[u(t,s)]=\max_{t}\int_{S}u(t,s)\dif F(s)\label{eq:expected-utility-prior}
 \]
 It is however possible to acquire costly information about \(s\) through medical diagnostics and physician effort. However, for two experiment \(X,Y\) on \(S\)  it is not a priori certain that one experiment \(X\) is necessary more \emph{informative} about \(s\) than the experiment \(Y\)  where \emph{informative} is to be understood in the way the posterior decision induced by the experiment \(X\) insures greater expected utility than the decision induced by the experiment \(Y\). Therefore we must introduce an order of information.
 
@@ -170,30 +162,30 @@ It is however possible to acquire costly information about \(s\) through medical
 \subsection{Information ordering}
 
 %========== DEFINITION: affiliation ==========%
-\begin{defn}\label{def:afflilation} \parencite{Milgrom1982}
+\begin{definition}\label{def:afflilation} \parencite{Milgrom1982}
 For a family of density functions, let \(x\lor s\) denote the component wise maximum and \(x\land s\) the component wise minimum. Then \(x\) and \(s\) are affiliated if for all \(s\) and \(x\)
 \[
 	f(s\lor x)\, f(s\land x)\ge f(s)\, f(x)
 \]
-\end{defn}
+\end{definition}
 %=============================================%
 
 Affiliation of two random variables are equivalent to the monotone likelihood ratio property, and the intuition behind \cref{def:afflilation} is that higher signal realization of \(x\) makes the probability that \(s\) is large, higher. Similarly small signal realization of \(x\) makes the probability of a small \(s\) more likely.\footnote{See \cref{app:affiliation} for more details}
 
 \textcite{Athey2002}  shows that solution given in \cref{eq:increasing-solution} is robust to uncertainty, such that
 \[
-	t^*(x)=\argmax_{x\in X}\int_Su(t,s)\, dG^\eta(s\mid x)
+	t^*(x)=\argmax_{x\in X}\int_Su(t,s)\dif G^\eta(s\mid x)
 \]
 is increasing in \(x\)  whenever \(x\) and \(s\) are affiliated.\footnote{Note that here we, unlike in \cref{thm:informative}, consider the problem of deciding a treatment \(t\) before the state \(s\) is know, but \emph{after} observing the signal \(x\) }
 
 %========== DEFINITION: Accuracy ==========%
-\begin{defn}\label{def:accuracy}
+\begin{definition}\label{def:accuracy}
 \parencite{Persico2000} Given two signals (experiments) \(X^{\eta}\) and \(X^{\eta'}\),  \(X^{\eta'}\) is more accurate than \(X^{\eta}\) if
 \begin{align}
     	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{align}
 is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\)} Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
-\end{defn}
+\end{definition}
 %================================================%
 
 To understand the concept of accuracy, it can be noted that
@@ -256,10 +248,10 @@ Given that we now know, when a test can be considered more informative than anot
 %====================================================%
 
 %========== THEOREM: informative ==========%
-\begin{thm}\label{thm:informative}
+\begin{theorem}\label{thm:informative}
 \parencite{Persico2000}
 Suppose that \(X^{\eta}\) and \(X^{\eta'}\) are affiliated with \(S\) and that \(\left \{X^{\eta}\right \} _{\eta\in E}\) is A-ordered, such that \(X^{\eta'}\) is more accurate than \(X^{\eta}\). Then for all utility functions with a single crossing property, \(X^{\eta'}\) is more informative than \(X^{\eta}\)
-\end{thm}
+\end{theorem}
 % the real important fact here is that u is monotonically increasing in s
 \begin{proof}
 See \citet{Lehmann1988} section 4 and \citet{Karlin1956} Lemma 3--4 and theorem 1.
@@ -270,7 +262,7 @@ It follows directly from \cref{thm:informative} that when \(X^{\eta'}\) is more 
 \begin{align}
 	\label{eq:utility-increasing-information}
 	\begin{split}
-	\int_{X}\int_{S}u(t,s)\, dG^{\eta'}(s\mid x)\, dF(x)&\geq \int_{X}\int_{S}u(t,s)\, dG^{\eta}(s\mid x)\, dF(x) \Leftrightarrow \\
+	\int_{X}\int_{S}u(t,s)\dif G^{\eta'}(s\mid x)\dif F(x)&\geq \int_{X}\int_{S}u(t,s)\dif G^{\eta}(s\mid x)\, dF(x) \Leftrightarrow \\
 	U(t,s;\eta')&\geq U(s,t;\eta)
 \end{split}
 \end{align}
@@ -279,7 +271,7 @@ From the above equation, it is clear that the patient will always prefer a more 
 
 \textcite{Persico2000} goes on to show that when \(u(t,s)\) is risk-sensitive increasing in \(s\), then the marginal value of information
 \begin{align}
-		MR(\eta)=\frac{\partial}{\partial \eta} \int_{X}\int_{S}u(t,s)\, dG^{\eta}(s\mid x)\, dF(x) \label{eq:marginal-value-of-information}
+		MR(\eta)=\frac{\partial}{\partial \eta} \int_{X}\int_{S}u(t,s)\dif G^{\eta}(s\mid x)\dif F(x) \label{eq:marginal-value-of-information}
 \end{align}
 
 
@@ -298,7 +290,7 @@ From \cref{eq:marginal-value-of-information} it follows straight forward that th
 i now turn to the problem of aggregating information over time. The question is, if the physician receives a signal \(x_1\) in period 1 and \(x_2\) in period 2, when will the aggregation of the two signals overt time then be better than just one of them? Stated more formally, when will \(MR(\eta(i))\) be increasing in time \(i\)?
 
 \begin{lemma}\label{lem:produc-affiliation}
-	if \(f(\cdot)\) and \(h(\cdot)\) are affiliated and non-negative, then \(f(\cdot)=f(\cdot)h(\cdot)\) is also affiliated.
+	if \(g(\cdot)\) and \(h(\cdot)\) are affiliated and non-negative, then \(f(\cdot)=g(\cdot)h(\cdot)\) is also affiliated.
 \end{lemma}
 \begin{proof}
 	See \textcite{Milgrom1982a}
@@ -322,18 +314,18 @@ The question is then, under which conditions the expected utility of the patient
 	\end{align}
    then
    \[
-    	\int_a^b H(s)J(s)\, d\mu(s)\ge0
+    	\int_a^b H(s)J(s)\dif \mu(s)\ge0
    \]
 
 \end{lemma}
 \begin{proof}
 	Because of \cref{eq:optimal-condition-lemma} and the fact the \(H(\cdot)\) is quasi-monotone there must be a part on \(s_0\in[a,b]\) before which \(H\) is non-positive and after which is it non-negative. Let \(\bar{J}=J(s)-J(s_0)\): because \(J\) is non-decreasing, \(\bar{J}\) non-positive before \(s_0\) and non-negative after. I can then write
 	\[
-		\int_a^b H(s)J(s)\, d\mu(s)=\int_a^b H(s)\bar{J}(s)\, d\mu(s)
+		\int_a^b H(s)J(s)\, d\mu(s)=\int_a^b H(s)\bar{J}(s)\dif \mu(s)
 	\]
 because of \cref{eq:optimal-condition-lemma}. Rewriting the rhs the above to
 \[
-	\int_a^{s_0} H(s)\bar{J}(s)\, d\mu(s)+ \int_{s_0}^b H(s)\bar{J}(s)\, d\mu(s)\geq 0
+	\int_a^{s_0} H(s)\bar{J}(s)\dif \mu(s)+ \int_{s_0}^b H(s)\bar{J}(s)\dif \mu(s)\geq 0
 \]
 because of the fact that \(H(\cdot)\) and \(\bar{J}(\cdot)\) have the same sign on \([a,s_0]\) and \([s_0,b]\)
 \end{proof}
@@ -342,27 +334,27 @@ because of the fact that \(H(\cdot)\) and \(\bar{J}(\cdot)\) have the same sign 
 	\(i\) is a continues real variable and \(\eta(i)\) is continuous and differential in \(i\)
 \end{assumption}
 
-\begin{thm}\label{thm:mri}
+\begin{theorem}\label{thm:mri}
 For a A-ordered family of signals the \(MR(i)\geq0\) iff (i) the T-transformation function \(T_{\eta(i),s}\) is increasing in \(i\) (ii) a decision rule \(t^\eta(i)(x)\) is quasi-monotone in the accuracy-order, such that higher A-order cannot lead to a decreasing \(t^\eta(i)(x)\)
-\end{thm}
+\end{theorem}
 \begin{proof}
 I want to show that
 \[
-	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x))\, dG^{\eta(i)}\, dF(x)\geq0
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x))\dif G^{\eta(i)}\dif F(x)\geq0
 \]
 Given the definition of the T-function, I can write the above as
 \[
-	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)))\, dG^{\eta(i-1)}\, dF(x)
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)))\dif G^{\eta(i-1)}\dif F(x)
 \]
 as the T-function transform the signal from the previous period in to the signal in this period.
 
 The envelope theorem states that I can ignore the differentiation of the optimal treatment wrt. \(i\). The inner integral can the be written as
 \[
-	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)\pder{i}T_{\eta(i),s}(x)\, dG^{\eta(i-1)}
+	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)\pder{i}T_{\eta(i),s}(x)\dif G^{\eta(i-1)}
 \]
 However the first-order-condition says that
 \[
-	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)dG^{\eta(i-1)}=0
+	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)\dif G^{\eta(i-1)}=0
 \]
 
 The term \(\left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\) is quasi-monotone by the fact that it has a single crossing property. \textcite{Quah2009} discuss in proposition 9, under which circumstances and increasing decision rule under the signal \(\eta\) is also increasing under \(\eta'\). If this is the case, then the term \(\pder{\eta(i)}t^{\eta(i)}(x)\) is also quasi-monotone. Thus the first part of the integral is quasi-monotone. If \(\pder{i}T_{\eta(i),s}(x)\) is a non-decreasing function then \(MR(i)\geq0\) by \cref{lem:optimal-condition-lemma}.
@@ -407,9 +399,9 @@ If I let \(\lambda\in[0,1]\) be the physician preference for effort we can resta
 From \cref{eq:utility-increasing-information} it is clear that the patient will always prefer more information to less information. Given the definition of information aggregation, the question is for which values of \(\dot{\eta}_i\) the patients utility is increasing.
 
 %==========  DEFINITION: Accuracy order in i  ==========%
-\begin{defn}\label{def:i-accuracy-order}
+\begin{definition}\label{def:i-accuracy-order}
 	The accuracy order is increasing in \(i\) iff \(\dot{\eta}_i=\partial^2 \big/\partial \eta \partial i>0\)
-\end{defn}
+\end{definition}
 %=========================================================%
  Given \cref{def:i-accuracy-order} and~\cref{thm:informative} is is clear that the patients expected utility is increasing in \(i\) only if the physician accumulates information over time, in such a way that the information order is increasing.
 
@@ -455,7 +447,7 @@ See~\cref{fig:test-power}
 %%--------------------------------------------------------------------------
 
 \subsection{Stochastic Affiliation}\label{app:affiliation}
-\begin{defn}
+\begin{definition}
 	The random variables \(X_1,\ldots,X_n\) are said to be affiliated if their joint PDF \(f(\mathbf{x})\) is log-supermodular, meaning that for  all \(\mathbf{x},\mathbf{x}'\in\mathbb{R}_nb\), we have
 	\[
 		f(\mathbf{x}\land \mathbf{x}')f(\mathbf{x}\lor \mathbf{x}')\geq f(\mathbf{x})f(\mathbf{x}')
@@ -464,7 +456,7 @@ When \(f\) is twice continuously differentiable, then equivalently \(bX_1,\ldots
 \[
 	\frac{\partial^2}{\partial x_i \partial x_j}\ln f\geq 0
 \]
-\end{defn}
+\end{definition}
 Consider two joint random variables \(X\) and \(S\). Affiliation then tells us about the conditional distribution of \(f(S\mid x)\). If \(x\leq x', y\leq y'\), then affiliation implies that
 \[
 	\frac{f(x,y')}{f(x,y)}\leq \frac{f(x',y')}{f(x',y)}
@@ -483,13 +475,13 @@ At last, affiliation is also preserved under multiplication, such that if \(f(\m
 %%--------------------------------------------------------------------------
 
 \subsection[A simplified proof of Topkis’s Monotonicity Theorem is]{A simplified proof of \Citeauthor{Topkis1998}'s Monotonicity Theorem}\label{app:topiks-proof}
-\begin{thm}
+\begin{theorem}
 	Consider the problem
 	\[
 		t^*(s)=\argmax_{s\in S} u(t,s)
 	\]
 	where \(T,S\in \mathbb{R}\) and \(T_s\subset T\) is the correspondence from \(S\) to \(T\)  with \(T_s\) being the set of feasible treatments, when the diseases is \(s\).  Assume also that (i) \(u\) has increasing differences in \((t,s)\)  and (ii) \(T_s=[g(s),h(s)]\)  where \(h,g:S \rightarrow \mathbb{R}\) are increasing functions with \(g\leq h\).  Then the optimal solution \(t^*(s)\) is an increasing function.
-\end{thm}
+\end{theorem}
 
 \begin{proof}
 	The proof is done by contradiction. Assume that \(t^*(s)\) is not increasing. Then for some \(s'>s\)  \(t^*(s')<t^*(s)\).  Then using assumption (ii) and the fact that \(t^*(s)\in T_s\)  and \(t^*(s')\in T_{s'}\)  it follows that \(g(s)\leq g(s')\leq t^*(s') < t^*(s) \leq h(s) \leq h(s')\)  so that \(t^*(s)\in T_{s'}\) and \(t^*(s')\in T_s\).  Using the latter facts along with \(t^*(s)\in t(s)\) and \(t^*(s')\in t(s')\)  we have

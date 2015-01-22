@@ -1,11 +1,14 @@
 \RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package % Layout
-\documentclass[10pt,a4paper]{article}
+\documentclass[11pt,a4paper,twoside]{article}
 
 %% font
 %\usepackage{MnSymbol}
 %\usepackage[mathlf,textlf,minionint,smallfamily]{MinionPro} % must have Minion pro installed Palationo is similar
-\usepackage{mathpazo} % add possibly `sc` and `osf` optionsl
-\usepackage{eulervm}
+\usepackage{MnSymbol}
+%\usepackage{MinionPro}
+\usepackage[mathlf,textlf]{MinionPro}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
 
 %% Author
 \def\myaffiliation{University of Copenhagen}
@@ -16,12 +19,13 @@
 
 %% packages
 \usepackage{faden}
+\pgfplotsset{compat =1.9}
 \usetikzlibrary{decorations.pathreplacing}
 \graphicspath{{../fig/}}
 \usepackage{commath}
 
 %% biblatex path
-\addbibresource[datatype=bibtex]{../../bib/library.bib}
+\addbibresource[]{../../bib/library.bib}
 \makeindex
 
 % Author and title
@@ -162,7 +166,7 @@ It is however possible to acquire costly information about \(s\) through medical
 \subsection{Information ordering}
 
 %========== DEFINITION: affiliation ==========%
-\begin{definition}\label{def:afflilation} \parencite{Milgrom1982}
+\begin{definition}\label{def:afflilation} \parencite{Milgrom1982a}
 For a family of density functions, let \(x\lor s\) denote the component wise maximum and \(x\land s\) the component wise minimum. Then \(x\) and \(s\) are affiliated if for all \(s\) and \(x\)
 \[
 	f(s\lor x)\, f(s\land x)\ge f(s)\, f(x)
@@ -184,7 +188,7 @@ is increasing in \(x\)  whenever \(x\) and \(s\) are affiliated.\footnote{Note t
 \begin{align}
     	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{align}
-is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\)} Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
+is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\) which implies that \(F^{\eta'}(x\mid s)=F^\eta(T^{-1}(y)\mid s)T^{-1}(y)\)} Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
 \end{definition}
 %================================================%
 
@@ -196,15 +200,15 @@ Thus a more accurate signal can be obtained from a less accurate signal, by the 
 
 %========== EXAMPLE: T-transformation 1 ==========%
 \begin{example}\label{ex:t-transformation-1}
-Let  \(\eta\in[0,\infty]\) and let \(S\) be distributed according to any CDF and let \(X_{\eta}\sim\mathbb{U}(s-1/\eta,s+1/\eta)\) and let \(f(x\mid s)=\eta\big /2\) on \(X^\eta\). Then for \(\eta'>\eta\)
+Let  \(\eta\in[0,\infty)\) and let \(S\) be distributed according to any CDF and let \(X_{\eta}\) be uniformly distributed on \([s-1/\eta,s+1/\eta]\) and let \(f^\eta(x\mid s)=\eta\big /2\) on \(X^\eta\). Then for \(\eta'>\eta\)
 \[
 	\frac{\eta'}{2}=\frac{\eta}{2}\left(T_{\eta,s}^{-1}(x)\right)'\Leftrightarrow T_{\eta,s}(x)=\frac{\eta}{\eta'}(x-s)+s
 \]
 To see why, note that
 
 \begin{align*}
-	T^{-1}_{\eta,s}(x)               &=\frac{\eta'+\eta s-s}{\eta} \Rightarrow \\
-	\left(T^{-1}_{\eta,s}(x)\right)' &=\frac{\eta'}{\eta}
+	T^{-1}_{\eta,s}(y)               &=\frac{\eta'}{\eta}(y-s)+s \Rightarrow \\
+	\left(T^{-1}_{\eta,s}\right)'(y) &=\frac{\eta'}{\eta}
 \end{align*}
 
 \begin{figure}
@@ -335,18 +339,18 @@ because of the fact that \(H(\cdot)\) and \(\bar{J}(\cdot)\) have the same sign 
 \end{assumption}
 
 \begin{theorem}\label{thm:mri}
-For a A-ordered family of signals the \(MR(i)\geq0\) iff (i) the T-transformation function \(T_{\eta(i),s}\) is increasing in \(i\) (ii) a decision rule \(t^\eta(i)(x)\) is quasi-monotone in the accuracy-order, such that higher A-order cannot lead to a decreasing \(t^\eta(i)(x)\)
+For a A-ordered family of signals the \(MR(i)\geq0\) iff (i) the \(T\)-transformation function \(T_{\eta(i),s}\) is increasing in \(i\) (ii) a decision rule \(t^\eta(i)(x)\) is quasi-monotone in the accuracy-order, such that higher A-order cannot lead to a decreasing \(t^\eta(i)(x)\)
 \end{theorem}
 \begin{proof}
 I want to show that
 \[
 	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x))\dif G^{\eta(i)}\dif F(x)\geq0
 \]
-Given the definition of the T-function, I can write the above as
+Given the definition of the \(T\)-function, I can write the above as
 \[
 	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)))\dif G^{\eta(i-1)}\dif F(x)
 \]
-as the T-function transform the signal from the previous period in to the signal in this period.
+as the \(T\)-function transform the signal from the previous period in to the signal in this period.
 
 The envelope theorem states that I can ignore the differentiation of the optimal treatment wrt. \(i\). The inner integral can the be written as
 \[
@@ -365,7 +369,6 @@ The intuition behind \cref{thm:mri}, is that the T-function transforms add corre
 %%--------------------------------------------------------------------------
 
 \section{The physician problem}
-\todo{From here, it is very preliminary work in progress.}
 The physician has a utility function given by
 \[
 	V=v(M,\eta)
@@ -488,7 +491,7 @@ At last, affiliation is also preserved under multiplication, such that if \(f(\m
 	\[
 		0\geq u[s',t^*(s)]-u[s',t^*(s')]\geq u[s,t^*(s)]-u[s,t^*(s')]\geq 0,
 	\]
-	which holds throughout. Hence, \(t^*(s)\in t(s')\) is a contradiction to the fact that \(t^*(s')=\max \{t(s')\}\) since \(t^*(s')<t^*(s)\).  Hence, \(t^*(s)\) is an increasing function \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\) }
+	which holds throughout. Hence, \(t^*(s)\in t(s')\) is a contradiction to the fact that \(t^*(s')=\max \{t(s')\}\) since \(t^*(s')<t^*(s)\).  Hence, \(t^*(s)\) is an increasing function \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\)}
 \end{proof}
 \end{appendices}
 \end{document}

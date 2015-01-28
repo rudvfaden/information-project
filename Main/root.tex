@@ -1,14 +1,12 @@
 \RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package % Layout
-\documentclass[11pt,a4paper,twoside]{article}
-
+\documentclass[11pt,a4paper,oneside]{article}
 %% font
-%\usepackage{MnSymbol}
-%\usepackage[mathlf,textlf,minionint,smallfamily]{MinionPro} % must have Minion pro installed Palationo is similar
+
 \usepackage{MnSymbol}
-%\usepackage{MinionPro}
 \usepackage[mathlf,textlf]{MinionPro}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
+\usepackage{enumitem}
 
 %% Author
 \def\myaffiliation{University of Copenhagen}
@@ -25,7 +23,7 @@
 \usepackage{commath}
 
 %% biblatex path
-\addbibresource[]{../../bib/library.bib}
+\addbibresource{../../bib/library.bib}
 \makeindex
 
 % Author and title
@@ -63,7 +61,7 @@ This has to some degree been backed by empirical evidence. Using insurance data 
 
 Despite this evidence, models that incorporate physician knowledge about their patients are scares, and no models exists which describes how physician knowledge is obtained.
 
-In my model, information about a patient is seen as an economics good, which can be produced at a price by the physician. Further it attempts to describe the process of how information is accumulated by the physician and how this may both decrease cost and competition among physicians at the same time.
+In my model, information about a patient is seen as an economics good, which can be produced at a cost \(c\) by the physician. Further it attempts to describe the process of how information is accumulated by the physician and how this may both decrease cost and competition among physicians at the same time.
 
 Very general models of learning have been developed by \textcite{Grossman1977}. However such a model quickly becomes very complex and as a results applications are not easy. Instead I limit myself to a class of monotone decision problems, which greatly simplifies the analysis.
 %%--------------------------------------------------------------------------
@@ -188,7 +186,7 @@ is increasing in \(x\)  whenever \(x\) and \(s\) are affiliated.\footnote{Note t
 \begin{align}
     	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{align}
-is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\) which implies that \(F^{\eta'}(x\mid s)=F^\eta(T^{-1}(y)\mid s)T^{-1}(y)\)} Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
+is non decreasing in \(s\) for all \(x\).\footnote{Note that \cref{eq:acuracy tranformation} can also be written as \(F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)\) which implies that \(T_{\eta,s}(x)\), solves \(f^{\eta'}(x\mid s)=f^\eta(T^{-1}(y)\mid s)T'^{-1}(y)\)} Let \(E\) be a real line. A family of signals \(\left \{ X^{\eta}\right \} _{\eta\in E}\), with support \(X:=\bigcup_{x\in E}X^\eta\), is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
 \end{definition}
 %================================================%
 
@@ -202,7 +200,7 @@ Thus a more accurate signal can be obtained from a less accurate signal, by the 
 \begin{example}\label{ex:t-transformation-1}
 Let  \(\eta\in[0,\infty)\) and let \(S\) be distributed according to any CDF and let \(X_{\eta}\) be uniformly distributed on \([s-1/\eta,s+1/\eta]\) and let \(f^\eta(x\mid s)=\eta\big /2\) on \(X^\eta\). Then for \(\eta'>\eta\)
 \[
-	\frac{\eta'}{2}=\frac{\eta}{2}\left(T_{\eta,s}^{-1}(x)\right)'\Leftrightarrow T_{\eta,s}(x)=\frac{\eta}{\eta'}(x-s)+s
+	\frac{\eta'}{2}=\frac{\eta}{2}\left(T_{\eta,s}^{-1}\right)'(x)\Leftrightarrow T_{\eta,s}(x)=\frac{\eta}{\eta'}(x-s)+s
 \]
 To see why, note that
 
@@ -297,7 +295,7 @@ i now turn to the problem of aggregating information over time. The question is,
 	if \(g(\cdot)\) and \(h(\cdot)\) are affiliated and non-negative, then \(f(\cdot)=g(\cdot)h(\cdot)\) is also affiliated.
 \end{lemma}
 \begin{proof}
-	See \textcite{Milgrom1982a}
+	See \textcite{Milgrom1982a} or \textcite[Collary 2.6.3]{Topkis1998}
 \end{proof}
 A consequence of \cref{lem:produc-affiliation} is that the posterior of a density will be affiliated if both the prior and the likelihood function are affiliated.
 
@@ -379,21 +377,28 @@ where the physicians payment, \(M\) is given by
 \]
 where \(\delta\) is a fixed payment, \(p\) is the physician payment per unit of treatment, \(q\) is quantity of treatment.
 
-I also assume that the physician can increase the quality of treatment by increasing the diagnosis accuracy through effort, such that \(\eta\) increases when more effort is applied. Where \(\eta\) is the level of accuracy in \(X^\eta\). The cost of accuracy is given by \(C\). Assuming a separable utility function, the physician problem can be expressed as
+I also assume that the physician can increase the quality of treatment by increasing the diagnosis accuracy through effort, such that \(\eta\) increases proportionally to the effort applied. Where \(\eta\) is the level of accuracy in \(X^\eta\). The cost of accuracy is given by a continues, increasing and convex cost function \(C\). Assuming a separable utility function, the physician problem can be expressed as
 \[
 	v(M,e)=M-C(\eta)
 \]
 As the subject of this paper, is the acquisition of information, through physician effort, I ignore the treatment decision and assume for simplicity that the payment for treatment \(p\) can be set exactly equal to the cost \(\omega\)  The problem then simplifies to
 \begin{align}
 v(\delta,\eta)=\delta-C(\eta)\label{eq:phys-utility}
-\end{align}
-Further, the physician will only apply effort as long as \cref{eq:phys-utility} is positive. Let \(\bar{\eta}\) be the solution to \(\delta=C(\eta)\). Then \(\bar{\eta}\) must be between \([0,\bar{\eta}]\).
+\end{align}.
 
-If I let \(\lambda\in[0,1]\) be the physician preference for effort we can restate the physicians problem in \cref{eq:phys-utility} as
-\begin{align}
- 	 v(\delta,\lambda,\bar{\eta})=\delta-C(\lambda\bar{\eta})\label{eq:phys-utility2}
-\end{align}
-
+The physician will not apply effort, when the value function is negative. Therefor the maximum effort that he will apply is 
+\[
+	\delta=C(\eta)
+\]
+which implies that 
+\[
+	C^{-1}(\delta)=\eta
+\]
+is concave by the fact that the inverse of strictly increasing convex real function is concave. Thereby the the limit of \(C^{-1}(\delta)\) exist and is given by 
+\[
+	\lim_{\delta \rightarrow\infty}C^{-1}(\delta)=\bar{\eta}
+\]
+Therefore it must be the case that \(\eta\in[0,\bar{\eta}]\) no matter the size of \(\delta\)
 %%--------------------------------------------------------------------------
 %% Section: The patients search for treatment in a static setting
 %%--------------------------------------------------------------------------
@@ -420,7 +425,7 @@ From \cref{eq:utility-increasing-information} it is clear that the patient will 
 %% Dynamic Settings
 %%--------------------------------------------------------------------------
 
-\printbibliography%
+\printbibliography
 
 %%--------------------------------------------------------------------------
 %% Appendix
@@ -483,15 +488,22 @@ At last, affiliation is also preserved under multiplication, such that if \(f(\m
 	\[
 		t^*(s)=\argmax_{s\in S} u(t,s)
 	\]
-	where \(T,S\in \mathbb{R}\) and \(T_s\subset T\) is the correspondence from \(S\) to \(T\)  with \(T_s\) being the set of feasible treatments, when the diseases is \(s\).  Assume also that (i) \(u\) has increasing differences in \((t,s)\)  and (ii) \(T_s=[g(s),h(s)]\)  where \(h,g:S \rightarrow \mathbb{R}\) are increasing functions with \(g\leq h\).  Then the optimal solution \(t^*(s)\) is an increasing function.
+	where \(T,S\in \mathbb{R}\) and \(T_s\subset T\) is the correspondence from \(S\) to \(T\)  with \(T_s\) being the set of feasible treatments, when the diseases is \(s\).  Assume also that
+	\begin{enumerate}[label=(\roman*)]
+		\item \(u\) has increasing differences in \((t,s)\)  and
+		\item \(T_s=[g(s),h(s)]\)  where \(h,g:S \rightarrow \mathbb{R}\) are increasing functions with \(g\leq h\)
+	\end{enumerate}
+	Then the maximal and minimal selection of \(t^*(s)\), \(\bar{t}(s)\) and \(\underbar{t}(s)\) is an increasing functions.
 \end{theorem}
 
 \begin{proof}
-	The proof is done by contradiction. Assume that \(t^*(s)\) is not increasing. Then for some \(s'>s\)  \(t^*(s')<t^*(s)\).  Then using assumption (ii) and the fact that \(t^*(s)\in T_s\)  and \(t^*(s')\in T_{s'}\)  it follows that \(g(s)\leq g(s')\leq t^*(s') < t^*(s) \leq h(s) \leq h(s')\)  so that \(t^*(s)\in T_{s'}\) and \(t^*(s')\in T_s\).  Using the latter facts along with \(t^*(s)\in t(s)\) and \(t^*(s')\in t(s')\)  we have
-	\[
-		0\geq u[s',t^*(s)]-u[s',t^*(s')]\geq u[s,t^*(s)]-u[s,t^*(s')]\geq 0,
-	\]
-	which holds throughout. Hence, \(t^*(s)\in t(s')\) is a contradiction to the fact that \(t^*(s')=\max \{t(s')\}\) since \(t^*(s')<t^*(s)\).  Hence, \(t^*(s)\) is an increasing function \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\)}
+	The proof is done by contradiction. Assume that \(\bar{t}(s)\) is not increasing. Then for some \(s'>s\)  \(\bar{t}(s')<\bar{t}(s)\).  Then using assumption (ii) and the fact that \(\bar{t}(s)\in T_s\)  and \(\bar{t}(s')\in T_{s'}\)  it follows that \(g(s)\leq g(s')\leq \bar{t}(s') < \bar{t}(s) \leq h(s) \leq h(s')\)  so that \(\bar{t}(s)\in T_{s'}\) and \(\bar{t}(s')\in T_s\).  Using the latter facts along with \(\bar{t}(s)\in t^*(s)\) and \(\bar{t}(s')\in t^*(s')\)  we have
+	\begin{alignat*}{3}
+	   & 0 && \geq u[s',\bar{t}(s)]-u[s',\bar{t}(s')] && \qquad \text{By optimality of } \bar{t}(s') \\
+	   &   && \geq u[s,\bar{t}(s)]-u[s,\bar{t}(s')]   && \qquad \text{by increasing differences} \\
+	   &   && \geq 0                                  && \qquad \text{by optimality of } \bar{t}(s)
+	\end{alignat*}
+	which holds throughout. Hence it follows that \(u(s',\bar{t}(s))=u(s',\bar{t}(s'))\), such that \(\bar{t}(s)\in t^*(s')\), which is a contradiction to the fact that \(\bar{t}(s')=\max \{t^*(s')\}\) in the view of \(\bar{t}(s')<\bar{t}(s)\).  Hence, \(\bar{t}(s)\) is an increasing function. The proff for \(\underbar{t}(s)\) is symmetric \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\)}
 \end{proof}
 \end{appendices}
 \end{document}

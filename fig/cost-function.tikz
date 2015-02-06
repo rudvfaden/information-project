@@ -1,0 +1,14 @@
+\begin{tikzpicture}[scale=0.8]
+\draw (0,0) -- (10,0)node[right]{\(\eta\)};
+\draw (0,0) -- (0,10)node[above]{\(\delta\)};
+
+\draw (0,.0) parabola bend (1,0) (8,8) node[below right] {\(C_1(\eta)\)};
+\draw (0,.0) parabola bend (0,0) (5,8) node[below right] {\(C_2(\eta)\)};
+\draw[dotted] (4,0)node[below]{\(\eta\)} -- (4,5.1)--(0,5.1)node[left]{\(\delta_1\)};
+\draw[dotted] (0,1.47)node[left]{\(\delta_2\)} -- (4,1.47);
+\draw (11,0) -- (20,0)node[right]{\(\delta\)};
+\draw (11,0) -- (11,10)node[above]{\(\eta\)};
+
+\draw (11,0) .. controls (14,6) and (16,7) .. (19,8)node[right]{\(C_2^{-1}(\delta)\)};
+\draw (11,0) .. controls (14,4) and (16,5) .. (19,6)node[right]{\(C_1^{-1}(\delta)\)};
+\end{tikzpicture}

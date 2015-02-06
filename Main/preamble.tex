@@ -1,0 +1,39 @@
+\RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package % Layout
+\documentclass[11pt,a4paper,oneside]{article}
+%% font
+
+\usepackage{MnSymbol}
+\usepackage[mathlf,textlf]{MinionPro}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{enumitem}
+\usepackage{undertilde}
+
+%% Author
+\def\myaffiliation{University of Copenhagen}
+\def\myauthor{Rud Faden}
+\def\myemail{rud.faden@econ.ku.dk}
+\def\mytitle{Physician Information Acquisition In a Dynamic Setting}
+\def\mykeywords{bla, bla bla}
+
+%% packages
+\usepackage{faden}
+\pgfplotsset{compat =1.9}
+\usetikzlibrary{decorations.pathreplacing}
+\graphicspath{{../fig/}}
+\usepackage{commath}
+
+%% biblatex path
+\addbibresource{../../bib/library.bib}
+\makeindex
+
+% Author and title
+\title{\mytitle}
+\author{
+{\myauthor} \\
+\textit{\small \myaffiliation} \\
+\small{\texttt{\href{\myemail}{\myemail}}}
+}
+\date{\today} % no date
+
+% Custom commands

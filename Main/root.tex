@@ -1,40 +1,4 @@
-\RequirePackage[l2tabu, orthodox]{nag} 					% Checks for obsolete syntax and package % Layout
-\documentclass[11pt,a4paper,oneside]{article}
-%% font
-
-\usepackage{MnSymbol}
-\usepackage[mathlf,textlf]{MinionPro}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage{enumitem}
-
-%% Author
-\def\myaffiliation{University of Copenhagen}
-\def\myauthor{Rud Faden}
-\def\myemail{rud.faden@econ.ku.dk}
-\def\mytitle{Physician Information Acquisition In a Dynamic Setting}
-\def\mykeywords{bla, bla bla}
-
-%% packages
-\usepackage{faden}
-\pgfplotsset{compat =1.9}
-\usetikzlibrary{decorations.pathreplacing}
-\graphicspath{{../fig/}}
-\usepackage{commath}
-
-%% biblatex path
-\addbibresource{../../bib/library.bib}
-\makeindex
-
-% Author and title
-\title{\mytitle}
-\author{
-{\myauthor} \\
-\textit{\small \myaffiliation} \\
-\small{\texttt{\href{\myemail}{\myemail}}}
-}
-\date{\today} % no date
-
+\input{preamble.tex}
 \begin{document}
 
 \maketitle
@@ -121,7 +85,7 @@ The intuition behind \cref{thm:single-crossing}, is that the marginal change \(u
 
 %========== PROPOSITION: Single-crossing property ==========%
 \begin{proposition}
-Given that \(u(t',s)-u(t,s)\) has a single crossing propositionerty in \(s\) and that both \(S\) and \(T\) are well ordered sets (in the strong set order)\footnote{If \(X' \geq X\) in the strong set order, then \(\max (x',x)\in X'\) and \(\min (x',x)\in X\). E.g. \([2,5]\geq[0,3]\) in the strong set order, while \(\{2,5\} \) and \(\{0,3\}\) is not. \\
+Given that \(u(t',s)-u(t,s)\) has a single crossing propositionerty in \(s\) and that both \(S\) and \(T\) are well ordered sets (in the strong set order)\footnote{If \(X' \geq X\) in the strong set order, then \(\max (x',x)\in X'\) and \(\min (x',x)\in X\). E.g.\ \([2,5]\geq[0,3]\) in the strong set order, while \(\{2,5\} \) and \(\{0,3\}\) is not. \\
 	\includegraphics[width=0.4\textwidth]{strong-set-order.pdf}
 }, then
 \[
@@ -264,7 +228,7 @@ It follows directly from \cref{thm:informative} that when \(X^{\eta'}\) is more 
 \begin{align}
 	\label{eq:utility-increasing-information}
 	\begin{split}
-	\int_{X}\int_{S}u(t,s)\dif G^{\eta'}(s\mid x)\dif F(x)&\geq \int_{X}\int_{S}u(t,s)\dif G^{\eta}(s\mid x)\, dF(x) \Leftrightarrow \\
+	\int_{X}\int_{S}u(t,s)\dif G^{\eta'}(s\mid x)\dif F^\eta(x)&\geq \int_{X}\int_{S}u(t,s)\dif G^{\eta}(s\mid x)\dif F^h(x) \Leftrightarrow \\
 	U(t,s;\eta')&\geq U(s,t;\eta)
 \end{split}
 \end{align}
@@ -273,7 +237,7 @@ From the above equation, it is clear that the patient will always prefer a more 
 
 \textcite{Persico2000} goes on to show that when \(u(t,s)\) is risk-sensitive increasing in \(s\), then the marginal value of information
 \begin{align}
-		MR(\eta)=\frac{\partial}{\partial \eta} \int_{X}\int_{S}u(t,s)\dif G^{\eta}(s\mid x)\dif F(x) \label{eq:marginal-value-of-information}
+		MR(\eta)=\frac{\partial}{\partial \eta} \int_{X}\int_{S}u(t,s)\dif G^{\eta}(s\mid x)\dif F^h(x) \label{eq:marginal-value-of-information}
 \end{align}
 
 
@@ -337,16 +301,16 @@ because of the fact that \(H(\cdot)\) and \(\bar{J}(\cdot)\) have the same sign 
 \end{assumption}
 
 \begin{theorem}\label{thm:mri}
-For a A-ordered family of signals the \(MR(i)\geq0\) iff (i) the \(T\)-transformation function \(T_{\eta(i),s}\) is increasing in \(i\) (ii) a decision rule \(t^\eta(i)(x)\) is quasi-monotone in the accuracy-order, such that higher A-order cannot lead to a decreasing \(t^\eta(i)(x)\)
+For a A-ordered family of signals the \(MR(i)\geq0\) iff (i) the \(T\)-transformation function \(T_{\eta(i),s}\) is increasing in \(i\) (ii) a decision rule \(t^{\eta(i)}(x)\) is quasi-monotone in the accuracy-order, such that higher A-order cannot lead to a decreasing \(t^{\eta(i)}(x)\)
 \end{theorem}
 \begin{proof}
 I want to show that
 \[
-	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x))\dif G^{\eta(i)}\dif F(x)\geq0
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(x))\dif G^{\eta(i)}(s\mid x)\dif F^\eta(x)\geq0
 \]
 Given the definition of the \(T\)-function, I can write the above as
 \[
-	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)))\dif G^{\eta(i-1)}\dif F(x)
+	\pder{i}\int_X\int_S u(s,t^{\eta(i)}(T_{\eta(i),s}(x)))(s\mid x)\dif G^{\eta(i-1)}\dif F^\eta(x)
 \]
 as the \(T\)-function transform the signal from the previous period in to the signal in this period.
 
@@ -359,29 +323,57 @@ However the first-order-condition says that
 	\int_S \left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\pder{\eta(i)}t^{\eta(i)}(x)\dif G^{\eta(i-1)}=0
 \]
 
-The term \(\left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\) is quasi-monotone by the fact that it has a single crossing property. \textcite{Quah2009} discuss in proposition 9, under which circumstances and increasing decision rule under the signal \(\eta\) is also increasing under \(\eta'\). If this is the case, then the term \(\pder{\eta(i)}t^{\eta(i)}(x)\) is also quasi-monotone. Thus the first part of the integral is quasi-monotone. If \(\pder{i}T_{\eta(i),s}(x)\) is a non-decreasing function then \(MR(i)\geq0\) by \cref{lem:optimal-condition-lemma}.
+The term \(\left[\pder{t}u(t^{\eta(i)}(T_{\eta(i),s}(x)))\right]\) is quasi-monotone by the fact that it has a single crossing property. \textcite{Quah2009} discuss in proposition 9, under which circumstances and increasing decision rule under the signal \(\eta\) is also increasing under \(\eta'\). If this is the case, then the term \(\pder{\eta(i)}t^{\eta(i)}(x)\) is also quasi-monotone. Thus the first part of the integral is quasi-monotone. If \(\pder{i}T_{\eta(i),s}(x)\) is a non-decreasing function of \(i\) then \(MR(i)\geq0\) by \cref{lem:optimal-condition-lemma}.
 \end{proof}
-The intuition behind \cref{thm:mri}, is that the T-function transforms add correlation between the state \(s\) and the signal \(x\) only when \(T_{\eta(i),s}\) is an increasing function.
+The intuition behind \cref{thm:mri}, is that the T-function transforms add correlation between the state \(s\) and the signal \(x\) only when \(T_{\eta(i),s}\) is an increasing function. 
+
+In the remainder of this paper, I will assume (unless otherwise stated) that \(\dif /\dif i >0 \Rightarrow \dif/\dif \eta >0 => \dif / \dif T_{\eta(i)}>0\) when the \(T_{\eta(i),s}\) is increasing. 
+
+\section{The Patients Problem} % (fold)
+\label{sec:the_patients_problem}
+In this section I describe the patients decision problem in more detail. My main assumption about patient behavior is that the patient can  has a minimum acceptable level of utility that can be observed ex-ante. That is, a patient with severity of illness \(s\), will find her treatment satisfactory if \(t\in[t_1,t_2]\) for a given \(s\) (see \cref{fig:acceptable-treatment}). However, as the physician is payed by marginal cost pricing, such that \(p=\omega\), he will have no inventive to under or overtreat, and he will always set \(t=s\). Therefor findeing the expected utility of  \(t\in[t_1,t_2]\), is the same as finding the expected utility for  \(s\in[s_1,s_2]\).
+
+I define \(\utilde{\eta}\) as the minimal acceptable level of information about \(s\) that the patient will accept. \(\utilde{\eta}\) is therefore the solution to
+\[
+	\int_X\int_{s_1}^{s_2}u(t,s)\dif G^{\eta}(s\mid x)\dif F^{\eta}(x)=\underbar{U}
+\]
+
+Similarly, the optimal level of information \(\tilde{\eta}\) is the solution to 
+\[
+	\int_X\int_{s_1}^{s_2}u(t,s)\dif G^{\eta}(s\mid x)\dif F^{\eta}(x)=C(\eta)
+\]
+The level of optimal information, is the level the patient would demand, if he was fully informed and paid all the cost of information. 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.75\textwidth]{acceptable-treatment.pdf}
+	\caption{The patient minimum level of acceptable treatment given \(s\)}
+	\label{fig:acceptable-treatment}
+\end{figure}
+% section the_patients_problem (end)
 %%--------------------------------------------------------------------------
 %% Section: The physician problem
 %%--------------------------------------------------------------------------
 
 \section{The physician problem}
+%In this section I describe the physicians problem in more detail. An important assumption, is that while the physician cannot observe \(s\), he has an unbiased estimate of \(s\), in the sense that the mean of \(G(s\mid x)\) is equal to the true level of \(s\).
+
 The physician has a utility function given by
 \[
 	V=v(M,\eta)
 \]
 where the physicians payment, \(M\) is given by
 \[
-	M=\delta+(p-\omega)q
+	M=\delta+(p-\omega)t 
 \]
-where \(\delta\) is a fixed payment, \(p\) is the physician payment per unit of treatment, \(q\) is quantity of treatment.
+where \(\delta\) is a fixed payment, \(p\) is the physician payment per unit of treatment, \(t\) is quantity of treatment.
 
-I also assume that the physician can increase the quality of treatment by increasing the diagnosis accuracy through effort, such that \(\eta\) increases proportionally to the effort applied. Where \(\eta\) is the level of accuracy in \(X^\eta\). The cost of accuracy is given by a continues, increasing and convex cost function \(C\). Assuming a separable utility function, the physician problem can be expressed as
+ I also assume that the physician can increase the quality of treatment by increasing the diagnosis accuracy through effort, such that \(\eta\) increases proportionally to the effort applied. Thus \(\eta\) is the both level of accuracy in \(X^\eta\) and the physicians effort. 
+
+ The cost of accuracy is given by a continues, increasing and convex cost function \(C\). Assuming a separable utility function, the physician problem can be expressed as
 \[
-	v(M,e)=M-C(\eta)
+	v(M,\eta)=M-C(\eta)
 \]
-As the subject of this paper, is the acquisition of information, through physician effort, I ignore the treatment decision and assume for simplicity that the payment for treatment \(p\) can be set exactly equal to the cost \(\omega\)  The problem then simplifies to
+As the subject of this paper, is the acquisition of information, through physician effort, I ignore the treatment decision and assume for simplicity that the payment for treatment \(p\) can be set exactly equal to the cost \(\omega\).  The problem then simplifies to
 \begin{align}
 v(\delta,\eta)=\delta-C(\eta)\label{eq:phys-utility}
 \end{align}.
@@ -394,34 +386,50 @@ which implies that
 \[
 	C^{-1}(\delta)=\eta
 \]
-is concave by the fact that the inverse of strictly increasing convex real function is concave. Thereby the the limit of \(C^{-1}(\delta)\) exist and is given by 
+is concave by the fact that the inverse of strictly increasing convex real function is concave.\footnote{
+See \cref{sub:the_inverse_of_a_strictly_convex_function_is_concave} for a proof} Thereby the the limit of \(C^{-1}(\delta)\) exist and is given by 
 \[
 	\lim_{\delta \rightarrow\infty}C^{-1}(\delta)=\bar{\eta}
 \]
-Therefore it must be the case that \(\eta\in[0,\bar{\eta}]\) no matter the size of \(\delta\)
+Therefore it must be the case that \(\eta\in[0,\bar{\eta}]\) no matter the size of \(\delta\).
+Further one might notice that a physician with higher cost of \(\eta\) will acquire less information than a physician with lower \(C\).  Taking the inverse and differentiating, I get  
+\begin{align}
+    (C^{-1})'(\delta)\delta'=1 \Leftrightarrow  (C^{-1})'(\delta)=\frac{1}{\delta'}\label{eq:cost-function}
+\end{align}
+notice that from the convexity of \(C\)  it follows that \(C_1>C_2 \Rightarrow C'_1>C_2'\), which again by \cref{eq:cost-function} implies that \((C^{-1}_1)'(\delta)<(C^{-1}_2)'(\delta)\). 
+
+It is further assumed that the physician can store knowledge about patients, such that \(\eta(i)\geq\eta(j)\) for \(i>j\) always hold. 
+
+\section{A static analysis} % (fold)
+\label{sec:atatic_analysis}
+
+
+% section atatic_analysis (end)
 %%--------------------------------------------------------------------------
 %% Section: The patients search for treatment in a static setting
 %%--------------------------------------------------------------------------
 \section{The patients search for the best treatment}
 
-From \cref{eq:utility-increasing-information} it is clear that the patient will always prefer more information to less information. Given the definition of information aggregation, the question is for which values of \(\dot{\eta}_i\) the patients utility is increasing.
+From \cref{eq:utility-increasing-information} it is clear that the patient will always prefer more information to less information. 
 
-%==========  DEFINITION: Accuracy order in i  ==========%
-\begin{definition}\label{def:i-accuracy-order}
-	The accuracy order is increasing in \(i\) iff \(\dot{\eta}_i=\partial^2 \big/\partial \eta \partial i>0\)
-\end{definition}
-%=========================================================%
- Given \cref{def:i-accuracy-order} and~\cref{thm:informative} is is clear that the patients expected utility is increasing in \(i\) only if the physician accumulates information over time, in such a way that the information order is increasing.
+The patient is aware that she needs treatment, but the level of treatment is unknown. The patients does however know that physician will apply effort in the interval \([0,\sup\bar{\eta}]\). For simplicity I also assume that the patient is ignorant about the distribution of \(\eta\), such that \(\eta\sim \mathcal{U}(0,\sup\bar{\eta})\). The game is then as follows
 
- \begin{lemma}\label{lem:increasing-utilitiy-i}
- 	If the accuracy order is increasing in \(i\) then the expected utility function has increasing differences in \(s,i\)
- \end{lemma}
- \begin{proof}
-  	As \(\eta\) increases in \(i\) it is enough to show that \(\eta\) is increasing in \(s\). This follows directly from~\cref{eq:marginal-value-of-information}
- \end{proof}
+\begin{enumerate}[label=\itshape Stage \arabic*:]
+	\item Choose a random physician and get and expected utility of 
+\begin{align}
+    U(t,s;E\eta)=\int_{X}\int_{S}u(t,s)\dif G^{E\eta}(s\mid x)\dif F^{E\eta}(x)\label{eq:first-search}
+\end{align},
+	where \(E\eta\) is the expected value of \(\eta\)
+	\item The patient observes the realization of \(t,\eta\). If the patient stays with the same physician she knows she gets a utility of \((U(t,s;\eta(i)))\), where \(\eta(i)=\Delta\eta(i)+\eta(j),\:i>j\). If she searches for another physician she will get \cref{eq:first-search}
+	r
+\end{enumerate}
 
- The intuition behind \cref{lem:increasing-utilitiy-i} is the as the risk sensitivity is increasing in \(s\), then form higher values of \(s\) information is more valuable. As more information is aggregated over time, then a patient with higher \(s\) benefits more from a higher \(i\) than a patient with a lower \(s\).
-%%--------------------------------------------------------------------------
+The condition for staying is then 
+\[
+	U(t,s;\eta(i))>U(t,s;E\eta)
+\]
+
+%--------------------------------------------------------------------------
 %% Dynamic Settings
 %%--------------------------------------------------------------------------
 
@@ -430,80 +438,4 @@ From \cref{eq:utility-increasing-information} it is clear that the patient will 
 %%--------------------------------------------------------------------------
 %% Appendix
 %%--------------------------------------------------------------------------
-
-\begin{appendices}
-\section{Appendix}\label{sec:appendix}
-\subsection{More informative \& least as powerful test}\label{app:test-power}
-
-See~\cref{fig:test-power}
-
-\begin{figure}[!ht]
-	\centering
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{test-power-1.pdf}
-		\caption{}\label{fig:test-power-1}
-	\end{subfigure}
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{test-power-2.pdf}
-		\caption{}\label{fig:test-power-2}
-	\end{subfigure}
-\caption{The blue shaded area is the probability of a type I error, and the red shaded area is the test power, while the non-shaded area under the red curve is the probability of a type II error. \Cref{fig:test-power-1,fig:test-power-2} have the same probability of a type I error, but the power of the test in \cref{fig:test-power-2} is higher than in \cref{fig:test-power-2}, as the probability of a type II error is smaller}\label{fig:test-power}
-\end{figure}
-
-%%--------------------------------------------------------------------------
-%% Appendix: Stochastic Affiliation
-%%--------------------------------------------------------------------------
-
-\subsection{Stochastic Affiliation}\label{app:affiliation}
-\begin{definition}
-	The random variables \(X_1,\ldots,X_n\) are said to be affiliated if their joint PDF \(f(\mathbf{x})\) is log-supermodular, meaning that for  all \(\mathbf{x},\mathbf{x}'\in\mathbb{R}_nb\), we have
-	\[
-		f(\mathbf{x}\land \mathbf{x}')f(\mathbf{x}\lor \mathbf{x}')\geq f(\mathbf{x})f(\mathbf{x}')
-	\]
-When \(f\) is twice continuously differentiable, then equivalently \(bX_1,\ldots,X_n\) are affiliated iff for all \(i\ne j\)
-\[
-	\frac{\partial^2}{\partial x_i \partial x_j}\ln f\geq 0
-\]
-\end{definition}
-Consider two joint random variables \(X\) and \(S\). Affiliation then tells us about the conditional distribution of \(f(S\mid x)\). If \(x\leq x', y\leq y'\), then affiliation implies that
-\[
-	\frac{f(x,y')}{f(x,y)}\leq \frac{f(x',y')}{f(x',y)}
-\]
-which we can rewrite as
-\[
-	\frac{f(y'\mid x)f_X(x)}{f(y\mid x)f_X(x)}=\frac{f(y'\mid x)}{f(y\mid x)}\leq \frac{f(y'\mid x')}{f(y\mid x')} = \frac{f(y'\mid x')f_X(x')}{f(y\mid x')f_X(x')}
-\]
-which tells us the that likelihood ratio \(f(\cdot\mid x)\big/ f(\cdot\mid x)\) is increasing in \(x\) and thereby displays the monotone likelihood ratio property, which implies first-order (and hence second-order) stochastic dominance. \cite[in proposition 8 and 10 ]{Quah2009}, proofs that the monotone likelihood ratio property is required for the family of functions with the single-crossing property to have an increasing optimal solution in the signal \(x\).
-
-A further property of affiliation is that it is preserved under Bayesian updating, such that if the prior \(f(s')\big/f(s),\, s'\geq s\) has a monotone likelihood ratio property, then the posterior \(f(s'\mid x)\big/f(s\mid x)\) also have the monotone likelihood ratio property for any likelihood function \(f(x\mid \cdot)\).
-
-At last, affiliation is also preserved under multiplication, such that if \(f(\mathbf{x})=h(\mathbf{x})g(\mathbf{x})\), where \(g\) and \(h\) is nonnegative and affiliated, then \(f\) is also affiliated.
-%%--------------------------------------------------------------------------
-%% Appendix: Proof Topiks
-%%--------------------------------------------------------------------------
-
-\subsection[A simplified proof of Topkis’s Monotonicity Theorem is]{A simplified proof of \Citeauthor{Topkis1998}'s Monotonicity Theorem}\label{app:topiks-proof}
-\begin{theorem}
-	Consider the problem
-	\[
-		t^*(s)=\argmax_{s\in S} u(t,s)
-	\]
-	where \(T,S\in \mathbb{R}\) and \(T_s\subset T\) is the correspondence from \(S\) to \(T\)  with \(T_s\) being the set of feasible treatments, when the diseases is \(s\).  Assume also that
-	\begin{enumerate}[label=(\roman*)]
-		\item \(u\) has increasing differences in \((t,s)\)  and
-		\item \(T_s=[g(s),h(s)]\)  where \(h,g:S \rightarrow \mathbb{R}\) are increasing functions with \(g\leq h\)
-	\end{enumerate}
-	Then the maximal and minimal selection of \(t^*(s)\), \(\bar{t}(s)\) and \(\underbar{t}(s)\) is an increasing functions.
-\end{theorem}
-
-\begin{proof}
-	The proof is done by contradiction. Assume that \(\bar{t}(s)\) is not increasing. Then for some \(s'>s\)  \(\bar{t}(s')<\bar{t}(s)\).  Then using assumption (ii) and the fact that \(\bar{t}(s)\in T_s\)  and \(\bar{t}(s')\in T_{s'}\)  it follows that \(g(s)\leq g(s')\leq \bar{t}(s') < \bar{t}(s) \leq h(s) \leq h(s')\)  so that \(\bar{t}(s)\in T_{s'}\) and \(\bar{t}(s')\in T_s\).  Using the latter facts along with \(\bar{t}(s)\in t^*(s)\) and \(\bar{t}(s')\in t^*(s')\)  we have
-	\begin{alignat*}{3}
-	   & 0 && \geq u[s',\bar{t}(s)]-u[s',\bar{t}(s')] && \qquad \text{By optimality of } \bar{t}(s') \\
-	   &   && \geq u[s,\bar{t}(s)]-u[s,\bar{t}(s')]   && \qquad \text{by increasing differences} \\
-	   &   && \geq 0                                  && \qquad \text{by optimality of } \bar{t}(s)
-	\end{alignat*}
-	which holds throughout. Hence it follows that \(u(s',\bar{t}(s))=u(s',\bar{t}(s'))\), such that \(\bar{t}(s)\in t^*(s')\), which is a contradiction to the fact that \(\bar{t}(s')=\max \{t^*(s')\}\) in the view of \(\bar{t}(s')<\bar{t}(s)\).  Hence, \(\bar{t}(s)\) is an increasing function. The proff for \(\underbar{t}(s)\) is symmetric \parencite{Amir2005}.\footnote{In this proof, it is assumed that \(T_s\cap T_{s'}\ne \emptyset\). If this was the case, one would trivially have that \(t^*(s)<t^*(s')\)}
-\end{proof}
-\end{appendices}
-\end{document}
+\input{appendix.tex}

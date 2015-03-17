@@ -1,21 +1,7 @@
-# Created by http://www.gitignore.io
 
-### Windows ###
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
 
 # Folder config file
 Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
 
 
 ### LaTeX ###
@@ -51,23 +37,12 @@ $RECYCLE.BIN/
 *.vrb
 *.xdy
 *.tdo
-*.pdf
 *.fls
 *.xls
 *.ptex
 
-### LyX ###
-*.lyx~
-*.lyx#
-#draft2.tex#
-_region_.tex
-information-and-care.sublime-project
 information-and-care.sublime-workspace
-draft2.fls
-fig/t-transformation.fls
-fig/t-transformation.ptex
-draft2-blx.bib
-draft2.run.xml
+
 
 ### Sublime Text ###
 *.sublime-workspace

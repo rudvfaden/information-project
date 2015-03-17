@@ -1,0 +1,106 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.acn",
+				"*.acr",
+				"*.alg",
+				"*.aux",
+				"*.bbl",
+				"*.blg",
+				"*.dvi",
+				"*.fdb_latexmk",
+				"*.glg",
+				"*.glo",
+				"*.gls",
+				"*.idx",
+				"*.ilg",
+				"*.ind",
+				"*.ist",
+				"*.lof",
+				"*.log",
+				"*.lot",
+				"*.maf",
+				"*.mtc",
+				"*.mtc0",
+				"*.nav",
+				"*.nlo",
+				"*.out",
+				"*.pdfsync",
+				"*.ps",
+				"*.snm",
+				"*.synctex.gz",
+				"*.toc",
+				"*.vrb",
+				"*.xdy",
+				"*.tdo",
+				"*.xml",
+				"*.fls",
+				"*blx.bib",
+				"*.ptex",
+				"*.bcf",
+				".Rapp.history"
+			],
+			"follow_symlinks": true,
+			"name": "Main Folder",
+			"path": "Main"
+		},
+		{
+			"file_exclude_patterns":
+			[
+				"*.acn",
+				"*.acr",
+				"*.alg",
+				"*.aux",
+				"*.bbl",
+				"*.blg",
+				"*.dvi",
+				"*.fdb_latexmk",
+				"*.glg",
+				"*.glo",
+				"*.gls",
+				"*.idx",
+				"*.ilg",
+				"*.ind",
+				"*.ist",
+				"*.lof",
+				"*.log",
+				"*.lot",
+				"*.maf",
+				"*.mtc",
+				"*.mtc0",
+				"*.nav",
+				"*.nlo",
+				"*.out",
+				"*.pdfsync",
+				"*.ps",
+				"*.snm",
+				"*.synctex.gz",
+				"*.toc",
+				"*.vrb",
+				"*.xdy",
+				"*.tdo",
+				"*.ptex",
+				"*.fls",
+				"*.RData",
+				"*.Rhistory"
+			],
+			"follow_symlinks": true,
+			"name": "Figures",
+			"path": "fig"
+		},
+		{
+			"follow_symlinks": true,
+			"name": "Bibliography",
+			"path": "../bib"
+		}
+	],
+	"options":
+	{
+		"bibtex_file": "../bib/library.bib",
+		"pdf": "file",
+		"root": "Main/root"
+	}
+}

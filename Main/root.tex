@@ -107,7 +107,7 @@ A function with the properties defined in \cref{thm:single-crossing} and \cref{e
 \[
 	u(t,s) = c-s{(s-t)}^{2}\label{eq:utility-example}
 \]
-where $t,s\in\mathbb{R}^{+}$. Assuming that \cref{eq:utility-example} is continuous and twice differential in $t,s$  the derivative $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$ and \cref{eq:utility-example} has increasing differences and thereby also a single crossing property in $(t,s)$
+where $t,s\in\mathbb{R}^{+}$. Assuming that \cref{eq:utility-example} is continuous and twice differentiable in $t,s$  the derivative $\partial^{2}u(t,s)\big/\partial t\partial s=2s^{2}\ge0$ and \cref{eq:utility-example} has increasing differences and thereby also a single crossing property in $(t,s)$
 \end{example}
 %============================================%
 
@@ -140,7 +140,7 @@ Affiliation of two random variables are equivalent to the monotone likelihood ra
 
 \textcite{Athey2002Monotone}  shows that solution given in \cref{eq:increasing-solution} is robust to uncertainty, such that
 \[
-	t^*(x)=\argmax_{x\in X}\int_Su(t,s)\dif G^\eta(s\mid x)
+	t^*(x)=\argmax_{x\in X}\int_S u(t,s)\dif G^\eta(s\mid x)
 \]
 is increasing in $x$  whenever $x$ and $s$ are affiliated.\footnote{Note that here we, unlike in \cref{thm:informative}, consider the problem of deciding a treatment $t$ before the state $s$ is know, but \emph{after} observing the signal $x$ }
 
@@ -150,7 +150,7 @@ is increasing in $x$  whenever $x$ and $s$ are affiliated.\footnote{Note that he
 \begin{align}
     	T_{\eta,s}(x)=F^{\eta'^{-1}}(F^{\eta}(x\mid s)\mid s)\label{eq:acuracy tranformation}
 \end{align}
-is non decreasing in $s$ for all $x$.\footnote{Note that \cref{eq:acuracy tranformation} can also be written as $F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)$ which implies that $T_{\eta,s}(x)$, solves $f^{\eta'}(x\mid s)=f^\eta(T^{-1}(y)\mid s)T'^{-1}(y)$} Let $E$ be a real line. A family of signals $\left \{ X^{\eta}\right \} _{\eta\in E}$, with support $X:=\bigcup_{x\in E}X^\eta$, is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
+is non decreasing in $s$ for all $x$.\footnote{Note that \cref{eq:acuracy tranformation} can also be written as $F^{\eta'}(T_{\eta,s}(x)\mid s)=F^{\eta}(x\mid s)$ which implies that $T_{\eta,s}(x)$, solves $f^{\eta'}(x\mid s)=f^\eta(T^{-1}(y)\mid s)(T^{-1})'(y)$} Let $E$ be a real line. A family of signals $\left \{ X^{\eta}\right \} _{\eta\in E}$, with support $X:=\bigcup_{x\in E}X^\eta$, is accuracy ordered (A-ordered) if a signal with higher index is more accurate than a signal with lower index.
 \end{definition}
 %================================================%
 
@@ -164,7 +164,7 @@ Thus a more accurate signal can be obtained from a less accurate signal, by the 
 \begin{example}\label{ex:t-transformation-1}
 Let  $\eta\in[0,\infty)$ and let $S$ be distributed according to any CDF and let $X_{\eta}$ be uniformly distributed on $[s-1/\eta,s+1/\eta]$ and let $f^\eta(x\mid s)=\eta\big /2$ on $X^\eta$. Then for $\eta'>\eta$
 \[
-	\frac{\eta'}{2}=\frac{\eta}{2}\left(T_{\eta,s}^{-1}\right)'(x)\Leftrightarrow T_{\eta,s}(x)=\frac{\eta}{\eta'}(x-s)+s
+	\frac{\eta'}{2}=\frac{\eta}{2}\left(T_{\eta,s}^{-1}\right)'(y)\Leftrightarrow T_{\eta,s}(x)=\frac{\eta}{\eta'}(x-s)+s
 \]
 
 To see why, note that
@@ -193,7 +193,7 @@ An illustrative example can also be given by applying \cref{eq:acuracy tranforma
 
 %========== EXAMPLE: T-transformation 2==========%
 \begin{example}\label{ex:t-transformation-2}
-Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let $X^{\eta}$ be a information structure affiliated with $S$. The optimal test based on $X^{\eta}$ is given by the rejection region $X^{\eta}>x^{*}$  such that $s_{1}$ is rejected in favor of $s_{2}$ when $X^{\eta}>x^{*}$. The probability of a type I error is then $\mathbb{P}(X^{\eta}\le x^{*})=F(x^{*}\mid s_{2})$ and the probability of a type II error is $1-F(x^{*}\mid s_{1})$. Now given that $X^{\eta'}$ is more accurate than $X^{\eta}$ is is possible to design a test with the same probability of type I error, by choosing $x^{**}$ such that $F(x^{**}\mid s_{2})=F(x^{*}\mid s_{2})$ (e.i. \ accept $s_{2}$ if $X^{\eta}\ge x^{**}$ . However, since $X^{\eta'}$ is more accurate than $X^{\eta}$  then $x^{**}\ge F^{\eta'^{-1}}(F^{\eta}(x\mid s_{1})\mid s_{1})$. As $x^{**}$ lies on or, to the right of $x^{*}$ then the test based on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$ \citep{Lehmann1988Comparing,Persico2000Information}.\footnote{For a graphical example, see \cref{app:test-power}}
+Consider the case where $s$ can take two values $s_{1}<s_{2}$. Let $X^{\eta}$ be a information structure affiliated with $S$. The optimal test based on $X^{\eta}$ is given by the rejection region $X^{\eta}>x^{*}$  such that $s_{1}$ is rejected in favor of $s_{2}$ when $X^{\eta}>x^{*}$. The probability of a type I error is then $\mathbb{P}(X^{\eta}\le x^{*})=F(x^{*}\mid s_{2})$ and the probability of a type II error is $1-F(x^{*}\mid s_{1})$. Now given that $X^{\eta'}$ is more accurate than $X^{\eta}$ is is possible to design a test with the same probability of type I error, by choosing $x^{**}$ such that $F(x^{**}\mid s_{2})=F(x^{*}\mid s_{2})$ (e.i. \ accept $s_{2}$ if $X^{\eta}\ge x^{**}$). However, since $X^{\eta'}$ is more accurate than $X^{\eta}$  then $x^{**}\ge F^{\eta'^{-1}}(F^{\eta}(x\mid s_{1})\mid s_{1})$. As $x^{**}$ lies on or, to the right of $x^{*}$ then the test based on $X^{\eta'}$ is a least as powerful as the test based on $X^{\eta}$ \citep{Lehmann1988Comparing,Persico2000Information}.\footnote{For a graphical example, see \cref{app:test-power}}
 \end{example}
 %=====================================================%
 
@@ -207,7 +207,7 @@ Given that we now know, when a test can be considered more informative than anot
 
 %==========  ASSUMPTION: needed for proof  ==========%
 \begin{assumption}
-	The utility function is differential in $t$ and the optimal solution $t^*(x)$ is differentiable in in $\eta$ and $x$
+	The utility function is differentiable in $t$ and the optimal solution $t^*(x)$ is differentiable in in $\eta$ and $x$
 \end{assumption}
 \begin{assumption}
 	For all pairs of signals and states $(s,x)$ the CDF $G^\eta(s\mid x)$ is differentiable in $\eta$ on $E$ and is continuous in $s$
@@ -297,7 +297,7 @@ because of the fact that $H(\cdot)$ and $\bar{J}(\cdot)$ have the same sign on $
 \end{proof}
 
 \begin{assumption}
-	$i$ is a continues real variable and $\eta(i)$ is continuous and differential in $i$
+	$i$ is a continues real variable and $\eta(i)$ is continuous and differentiable in $i$
 \end{assumption}
 
 \begin{theorem}\label{thm:mri}
@@ -338,7 +338,6 @@ In this section I describe the patients decision problem in more detail. My main
 One might think of this level of information, as the level of information, that the patient would chooses, if he were fully informed and payed the full cost. Another way to think of $(\tilde{\eta})$ is as the appropriate level of information, set by medical protocol or norms.
 % section the_patients_problem (end)
 
-
 It is further assumed that the physician can store knowledge about patients, such that $\eta(i+1)\geq\eta(i)$ always hold. 
 
 \section{Patient Search in a Dynamic Setting} % (fold)
@@ -363,7 +362,7 @@ To keep things simple, I first analyze the game in a two period setting, $i=1,2$
  \[
      u(t^{\eta(1)}(x),s)+u(t^{E\eta}(x),s)
  \]
- So the physician will only stay if 
+ So the patient will only stay if 
  \[
     u(t^{\eta(2)}(x),s)>u(t^{E\eta}(x),s)
  \]
@@ -428,39 +427,39 @@ which implies that
     \bar{\eta}-\Delta\eta(2)>\eta(1)>E\eta-\Delta\eta(2) 
 \end{align*}
  
- Thus in this 2 period setting we can conclude that (i) no physician will apply effort above $E\eta$, as doing so will result in a decreased effort level. (ii) physicians with $C(\eta(2))>\delta$ will leave the market. 
+ Thus in this 2 period setting we can conclude that (i) no physician will apply effort above $E\eta$, as doing so will result in a decreased level of utility. (ii) physicians with $C(\eta(2))>\delta$ will leave the market. 
 
  Expanding this to a $i$ periods we can formulate the physicians constraint as 
  \[
      \sum_{i=2}^{n+1}\delta-C(\eta(i))>0
  \]
-In order to calculate this stream of expected efforts that the patient will receive when leaving physician in period $j>i$, the patient must consider all possible exit strategies. That is, he must consider all exit strategies of the form: leave the current physician if the effort provided by this physician is below a given level  assuming that he would randomly draw from the pool of physicians if he were to leave. let $\eta^{exp}(j)$ denote this optimal exit strategy. If we again take the inverse we can state the physicians $n$ period problem as 
+In order to calculate this stream of expected efforts that the patient will receive when leaving physician in period $j>i$, the patient must consider all possible exit strategies. That is, he must consider all exit strategies of the form: leave the current physician if the effort provided by this physician is below a given level  assuming that he would randomly draw from the pool of physicians if he were to leave. Let $\eta^{ex}(j)$ denote this optimal exit strategy. If we again take the inverse we can state the physicians $n$ period problem as 
 
 \begin{align*}
-    \sum_{i=2}^{n} \bar{\eta} &> \sum_{i=2}^{n} \eta(i) > \sum_{j=i+1}^{n+m}  \eta^{exp}(j) \\
-    \sum_{i=2}^{n} \bar{\eta} &> \eta(1)+\sum_{i=2}^{n} \Delta\eta(i)  > \sum_{j=i+1}^{n+m}  \eta^{exp}(j) \\
-    \sum_{i=2}^{n}\bar{\eta}-\Delta\eta(i) &>\eta(1)>\sum_{i=2}^{n}\sum_{j=n+1}^{n+m}\eta^{exp}(j)-\Delta\eta(i)
+    \sum_{i=2}^{n} \bar{\eta} &> \sum_{i=2}^{n} \eta(i) > \sum_{j=i+1}^{n+m}  \eta^{ex}(j) \\
+    \sum_{i=2}^{n} \bar{\eta} &> \eta(1)+\sum_{i=2}^{n} \Delta\eta(i)  > \sum_{j=i+1}^{n+m}  \eta^{ex}(j) \\
+    \sum_{i=2}^{n}\bar{\eta}-\Delta\eta(i) &>\eta(1)>\sum_{i=2}^{n}\sum_{j=n+1}^{n+m}\eta^{ex}(j)-\Delta\eta(i)
 \end{align*}
 
 From the above it should be clear that as long as the game is long enough, the physician will apply effort equal to 0. This might become more clear if I (unrealistically) assume that the physician applies equal amounts of effort in each period. If this is the case, I can rewrite the above as 
 
 \begin{align}
-     n\bar{\eta} >  \eta(1)+n\Delta\eta  > m\eta^{exp} \\
-     \bar{\eta} >  \frac{\eta(1)}{n}+\Delta\eta > \frac{m}{n}\eta^{exp} \label{eq:physician-strategy}
+     n\bar{\eta} >  \eta(1)+n\Delta\eta  > m\eta^{ex} \\
+     \bar{\eta} >  \frac{\eta(1)}{n}+\Delta\eta > \frac{m}{n}\eta^{ex} \label{eq:physician-strategy}
 \end{align}
 
- The interpretation of \cref{eq:physician-strategy} is that: The longer the game (lifespan) the less the initial level of effort will matter. This is given by the term $\frac{\eta(1)}{n}$. Further, outside option for the patient is increasing in the time left in the game (e.i.\ $(m-n)$). This is given by the term $\frac{m}{n}\eta^{exp}$. Intuitively, the less time there is left in the game, the less time the patient has the recuperate the information that he looses from switching physician. 
+ The interpretation of \cref{eq:physician-strategy} is that: The longer the game (lifespan) the less the initial level of effort will matter. This is given by the term $\frac{\eta(1)}{n}$. Further, outside option for the patient is increasing in the time left in the game (e.i.\ $(m-n)$). This is given by the term $\frac{m}{n}\eta^{ex}$. Intuitively, the less time there is left in the game, the less time the patient has the recuperate the information that he looses from switching physician. 
 
 \begin{proposition}
     (i) No physician will ever apply effort above $E\eta$ and (ii) If the the game is long enough, there is a pooling equilibrium where all physician will end up applying 0 effort.
 \end{proposition}
 % subsection equilibrium_analysis (end)
 
-\printbibliography
+\printbibliography%
 
 %%--------------------------------------------------------------------------
 %% Appendix
 %%--------------------------------------------------------------------------
-\input{appendix.tex}
 
+\input{appendix.tex}
 \end{document}
